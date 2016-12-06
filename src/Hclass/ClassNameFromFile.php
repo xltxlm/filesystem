@@ -6,7 +6,7 @@
  * Time: 下午 12:57.
  */
 
-namespace xltxlm\Hclass;
+namespace xltxlm\helper\Hclass;
 
 /**
  * 从一个文件中解析出类名,前提：符合psr-4命名方式

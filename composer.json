@@ -1,5 +1,6 @@
 {
   "name": "xltxlm/helper",
+  "description":"文件夹，类，字符串处理工具",
   "authors": [
     {
       "name": "xltxlm",
@@ -17,7 +18,8 @@
   "autoload": {
     "psr-4": {
       "xltxlm\\helper\\": [
-        "src/"
+        "src/",
+        "./"
       ]
     }
   }

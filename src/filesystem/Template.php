@@ -7,6 +7,7 @@
  */
 
 namespace xltxlm\filesystem;
+
 use Exception\FileNotExsistException;
 
 /**
@@ -14,15 +15,18 @@ use Exception\FileNotExsistException;
  * Class template
  * @package xltxlm\filesystem
  */
-abstract class template
+abstract class Template
 {
+    /** @var string 模板的文件路径 */
     protected $file = "";
+    /** @var \stdClass 类的实例 */
+    protected $class = "";
     /** @var string 保存的文件 */
     protected $save = "";
 
     /**
      * @param string $save
-     * @return template
+     * @return Template
      */
     final public function setSave($save)
     {
@@ -30,6 +34,23 @@ abstract class template
         return $this;
     }
 
+    /**
+     * @return \stdClass
+     */
+    public function getClass(): \stdClass
+    {
+        return $this->class;
+    }
+
+    /**
+     * @param \stdClass $class
+     * @return Template
+     */
+    public function setClass(\stdClass $class): Template
+    {
+        $this->class = $class;
+        return $this;
+    }
 
     /**
      * @return string
@@ -54,15 +75,16 @@ abstract class template
     }
 
     /**
-     * 运行模板
+     * 运行模板，如果没有指定保存的文件，那么直接输出
      */
     final public function __invoke()
     {
         ob_start();
-        eval("include " . $this->getFile() . ";");
+        eval("include ".$this->getFile().";");
         if ($this->save) {
             file_put_contents($this->save, ob_get_clean());
+        } else {
+            ob_end_flush();
         }
     }
-
 }

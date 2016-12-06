@@ -3,7 +3,7 @@
 namespace tests;
 
 use PHPUnit\Framework\TestCase;
-use xltxlm\Hclass\ClassNameFromFile;
+use xltxlm\helper\Hclass\ClassNameFromFile;
 
 /**
  * Created by PhpStorm.
