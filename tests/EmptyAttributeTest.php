@@ -32,7 +32,7 @@ class EmptyAttributeTest extends TestCase
      */
     public function test2()
     {
-        (new \xltxlm\helper\tests\EmptyAttribute\Demo)
+        (new Resource\EmptyAttribute\Demo)
             ->__invoke();
     }
 

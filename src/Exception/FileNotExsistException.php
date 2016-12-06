@@ -6,7 +6,7 @@
  * Time: 下午 12:41
  */
 
-namespace Exception;
+namespace xltxlm\helper\Exception;
 
 /**
  * Class FileNotExsistException
