@@ -18,6 +18,7 @@ trait EmptyAttribute
     /**
      * 类的属性的名称列表
      * @param array $methods
+     * @throws \Exception
      */
     private function notify(array $methods = [])
     {

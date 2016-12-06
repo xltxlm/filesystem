@@ -8,13 +8,12 @@
 
 namespace xltxlm\helper\tests;
 
-
 use PHPUnit\Framework\TestCase;
 use xltxlm\helper\tests\Resource\LoadFromArray\Demo;
+use xltxlm\helper\tests\Resource\LoadFromArray\DemoLine;
 
 class LoadFromArrayTest extends TestCase
 {
-
     public function test1()
     {
         $id = __LINE__;
@@ -27,5 +26,18 @@ class LoadFromArrayTest extends TestCase
         $Demo = (new Demo($data));
         $this->assertEquals($id, $Demo->getId());
         $this->assertEquals($name, $Demo->getName());
+    }
+
+    public function test2()
+    {
+        $name = "name";
+        $id = __LINE__;
+        $data = [
+            'name' => $name,
+            'my_id' => $id,
+        ];
+        $DemoLine = (new DemoLine($data));
+        $this->assertEquals($id, $DemoLine->getMyId());
+        $this->assertEquals($name, $DemoLine->getName());
     }
 }
