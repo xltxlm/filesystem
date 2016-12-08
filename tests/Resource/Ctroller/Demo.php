@@ -14,7 +14,28 @@ final class Demo
 {
     protected $id;
     protected $name;
+    /** @var  \xltxlm\helper\tests\Resource\Ctroller\SomeObject */
+    protected $obect;
+
     use ResponseJson;
+
+    /**
+     * @return SomeObject
+     */
+    public function getObect(): SomeObject
+    {
+        return $this->obect;
+    }
+
+    /**
+     * @param SomeObject $obect
+     * @return Demo
+     */
+    public function setObect(SomeObject $obect): Demo
+    {
+        $this->obect = $obect;
+        return $this;
+    }
 
     /**
      * @return mixed

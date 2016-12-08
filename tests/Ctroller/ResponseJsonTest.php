@@ -10,6 +10,7 @@ namespace xltxlm\helper\tests\Ctroller;
 
 use PHPUnit\Framework\TestCase;
 use xltxlm\helper\tests\Resource\Ctroller\Demo;
+use xltxlm\helper\tests\Resource\Ctroller\SomeObject;
 
 class ResponseJsonTest extends TestCase
 {
@@ -17,7 +18,9 @@ class ResponseJsonTest extends TestCase
     {
         ((new Demo)
             ->setId(100.1)
-            ->setName("hello"))
+            ->setName("hello")
+            ->setObect( new SomeObject())
+        )
         ();
     }
 }
