@@ -18,13 +18,14 @@ trait ResponseJson
     /** @var string jsonp的输出函数名,约定就是这个名字 */
     protected $jsfunction = "";
 
-    final public function __toString()
+    final public function __invoke()
     {
-        $returnData = json_encode(get_object_vars($this), JSON_UNESCAPED_UNICODE);
-        //
         if ($this->jsfunction) {
+            $returnData = json_encode(get_object_vars($this), JSON_UNESCAPED_UNICODE);
             $dataNew = "{$this->jsfunction}(".$returnData.")";
         } else {
+            unset($this->jsfunction);
+            $returnData = json_encode(get_object_vars($this), JSON_UNESCAPED_UNICODE);
             $dataNew = $returnData;
         }
         if (!$this->jsfunction && !headers_sent()) {
@@ -33,6 +34,6 @@ trait ResponseJson
             header('Content-Length: '.strlen($dataNew));
         }
         echo $dataNew;
-        die;
+        return $dataNew;
     }
 }
