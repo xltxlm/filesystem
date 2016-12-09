@@ -9,7 +9,7 @@
 namespace xltxlm\helper\Hclass;
 
 /**
- * 从数组中加载数据,要求 key 和 getkey成对 这种[数据模型]的类不具备行为功能
+ * 从数组中加载数据,要求 key 和 setkey成对 要求这种[数据模型]的类不具备行为功能
  * Class LoadFromArray
  * @package xltxlm\helper\Hclass
  */
@@ -23,7 +23,7 @@ trait LoadFromArray
     {
         foreach ($originalData as $key => $originalDatum) {
             //变量名一致的
-            $methodName = 'get'.ucfirst($key);
+            $methodName = 'set'.ucfirst($key);
             $setFunction = null;
             if (method_exists($this, $methodName)) {
                 $setFunction = true;
@@ -32,14 +32,15 @@ trait LoadFromArray
                 if (strpos($key, '_') !== false) {
                     $keys = explode('_', $key);
                     $keys = array_map('ucfirst', $keys);
-                    $methodName = 'get'.join($keys);
-                    if (method_exists($this, $methodName)) {
+                    $methodName2 = 'set'.join($keys);
+                    if (method_exists($this, $methodName2)) {
                         $setFunction = true;
                     }
                 }
             }
+            //调取当前对象的set功能,set还可以做二次处理
             if ($setFunction) {
-                $this->$key = $originalDatum;
+                call_user_func([$this, $originalDatum], $key);
             }
         }
     }
