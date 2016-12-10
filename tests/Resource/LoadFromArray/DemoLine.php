@@ -36,4 +36,25 @@ class DemoLine
     {
         return $this->my_id;
     }
+
+    /**
+     * @param mixed $name
+     * @return DemoLine
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param mixed $my_id
+     * @return DemoLine
+     */
+    public function setMyId($my_id)
+    {
+        $this->my_id = $my_id;
+        return $this;
+    }
+
 }

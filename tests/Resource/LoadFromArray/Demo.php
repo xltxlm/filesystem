@@ -31,4 +31,25 @@ final class Demo
     {
         return $this->id;
     }
+
+    /**
+     * @param mixed $name
+     * @return Demo
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param mixed $id
+     * @return Demo
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
 }

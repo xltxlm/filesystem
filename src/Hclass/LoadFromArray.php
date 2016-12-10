@@ -32,15 +32,15 @@ trait LoadFromArray
                 if (strpos($key, '_') !== false) {
                     $keys = explode('_', $key);
                     $keys = array_map('ucfirst', $keys);
-                    $methodName2 = 'set'.join($keys);
-                    if (method_exists($this, $methodName2)) {
+                    $methodName = 'set'.join($keys);
+                    if (method_exists($this, $methodName)) {
                         $setFunction = true;
                     }
                 }
             }
             //调取当前对象的set功能,set还可以做二次处理
             if ($setFunction) {
-                call_user_func([$this, $originalDatum], $key);
+                call_user_func([$this, $methodName], $originalDatum);
             }
         }
     }
