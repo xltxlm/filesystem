@@ -11,6 +11,7 @@ namespace xltxlm\helper\Ctroller\Request;
 trait Cookie
 {
     use Get;
+    abstract public function load(array $array);
 
     public function __construct()
     {

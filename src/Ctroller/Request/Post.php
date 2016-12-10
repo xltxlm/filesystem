@@ -12,6 +12,7 @@ namespace xltxlm\helper\Ctroller\Request;
 trait Post
 {
     use Get;
+    abstract public function load(array $array);
 
     public function __construct()
     {

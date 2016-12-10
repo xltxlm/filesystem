@@ -12,6 +12,8 @@ trait Request
 {
     use Get;
 
+    abstract public function load(array $array);
+
     public function __construct()
     {
         $this->load($_REQUEST);

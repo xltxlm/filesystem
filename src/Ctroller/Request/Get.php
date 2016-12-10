@@ -23,6 +23,7 @@ trait Get
     }
     use ObjectToJson;
 
+    abstract public function load(array $array);
     /**
      * Get constructor.
      */
