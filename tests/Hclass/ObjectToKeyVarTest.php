@@ -16,6 +16,6 @@ class ObjectToKeyVarTest extends TestCase
     public function test1()
     {
         $var = (new Demo());
-        $this->assertEquals($var, 'id=17 name=18 my_code=19');
+        $this->assertEquals("$var", 'id=16 name=17 my_code=18');
     }
 }

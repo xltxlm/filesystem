@@ -15,7 +15,7 @@ class ObjectToJsonTest extends TestCase
 {
     public function test1()
     {
-        $a = (new Demo());
-        $this->assertEquals($a, '{"id":17,"name":18,"my_code":19}');
+        $demo = (new Demo());
+        $this->assertEquals("$demo", '{"id":16,"name":17,"my_code":18}');
     }
 }
