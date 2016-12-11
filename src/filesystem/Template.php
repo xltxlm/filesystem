@@ -34,30 +34,33 @@ abstract class Template
 
     /**
      * @return string
+     * @throws FileNotExsistException
      */
     public function getFile()
     {
         if (empty($this->file)) {
-            $fileName=(new \ReflectionClass(static::class))->getFileName();
-            $this->file = dirname($fileName).DIRECTORY_SEPARATOR.basename($fileName, '.php').'.tpl.php';
+            $fileName = (new \ReflectionClass(static::class))->getFileName();
+            $this->file = dirname($fileName) . DIRECTORY_SEPARATOR . basename($fileName, '.php') . '.tpl.php';
         }
         if (!is_file($this->file)) {
-            throw new FileNotExsistException("文件不存在:".$this->file);
+            throw new FileNotExsistException("文件不存在:" . $this->file);
         }
         return $this->file;
     }
 
     /**
      * 运行模板，如果没有指定保存的文件，那么直接输出
+     * @return string
      */
     final public function __invoke()
     {
         ob_start();
-        eval("include '".$this->getFile()."';");
+        eval("include '" . $this->getFile() . "';");
         if ($this->saveToFileName) {
             file_put_contents($this->saveToFileName, ob_get_clean());
         } else {
             return ob_get_clean();
         }
+        return "";
     }
 }

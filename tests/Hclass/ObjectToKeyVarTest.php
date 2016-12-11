@@ -8,13 +8,11 @@
 
 namespace xltxlm\helper\tests\Hclass;
 
-
 use PHPUnit\Framework\TestCase;
 use xltxlm\helper\tests\Resource\Hclass\ObjectToKeyVar\Demo;
 
 class ObjectToKeyVarTest extends TestCase
 {
-
     public function test1()
     {
         $var = (new Demo());

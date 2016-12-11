@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\tests\Resource\Ctroller;
 
-
 class SomeObject
 {
     protected $abc = __LINE__;

@@ -120,12 +120,10 @@ class file
 
     public function get()
     {
-
     }
 
     public function setContent()
     {
-
     }
 
     /**
@@ -133,7 +131,6 @@ class file
      */
     public function setUmask()
     {
-
     }
 
     /**
@@ -141,7 +138,6 @@ class file
      */
     public function setCopyToDir()
     {
-
     }
 
     /**
@@ -149,7 +145,6 @@ class file
      */
     public function setCopyToFile()
     {
-
     }
 
     /**
@@ -172,5 +167,4 @@ class file
     {
         return filectime($this->getRealPath());
     }
-
 }

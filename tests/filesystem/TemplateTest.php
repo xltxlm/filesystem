@@ -26,7 +26,7 @@ class TemplateTest extends TestCase
             ->setSaveToFileName($saveToFileName)
             ->__invoke();
         $this->assertFileExists($saveToFileName);
-        $this->assertStringEqualsFile($saveToFileName,"id:123,name:ok");
+        $this->assertStringEqualsFile($saveToFileName, "id:123,name:ok");
     }
 
     /**

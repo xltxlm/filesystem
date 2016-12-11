@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\Ctroller\Request;
 
-
 trait Post
 {
     use Get;
@@ -18,5 +17,4 @@ trait Post
     {
         $this->load($_POST);
     }
-
 }

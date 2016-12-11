@@ -56,5 +56,4 @@ class DemoLine
         $this->my_id = $my_id;
         return $this;
     }
-
 }

@@ -14,14 +14,12 @@ class Demo
 {
     use EmptyAttribute;
 
-    protected $name='abc';
-    protected $id=0;
-    protected $noneed=0;
+    protected $name = 'abc';
+    protected $id = 0;
+    protected $noneed = 0;
 
-    function __invoke()
+    public function __invoke()
     {
-        $this->notify([$this->name,$this->id]);
+        $this->notify([$this->name, $this->id]);
     }
-
-
 }

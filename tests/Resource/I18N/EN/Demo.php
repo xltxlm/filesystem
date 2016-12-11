@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\tests\Resource\I18N\EN;
 
-
 class Demo extends \xltxlm\helper\tests\Resource\I18N\CH\Demo
 {
     protected $name = "Enname";

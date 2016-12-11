@@ -8,10 +8,9 @@
 
 namespace xltxlm\helper\tests\Resource\Hclass\ObjectToKeyVar;
 
-
 use xltxlm\helper\Hclass\ObjectToKeyVar;
 
-final  class Demo
+final class Demo
 {
     use ObjectToKeyVar;
     protected $id = __LINE__;

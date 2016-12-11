@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\tests\Resource\Hclass\ObjectToJson;
 
-
 use xltxlm\helper\Hclass\ObjectToJson;
 
 final class Demo

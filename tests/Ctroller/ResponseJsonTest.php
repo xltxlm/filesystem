@@ -19,7 +19,7 @@ class ResponseJsonTest extends TestCase
         ((new Demo)
             ->setId(100.1)
             ->setName("hello")
-            ->setObect( new SomeObject())
+            ->setObect(new SomeObject())
         )
         ();
     }

@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\tests;
 
-
 use PHPUnit\Framework\TestCase;
 
 class EmptyAttributeTest extends TestCase
@@ -35,5 +34,4 @@ class EmptyAttributeTest extends TestCase
         (new Resource\EmptyAttribute\Demo)
             ->__invoke();
     }
-
 }

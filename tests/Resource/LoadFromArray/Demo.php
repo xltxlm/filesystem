@@ -51,5 +51,4 @@ final class Demo
         $this->id = $id;
         return $this;
     }
-
 }

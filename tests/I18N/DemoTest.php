@@ -8,9 +8,7 @@
 
 namespace xltxlm\helper\tests\I18N;
 
-
 use PHPUnit\Framework\TestCase;
-use xltxlm\helper\I18N\I18N;
 use xltxlm\helper\tests\Resource\I18N\Demo;
 
 class DemoTest extends TestCase

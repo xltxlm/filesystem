@@ -8,13 +8,11 @@
 
 namespace xltxlm\helper\tests\Hclass;
 
-
 use PHPUnit\Framework\TestCase;
 use xltxlm\helper\tests\Resource\Hclass\ObjectToJson\Demo;
 
 class ObjectToJsonTest extends TestCase
 {
-
     public function test1()
     {
         $a = (new Demo());

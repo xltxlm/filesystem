@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\tests\Resource\I18N;
 
-
 use xltxlm\helper\I18N\I18N;
 
 class Demo extends I18N

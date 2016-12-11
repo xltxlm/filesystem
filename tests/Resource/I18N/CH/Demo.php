@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\tests\Resource\I18N\CH;
 
-
 class Demo extends \xltxlm\helper\tests\Resource\I18N\Demo
 {
     protected $name = "中文姓名";

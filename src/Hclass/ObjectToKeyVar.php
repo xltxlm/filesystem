@@ -15,13 +15,16 @@ namespace xltxlm\helper\Hclass;
  */
 trait ObjectToKeyVar
 {
-
     final public function __toString()
     {
         $vars = get_object_vars($this);
         $new_array = [];
         foreach ($vars as $k => $v) {
-            $new_array[] = "$k=" . json_encode($v, JSON_UNESCAPED_UNICODE);
+            if (is_array($v)) {
+                $new_array[] = "$k=" . json_encode($v, JSON_UNESCAPED_UNICODE);
+            } else {
+                $new_array[] = "$k=" . $v;
+            }
         }
         return join(" ", $new_array);
     }

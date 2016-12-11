@@ -8,7 +8,6 @@
 
 namespace xltxlm\helper\tests\Ctroller\Request;
 
-
 use PHPUnit\Framework\TestCase;
 use xltxlm\helper\tests\Resource\Ctroller\Request\DemoPost;
 

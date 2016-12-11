@@ -14,5 +14,4 @@ namespace xltxlm\helper\Exception;
  */
 class FileNotExsistException extends \Exception
 {
-
 }

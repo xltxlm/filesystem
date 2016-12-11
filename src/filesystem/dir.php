@@ -14,5 +14,4 @@ namespace xltxlm\filesystem;
  */
 class dir
 {
-
 }

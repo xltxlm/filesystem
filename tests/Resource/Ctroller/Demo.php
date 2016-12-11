@@ -72,5 +72,4 @@ final class Demo
         $this->name = $name;
         return $this;
     }
-
 }
