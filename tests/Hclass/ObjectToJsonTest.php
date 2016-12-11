@@ -6,11 +6,11 @@
  * Time: 下午 11:10
  */
 
-namespace xltxlm\helper\tests;
+namespace xltxlm\helper\tests\Hclass;
 
 
 use PHPUnit\Framework\TestCase;
-use xltxlm\helper\tests\Resource\ObjectToJson\Demo;
+use xltxlm\helper\tests\Resource\Hclass\ObjectToJson\Demo;
 
 class ObjectToJsonTest extends TestCase
 {

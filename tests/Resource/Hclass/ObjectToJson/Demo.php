@@ -6,7 +6,7 @@
  * Time: 下午 11:10
  */
 
-namespace xltxlm\helper\tests\Resource\ObjectToJson;
+namespace xltxlm\helper\tests\Resource\Hclass\ObjectToJson;
 
 
 use xltxlm\helper\Hclass\ObjectToJson;
