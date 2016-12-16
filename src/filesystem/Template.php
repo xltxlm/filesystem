@@ -49,6 +49,17 @@ abstract class Template
     }
 
     /**
+     * @param string $file
+     * @return Template
+     */
+    public function setFile(string $file): Template
+    {
+        $this->file = $file;
+        return $this;
+    }
+
+
+    /**
      * 运行模板，如果没有指定保存的文件，那么直接输出
      * @return string
      */
