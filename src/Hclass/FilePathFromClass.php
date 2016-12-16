@@ -13,7 +13,7 @@ namespace xltxlm\helper\Hclass;
  * Class FilePathFromCLass
  * @package xltxlm\helper\Hclass
  */
-final class FilePathFromCLass
+final class FilePathFromClass
 {
     /** @var string 需要处理的类名称 */
     protected $className = "";
@@ -59,9 +59,9 @@ final class FilePathFromCLass
 
     /**
      * @param string $className
-     * @return FilePathFromCLass
+     * @return FilePathFromClass
      */
-    public function setClassName(string $className): FilePathFromCLass
+    public function setClassName(string $className): FilePathFromClass
     {
         $this->className = $className;
         $this->reflace = (new \ReflectionClass($this->className));
@@ -82,9 +82,9 @@ final class FilePathFromCLass
 
     /**
      * @param int $dirDepth
-     * @return FilePathFromCLass
+     * @return FilePathFromClass
      */
-    public function setDirDepth(int $dirDepth): FilePathFromCLass
+    public function setDirDepth(int $dirDepth): FilePathFromClass
     {
         $this->dirDepth = $dirDepth;
         return $this;

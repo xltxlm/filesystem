@@ -22,6 +22,16 @@ final class ClassNameFromFile
     private $nameSpace = '';
 
     /**
+     * ClassNameFromFile constructor.
+     * @param string $filePath
+     */
+    public function __construct($filePath)
+    {
+        $this->setFilePath($filePath);
+    }
+
+
+    /**
      * @return string
      */
     public function getNameSpace(): string
@@ -50,18 +60,20 @@ final class ClassNameFromFile
             if (is_array($item)) {
                 $item[0] = token_name($item[0]);
                 if ($namespace !== false && $item[0] == 'T_STRING') {
-                    $this->nameSpace .= $item[1].'\\';
+                    $this->nameSpace .= $item[1] . '\\';
                 }
                 if ($item[0] == 'T_NAMESPACE') {
                     $namespace = true;
                 }
             }
             //遇见分号的时候，命名空间才结束
-            if ($namespace!==false && $item == ';') {
+            if ($namespace !== false && $item == ';') {
                 break;
             }
         }
-        $this->className = $this->getNameSpace().basename($filePath, '.php');
+        if ($this->getNameSpace()) {
+            $this->className = $this->getNameSpace() . basename($filePath, '.php');
+        }
         $this->filePath = $filePath;
 
         return $this;

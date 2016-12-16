@@ -10,15 +10,15 @@ namespace xltxlm\helper\tests\Hclass;
 
 
 use PHPUnit\Framework\TestCase;
-use xltxlm\helper\Hclass\FilePathFromCLass;
+use xltxlm\helper\Hclass\FilePathFromClass;
 
 class FilePathFromCLassTest extends TestCase
 {
 
     public function test1()
     {
-        $className = \xltxlm\helper\Hclass\FilePathFromCLass::class;
-        $FilePathFromCLass = (new FilePathFromCLass($className));
+        $className = \xltxlm\helper\Hclass\FilePathFromClass::class;
+        $FilePathFromCLass = (new FilePathFromClass($className));
 
         //文件路径
         $filePath = (new \ReflectionClass($className))->getFileName();
