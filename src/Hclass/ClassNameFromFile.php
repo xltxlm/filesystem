@@ -25,7 +25,7 @@ final class ClassNameFromFile
      * ClassNameFromFile constructor.
      * @param string $filePath
      */
-    public function __construct($filePath)
+    public function __construct(string $filePath = "")
     {
         $this->setFilePath($filePath);
     }
