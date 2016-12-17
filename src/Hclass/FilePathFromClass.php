@@ -21,6 +21,8 @@ final class FilePathFromClass
     protected $dirPath = "";
     /** @var int 设置目录层次深度,获取目录路径 */
     protected $dirDepth = 1;
+    /** @var string 类短名 */
+    private $baseName = "";
 
     /** @var  \ReflectionClass 处理的类的映射 */
     private $reflace;
@@ -39,6 +41,15 @@ final class FilePathFromClass
             $this->setClassName($className);
         }
     }
+
+    /**
+     * @return string
+     */
+    public function getBaseName(): string
+    {
+        return $this->baseName = $this->reflace->getShortName();
+    }
+
 
     /**
      * @return string
