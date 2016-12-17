@@ -24,9 +24,9 @@ abstract class Template
 
     /**
      * @param string $saveToFileName
-     * @return Template
+     * @return static
      */
-    final public function setSaveToFileName($saveToFileName)
+    final public function setSaveToFileName($saveToFileName): Template
     {
         $this->saveToFileName = $saveToFileName;
         return $this;
@@ -50,7 +50,7 @@ abstract class Template
 
     /**
      * @param string $file
-     * @return Template
+     * @return static
      */
     public function setFile(string $file): Template
     {
