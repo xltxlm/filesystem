@@ -36,32 +36,33 @@ trait ResponseJson
         return $this;
     }
 
+
     /**
      * 把整个类当成输出模型,输出Json结构
-     * @return string
      */
     final public function __invoke()
     {
         $thisData = [];
         //排除掉对象类型的属性
         foreach ($this as $k => $v) {
-            if (is_object($v) || $k == 'jsfunction') {
+            //不参与json的属性 1: 没有带__toString函数的对象属性 2:属性名称为:jsfunction
+            if ((is_object($v) && !method_exists($v, '__toString')) || $k == 'jsfunction') {
                 continue;
             }
             $thisData[$k] = $v;
         }
         if ($this->jsfunction) {
             $returnData = json_encode($thisData, JSON_UNESCAPED_UNICODE);
-            $dataNew = "{$this->jsfunction}(".$returnData.")";
+            $dataNew = "{$this->jsfunction}(" . $returnData . ")";
         } else {
             $dataNew = json_encode($thisData, JSON_UNESCAPED_UNICODE);
         }
         if (!$this->jsfunction && !headers_sent()) {
             header("Access-Control-Allow-Origin:*");
             header("Content-type:application/json");
-            header('Content-Length: '.strlen($dataNew));
+            header('Content-Length: ' . strlen($dataNew));
         }
         echo $dataNew;
-        return $dataNew;
+        die;
     }
 }

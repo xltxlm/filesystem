@@ -1,6 +1,6 @@
 {
   "name": "xltxlm/helper",
-  "description":"文件夹，类，字符串处理工具",
+  "description": "文件夹，类，字符串处理工具",
   "authors": [
     {
       "name": "xltxlm",
@@ -8,9 +8,11 @@
     }
   ],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "xltxlm/logger": "*"
   },
   "require-dev": {
+    "bupt1987/html-parser": "dev-master",
     "phpunit/phpunit": "*",
     "squizlabs/php_codesniffer": "*",
     "friendsofphp/php-cs-fixer": "*"

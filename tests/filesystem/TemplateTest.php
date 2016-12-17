@@ -8,9 +8,11 @@
 
 namespace xltxlm\helper\tests\filesystem;
 
+use HtmlParser\ParserDom;
 use PHPUnit\Framework\TestCase;
 use xltxlm\helper\tests\Resource\Template\Demo;
 use xltxlm\helper\tests\Resource\Template\DemoAutoLoadTP;
+use xltxlm\helper\tests\Resource\Template\Html;
 
 class TemplateTest extends TestCase
 {
@@ -19,7 +21,7 @@ class TemplateTest extends TestCase
      */
     public function test0()
     {
-        $saveToFileName = __DIR__.DIRECTORY_SEPARATOR.'out.txt';
+        $saveToFileName = __DIR__ . DIRECTORY_SEPARATOR . 'out.txt';
         (new Demo())
             ->setId('123')
             ->setName('ok')
@@ -52,4 +54,27 @@ class TemplateTest extends TestCase
             ->__invoke();
         $this->assertEquals($out, "id:123,name:hello");
     }
+
+    public function test3()
+    {
+        $id = 222;
+        $name = "abc";
+        $title = "hello";
+        $Html = (new Html())
+            ->setName($name)
+            ->setId($id)
+            ->setTitle($title)
+            ->__invoke();
+        $parserDom = (new ParserDom($Html))
+            ->find("input[id=$id]");
+        $this->assertInstanceOf(\HtmlParser\ParserDom::class, $parserDom[0]);
+        $parserDom = (new ParserDom($Html))
+            ->find("input[name=$name]");
+        $this->assertInstanceOf(\HtmlParser\ParserDom::class, $parserDom[0]);
+        $parserDom = (new ParserDom($Html))
+            ->find("input[title=$title]");
+        $this->assertInstanceOf(\HtmlParser\ParserDom::class, $parserDom[0]);
+    }
+
+
 }
