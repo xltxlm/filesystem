@@ -34,5 +34,7 @@ class FilePathFromCLassTest extends TestCase
         $this->assertEquals($FilePathFromCLass->setDirDepth(3)->getDirPath(), dirname(dirname(dirname($filePath))));
         //命名空间
         $this->assertEquals($FilePathFromCLass->getNameSpce(), $nameSpace);
+        //短名称
+        $this->assertEquals($FilePathFromCLass->getBaseName(), 'FilePathFromClass');
     }
 }

@@ -6,7 +6,7 @@
  * Time: 下午 10:37
  */
 
-namespace xltxlm\helper\Ctroller;
+namespace xltxlm\helper\Ctroller\Response;
 
 /**
  * 输出json格式的数据

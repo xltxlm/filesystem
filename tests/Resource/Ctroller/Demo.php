@@ -8,7 +8,7 @@
 
 namespace xltxlm\helper\tests\Resource\Ctroller;
 
-use xltxlm\helper\Ctroller\ResponseJson;
+use xltxlm\helper\Ctroller\Response\ResponseJson;
 
 final class Demo
 {
