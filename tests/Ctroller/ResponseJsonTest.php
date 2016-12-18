@@ -14,8 +14,12 @@ use xltxlm\helper\tests\Resource\Ctroller\SomeObject;
 
 class ResponseJsonTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function test1()
     {
+        $this->markTestSkipped("单独运行,看输出内容");
         ((new Demo)
             ->setId(100.1)
             ->setName("hello")
