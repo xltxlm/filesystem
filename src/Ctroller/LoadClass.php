@@ -21,10 +21,11 @@ final class LoadClass
 {
     /** @var string 当前正在运行的类 */
     public static $runClass = '';
+    /** @var string 根命名空间 */
+    public static $rootNamespce = '';
+
     /** @var string 启动的类 */
     private $className = '';
-    /** @var string 根命名空间 */
-    private $rootNamespce = '';
     /** @var string 相对于根命名空间的路径 */
     private $urlPath = '';
 
@@ -65,7 +66,7 @@ final class LoadClass
      */
     public function getRootNamespce(): string
     {
-        return $this->rootNamespce;
+        return self::$rootNamespce;
     }
 
     /**
@@ -75,7 +76,7 @@ final class LoadClass
      */
     public function setRootNamespce($rootNamespce)
     {
-        $this->rootNamespce = $rootNamespce;
+        self::$rootNamespce = $rootNamespce;
 
         return $this;
     }
@@ -92,7 +93,7 @@ final class LoadClass
     public function __invoke()
     {
         if (!$this->className) {
-            $this->className = '\\' . $this->rootNamespce . '\\' . $this->urlPath;
+            $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
         }
         try {
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */

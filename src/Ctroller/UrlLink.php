@@ -3,27 +3,24 @@
  * Created by PhpStorm.
  * User: xlt
  * Date: 2016/6/7
- * Time: 9:19
+ * Time: 9:19.
  */
 
 namespace xltxlm\helper\Ctroller;
 
+use xltxlm\helper\Url\FixUrl;
 
 /**
  * out:ctroller层的类转换成相对的网址链接
- * Class UrlLink
- * @package libs\ctroller\traits
+ * Class UrlLink.
  */
 trait UrlLink
 {
-
     /**
      * @desc   根据当前的类,换成对应的网址路径
-     * @author 夏琳泰 mailto:xialt@citssh.com.cn
-     * @since  2015-08-17 08:38:05
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      *
      * @return string
      */
@@ -37,11 +34,9 @@ trait UrlLink
 
     /**
      * @desc   根据当前的类,换成对应的网址路径
-     * @author 夏琳泰 mailto:xialt@citssh.com.cn
-     * @since  2015-08-17 08:38:05
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      *
      * @return string
      */
@@ -50,28 +45,22 @@ trait UrlLink
         if (!$classname) {
             $classname = static::class;
         }
-        $classname = trim($classname, '\\');
-        $CTROLLER = explode("\\", $classname);
-        $CTROLLER = $CTROLLER[1];
-        $ctroller_array = explode("\\{$CTROLLER}\\", $classname);
-        $model_action = explode("\\", $ctroller_array[1]);
+        $model_action = strtr($classname, [LoadClass::$rootNamespce => '']);
 
-        return (new fixurl)->execute(
-            "/" . join(
-                "/",
-                $model_action
-            ),
-            $args
-        );
+        echo '<pre>-->';
+        print_r($model_action);
+        echo '<--@in '.__FILE__.' on line '.__LINE__."\n";
+
+        return (new FixUrl('/'.implode('/', $model_action)))
+            ->setAttachKesy($args)
+            ->__invoke();
     }
 
     /**
      * @desc   网址跳转
-     * @author 夏琳泰 mailto:xialt@citssh.com.cn
-     * @since  2015-08-17 08:38:05
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      */
     final public static function gourl($args = [], $classname = null)
     {
@@ -85,11 +74,13 @@ trait UrlLink
 
     /**
      * @desc   网址跳转
+     *
      * @author 夏琳泰 mailto:xialt@citssh.com.cn
+     *
      * @since  2015-08-17 08:38:05
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      */
     final public static function gourlNoFollow($args = [], $classname = null)
     {

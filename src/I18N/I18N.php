@@ -32,7 +32,7 @@ abstract class I18N
     /**
      * @return string
      */
-    final public function getLang(): string
+    final public static function getLang(): string
     {
         return self::$lang;
     }

@@ -80,7 +80,7 @@ trait RunInvoke
         $classs[] = static::class;
         $traitss = $newClasss = [];
         foreach ($classs as $class) {
-            $traits = (new TraitLists())
+            $traits = (new GetTraitLists())
                 ->setClassName($class)
                 ->__invoke();
             $traitss += $traits;

@@ -16,7 +16,7 @@ namespace xltxlm\helper\Hclass;
 trait EmptyAttribute
 {
     /**
-     * 类的属性的名称列表
+     * 检测类的属性的值,如果为empty,抛出异常,适用于传入参数的检测
      * @param array $methods
      * @throws \Exception
      */

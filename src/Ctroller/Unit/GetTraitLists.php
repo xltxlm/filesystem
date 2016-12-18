@@ -13,7 +13,7 @@ namespace xltxlm\helper\Ctroller\Unit;
  * Class traits
  * @package libs\SDK
  */
-final class TraitLists
+final class GetTraitLists
 {
     protected $className;
     protected $newClasss;
@@ -21,7 +21,7 @@ final class TraitLists
     /**
      * @param mixed $className
      *
-     * @return TraitLists
+     * @return GetTraitLists
      */
     public function setClassName($className)
     {

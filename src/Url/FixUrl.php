@@ -1,29 +1,51 @@
 <?php
+
 namespace xltxlm\helper\Url;
 
 /**
  * 矫正网址路径
- * Class FixUrl
- * @package xltxlm\helper\Url
+ * Class FixUrl.
  */
 final class FixUrl
 {
     /** @var string 初始化的网址 */
-    protected $url = "";
+    protected $url = '';
     /** @var array 需要删除掉的参数 */
     protected $unserKeys = [];
     /** @var array 需要附加上去的 key=>var 参数对 */
     protected $attachKesy = [];
+    /** @var bool 取得网址之后是否直接跳转走? */
+    protected $Jump = false;
 
     /**
      * FixUrl constructor.
+     *
      * @param string $url
      */
-    public function __construct(string $url = "")
+    public function __construct(string $url = '')
     {
         $this->setUrl($url);
     }
 
+    /**
+     * @return bool
+     */
+    public function isJump(): bool
+    {
+        return $this->Jump;
+    }
+
+    /**
+     * @param bool $Jump
+     *
+     * @return FixUrl
+     */
+    public function setJump(bool $Jump): FixUrl
+    {
+        $this->Jump = $Jump;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -35,11 +57,13 @@ final class FixUrl
 
     /**
      * @param string $url
+     *
      * @return FixUrl
      */
     public function setUrl(string $url): FixUrl
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -53,11 +77,13 @@ final class FixUrl
 
     /**
      * @param array $unserKeys
+     *
      * @return FixUrl
      */
     public function setUnserKeys(array $unserKeys): FixUrl
     {
         $this->unserKeys = $unserKeys;
+
         return $this;
     }
 
@@ -71,24 +97,27 @@ final class FixUrl
 
     /**
      * @param array $attachKesy
+     *
      * @return FixUrl
      */
     public function setAttachKesy(array $attachKesy): FixUrl
     {
         $this->attachKesy = $attachKesy;
+
         return $this;
     }
 
     /**
      * 取到重新拼装的网址
+     *
      * @return string
      */
     public function __invoke()
     {
         //如果不传递网址进来处理,那么默认取出当前网址
         if (empty($this->url)) {
-            $this->url = ($_SERVER['HTTPS'] ? "https" : "http") . "://" .
-                ($_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_ADDR']) .
+            $this->url = ($_SERVER['HTTPS'] ? 'https' : 'http').'://'.
+                ($_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_ADDR']).
                 $_SERVER['REQUEST_URI'];
         }
 
@@ -110,36 +139,27 @@ final class FixUrl
         }
 
         if ($parseStrs) {
-            return "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}?" . http_build_query($parseStrs);
+            $url = "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}?".http_build_query($parseStrs);
         } else {
-            return "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}";
+            $url = "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}";
         }
-    }
+        $this->jump($url);
 
+        return $url;
+    }
 
     /**
-     * @desc   跳转到指定网址,并且在网址后面追加上指定的参数,值来源于_REWQUEST
-     * @author 夏琳泰 mailto:xialt@citssh.com.cn
-     * @since  2015-08-17 08:38:05
+     * 跳转.
      *
-     * @param   string $url
-     * @param   array $args
+     * @param $url
      */
-    public function gourl($url, $args = [])
+    private function jump($url)
     {
-        $newarray = [];
-        foreach ($args as $key => $var) {
-            if (is_numeric($key)) {
-                $newarray[$var] = $_REQUEST[$var] ? $_REQUEST[$var] : $_POST[$var];
-            } else {
-                $newarray[$key] = $var;
-            }
+        if (!headers_sent()) {
+            header("location:$url");
+        } else {
+            echo '<script language="javascript" type="text/javascript">window.location.href="'.$url.'"; </script>';
         }
-        $newurl = parent::execute(
-            $url,
-            $newarray
-        );
-        $this->execute($newurl);
+        die;
     }
-
 }

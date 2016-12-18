@@ -16,7 +16,7 @@ namespace xltxlm\helper\Hclass;
 trait LoadFromArray
 {
     /**
-     * 根据数组的key  打散分配给对应的类属性
+     * 根据数组的key  分配给对应的类属性
      * @param array $originalData
      */
     final public function __construct(array $originalData)
