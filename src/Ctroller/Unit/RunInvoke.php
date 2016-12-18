@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-08
- * Time: 上午 12:19
+ * Time: 上午 12:19.
  */
 
 namespace xltxlm\helper\Ctroller\Unit;
@@ -11,7 +11,7 @@ namespace xltxlm\helper\Ctroller\Unit;
 use xltxlm\helper\Ctroller\HtmlException;
 
 /**
- * 给一个类加上 __invoke 魔术函数,然后类会按照get的循序执行,其中任何一个抛异常也不会阻止代码继续运行
+ * 给一个类加上 __invoke 魔术函数,然后类会按照get的循序执行,其中任何一个抛异常也不会阻止代码继续运行.
  *
  *  + 父类的 public getxxxx
  *  + 子类的 public getxxxx
@@ -19,7 +19,6 @@ use xltxlm\helper\Ctroller\HtmlException;
  *  + 父类的 protected getxxxx
  *
  * Class Invoke
- * @package xltxlm\helper\Ctroller
  */
 trait RunInvoke
 {
@@ -34,9 +33,9 @@ trait RunInvoke
         return $this->haveRunMethod;
     }
 
-
     /**
-     * 分析当前的执行顺序,逐个运行
+     * 分析当前的执行顺序,逐个运行.
+     *
      * @throws \Exception
      */
     final public function __invoke()
@@ -47,11 +46,11 @@ trait RunInvoke
         $realMethods_public = $this->getMethods(\ReflectionMethod::IS_PUBLIC);
         //protected稍后跟上
         $realMethods_protected = $this->getMethods(\ReflectionMethod::IS_PROTECTED);
-        /** @var  \ReflectionMethod[] $realMethods */
+        /** @var \ReflectionMethod[] $realMethods */
         $realMethods = array_merge($realMethods_public, $realMethods_protected);
         foreach ($realMethods as $method) {
             try {
-                $return1 = call_user_func([$this, $method->getName(),]);
+                $return1 = call_user_func([$this, $method->getName()]);
                 //只有子类的返回值才算返回值
                 if ($method->getFileName() == $classs->getFileName()) {
                     $return = $return1;
@@ -66,7 +65,7 @@ trait RunInvoke
     }
 
     /**
-     * 把方法按照顺序返回
+     * 把方法按照顺序返回.
      *
      * @param int $type
      *
@@ -102,7 +101,7 @@ trait RunInvoke
                 if ($methodChild->isStatic()) {
                     continue;
                 }
-                if ($methodChild->class <> $class) {
+                if ($methodChild->class != $class) {
                     continue;
                 }
                 if (strpos($methodChild->getName(), 'get') === 0) {
@@ -110,10 +109,11 @@ trait RunInvoke
                 }
             }
         }
+
         return $realMethods;
     }
 
-    final  private function getParents($class = null, $plist = [])
+    final private function getParents($class = null, $plist = [])
     {
         $class = $class ? $class : $this;
         $parent = get_parent_class($class);

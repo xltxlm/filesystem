@@ -21,6 +21,6 @@ class ClassNameFromFileTest extends TestCase
         $className = (new ClassNameFromFile())
             ->setFilePath(__FILE__)
             ->getClassName();
-        $this->assertEquals(ClassNameFromFileTest::class, $className);
+        $this->assertEquals(self::class, $className);
     }
 }

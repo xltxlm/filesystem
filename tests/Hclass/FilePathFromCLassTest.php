@@ -3,18 +3,16 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-16
- * Time: 下午 12:51
+ * Time: 下午 12:51.
  */
 
 namespace xltxlm\helper\tests\Hclass;
-
 
 use PHPUnit\Framework\TestCase;
 use xltxlm\helper\Hclass\FilePathFromClass;
 
 class FilePathFromCLassTest extends TestCase
 {
-
     public function test1()
     {
         $className = \xltxlm\helper\Hclass\FilePathFromClass::class;

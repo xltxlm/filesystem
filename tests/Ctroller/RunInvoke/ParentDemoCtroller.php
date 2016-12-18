@@ -16,11 +16,11 @@ trait ParentDemoCtroller
 
     public function getpublicParentDemoCtroller()
     {
-        echo __FUNCTION__ . "\n";
+        echo __FUNCTION__."\n";
     }
 
     protected function getprotectedParentDemoCtroller()
     {
-        echo __FUNCTION__ . "\n";
+        echo __FUNCTION__."\n";
     }
 }

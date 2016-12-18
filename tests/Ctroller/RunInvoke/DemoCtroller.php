@@ -14,11 +14,11 @@ class DemoCtroller
 
     public function getpublicDemoCtroller()
     {
-        echo __FUNCTION__ . "\n";
+        echo __FUNCTION__."\n";
     }
 
     protected function getprotectedDemoCtroller()
     {
-        echo __FUNCTION__ . "\n";
+        echo __FUNCTION__."\n";
     }
 }

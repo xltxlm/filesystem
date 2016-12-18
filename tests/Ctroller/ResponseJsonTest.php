@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-08
- * Time: 上午 9:38
+ * Time: 上午 9:38.
  */
 
 namespace xltxlm\helper\tests\Ctroller;
@@ -19,10 +19,10 @@ class ResponseJsonTest extends TestCase
      */
     public function test1()
     {
-        $this->markTestSkipped("单独运行,看输出内容");
-        ((new Demo)
+        $this->markTestSkipped('单独运行,看输出内容');
+        ((new Demo())
             ->setId(100.1)
-            ->setName("hello")
+            ->setName('hello')
             ->setObect(new SomeObject())
         )
         ();

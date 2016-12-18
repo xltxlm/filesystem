@@ -3,15 +3,14 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-11
- * Time: 下午 7:48
+ * Time: 下午 7:48.
  */
 
 namespace xltxlm\helper\Hclass;
 
 /**
  * 把类格式化成 k=v的字符串格式,空格隔开
- * Class ObjectToKeyVar
- * @package xltxlm\helper\Hclass
+ * Class ObjectToKeyVar.
  */
 trait ObjectToKeyVar
 {
@@ -21,11 +20,12 @@ trait ObjectToKeyVar
         $new_array = [];
         foreach ($vars as $k => $v) {
             if (is_array($v)) {
-                $new_array[] = "$k=" . json_encode($v, JSON_UNESCAPED_UNICODE);
+                $new_array[] = "$k=".json_encode($v, JSON_UNESCAPED_UNICODE);
             } else {
-                $new_array[] = "$k=" . $v;
+                $new_array[] = "$k=".$v;
             }
         }
-        return join(" ", $new_array);
+
+        return implode(' ', $new_array);
     }
 }

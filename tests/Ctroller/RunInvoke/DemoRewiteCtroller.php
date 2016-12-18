@@ -23,21 +23,21 @@ class DemoRewiteCtroller
 
     public function getpublicDemoRewiteCtroller()
     {
-        $this->haveRunMethods[] = __FUNCTION__ . '@' . __CLASS__;
+        $this->haveRunMethods[] = __FUNCTION__.'@'.__CLASS__;
     }
 
     protected function getprotectedDemoRewiteCtroller()
     {
-        $this->haveRunMethods[] = __FUNCTION__ . '@' . __CLASS__;
+        $this->haveRunMethods[] = __FUNCTION__.'@'.__CLASS__;
     }
 
     public function getpublicParentDemoCtroller()
     {
-        $this->haveRunMethods[] = __FUNCTION__ . '@' . __CLASS__;
+        $this->haveRunMethods[] = __FUNCTION__.'@'.__CLASS__;
     }
 
     protected function getprotectedParentDemoCtroller()
     {
-        $this->haveRunMethods[] = __FUNCTION__ . '@' . __CLASS__;
+        $this->haveRunMethods[] = __FUNCTION__.'@'.__CLASS__;
     }
 }

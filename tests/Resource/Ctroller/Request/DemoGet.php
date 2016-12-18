@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-08
- * Time: 下午 8:27
+ * Time: 下午 8:27.
  */
 
 namespace xltxlm\helper\tests\Resource\Ctroller\Request;

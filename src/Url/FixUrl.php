@@ -155,11 +155,13 @@ final class FixUrl
      */
     private function jump($url)
     {
-        if (!headers_sent()) {
-            header("location:$url");
-        } else {
-            echo '<script language="javascript" type="text/javascript">window.location.href="'.$url.'"; </script>';
+        if ($this->isJump()) {
+            if (!headers_sent()) {
+                header("location:$url");
+            } else {
+                echo '<script language="javascript">window.location.href="'.$url.'"; </script>';
+            }
+            die;
         }
-        die;
     }
 }

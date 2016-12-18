@@ -23,13 +23,13 @@ final class ClassNameFromFile
 
     /**
      * ClassNameFromFile constructor.
+     *
      * @param string $filePath
      */
-    public function __construct(string $filePath = "")
+    public function __construct(string $filePath = '')
     {
         $this->setFilePath($filePath);
     }
-
 
     /**
      * @return string
@@ -60,7 +60,7 @@ final class ClassNameFromFile
             if (is_array($item)) {
                 $item[0] = token_name($item[0]);
                 if ($namespace !== false && $item[0] == 'T_STRING') {
-                    $this->nameSpace .= $item[1] . '\\';
+                    $this->nameSpace .= $item[1].'\\';
                 }
                 if ($item[0] == 'T_NAMESPACE') {
                     $namespace = true;
@@ -72,7 +72,7 @@ final class ClassNameFromFile
             }
         }
         if ($this->getNameSpace()) {
-            $this->className = $this->getNameSpace() . basename($filePath, '.php');
+            $this->className = $this->getNameSpace().basename($filePath, '.php');
         }
         $this->filePath = $filePath;
 

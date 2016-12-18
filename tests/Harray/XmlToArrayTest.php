@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-07
- * Time: 上午 10:54
+ * Time: 上午 10:54.
  */
 
 namespace xltxlm\helper\tests\Harray;
@@ -14,7 +14,7 @@ use xltxlm\helper\Harray\XmlToArray;
 class XmlToArrayTest extends TestCase
 {
     /**
-     * 测试xml解析成数组,仅限于简单的一维xml
+     * 测试xml解析成数组,仅限于简单的一维xml.
      */
     public function test1()
     {
@@ -46,7 +46,7 @@ class XmlToArrayTest extends TestCase
             'spbill_create_ip' => '14.23.150.211',
             'total_fee' => 1,
             'trade_type' => 'APP',
-            'sign' => '0CB01533B8C1EF103065174F50BCA001'
+            'sign' => '0CB01533B8C1EF103065174F50BCA001',
         ]);
     }
 }

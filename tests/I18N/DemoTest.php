@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-10
- * Time: 下午 4:48
+ * Time: 下午 4:48.
  */
 
 namespace xltxlm\helper\tests\I18N;
@@ -13,9 +13,8 @@ use xltxlm\helper\tests\Resource\I18N\Demo;
 
 class DemoTest extends TestCase
 {
-
     /**
-     * 中文测试
+     * 中文测试.
      */
     public function testCH()
     {
@@ -26,7 +25,7 @@ class DemoTest extends TestCase
     }
 
     /**
-     * 中文测试
+     * 中文测试.
      */
     public function testEN()
     {

@@ -9,17 +9,19 @@
 namespace xltxlm\helper\tests\Url;
 
 use PHPUnit\Framework\TestCase;
+use xltxlm\helper\Url\FixUrl;
 
-class FixUrl extends TestCase
+class FixUrlTest extends TestCase
 {
     /**
-     * 测试追加参数
+     * 测试追加参数.
+     *
      * @test
      */
     public function test1()
     {
         $url = 'http://www.baidu.com';
-        $newUrl = (new \xltxlm\helper\Url\FixUrl())
+        $newUrl = (new FixUrl())
             ->setUrl($url)
             ->setAttachKesy(['name' => 1, 'c' => 'd'])
             ->__invoke();
@@ -27,13 +29,14 @@ class FixUrl extends TestCase
     }
 
     /**
-     * 测试覆盖原来的参数
+     * 测试覆盖原来的参数.
+     *
      * @test
      */
     public function test2()
     {
         $url = 'http://www.baidu.com?c=c';
-        $newUrl = (new \xltxlm\helper\Url\FixUrl())
+        $newUrl = (new FixUrl())
             ->setUrl($url)
             ->setAttachKesy(['name' => 1, 'c' => 'd'])
             ->__invoke();
@@ -41,18 +44,18 @@ class FixUrl extends TestCase
     }
 
     /**
-     * 测试删除参数
+     * 测试删除参数.
+     *
      * @test
      */
     public function test3()
     {
         $url = 'http://www.baidu.com?c=c';
-        $newUrl = (new \xltxlm\helper\Url\FixUrl())
+        $newUrl = (new FixUrl())
             ->setUrl($url)
-            ->setUnserKeys(["c"])
+            ->setUnserKeys(['c'])
             ->setAttachKesy(['name' => 1])
             ->__invoke();
         $this->assertEquals($newUrl, 'http://www.baidu.com?name=1');
     }
-
 }

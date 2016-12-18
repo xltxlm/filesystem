@@ -3,15 +3,14 @@
  * Created by PhpStorm.
  * User: xlt
  * Date: 2016/7/3
- * Time: 17:30
+ * Time: 17:30.
  */
 
 namespace xltxlm\helper\Ctroller\Unit;
 
 /**
  * 递归取出某个类的全部继承 trait
- * Class traits
- * @package libs\SDK
+ * Class traits.
  */
 final class GetTraitLists
 {
@@ -32,7 +31,7 @@ final class GetTraitLists
 
     public function __invoke($trait = null)
     {
-        $ReflectionClass = new \ReflectionClass($trait??$this->className);
+        $ReflectionClass = new \ReflectionClass($trait ?? $this->className);
         $traits = $ReflectionClass->getTraitNames();
         foreach ($traits as $trait) {
             //先挂钩父类的traits

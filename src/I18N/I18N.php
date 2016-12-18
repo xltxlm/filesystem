@@ -5,6 +5,7 @@
  * Date: 2016-11-14
  * Time: 上午 10:49.
  */
+
 namespace xltxlm\helper\I18N;
 
 /**
@@ -26,6 +27,7 @@ abstract class I18N
     final public function setLang(string $lang)
     {
         self::$lang = $lang;
+
         return $this;
     }
 
@@ -42,7 +44,7 @@ abstract class I18N
      */
     final public static function cleanLang(): string
     {
-        return self::$lang = "";
+        return self::$lang = '';
     }
 
     final public static function getVal()
@@ -54,7 +56,7 @@ abstract class I18N
         $className = $ReflectionClass->getNamespaceName().
             '\\'.self::getLang().
             '\\'.basename($debug_backtrace[0]['file'], '.php');
-        $I18NObject = new $className;
+        $I18NObject = new $className();
         $reflectionClass = new \ReflectionClass($I18NObject);
         $property = $reflectionClass->getProperty($key);
         $property->setAccessible(true);

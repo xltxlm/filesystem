@@ -16,6 +16,7 @@ class RunInvokeTest extends TestCase
 {
     /**
      * 常规的执行顺序.
+     *
      * @test
      */
     public function test1()
@@ -36,6 +37,7 @@ class RunInvokeTest extends TestCase
 
     /**
      * 子类重写上级的类,执行名称的顺序没变, 只是运行的都是子类的内容.
+     *
      * @test
      */
     public function test2()

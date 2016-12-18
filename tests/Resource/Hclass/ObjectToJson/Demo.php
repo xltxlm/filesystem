@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-06
- * Time: 下午 11:10
+ * Time: 下午 11:10.
  */
 
 namespace xltxlm\helper\tests\Resource\Hclass\ObjectToJson;

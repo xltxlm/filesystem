@@ -3,19 +3,18 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-07
- * Time: 上午 10:52
+ * Time: 上午 10:52.
  */
 
 namespace xltxlm\helper\Harray;
 
 /**
  * 一维的xml解析成数组
- * Class Xml2Array
- * @package xltxlm\helper\Harray
+ * Class Xml2Array.
  */
 class XmlToArray
 {
-    protected $xml = "";
+    protected $xml = '';
 
     /**
      * @return string
@@ -27,11 +26,13 @@ class XmlToArray
 
     /**
      * @param string $xml
+     *
      * @return XmlToArray
      */
     public function setXml(string $xml): XmlToArray
     {
         $this->xml = $xml;
+
         return $this;
     }
 
@@ -49,6 +50,7 @@ class XmlToArray
         foreach ($values as $key => $val) {
             $tdb[$val['tag']] = $val['value'];
         }
+
         return $tdb;
     }
 }

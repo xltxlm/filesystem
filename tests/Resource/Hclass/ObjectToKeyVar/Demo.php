@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-11
- * Time: 下午 7:52
+ * Time: 下午 7:52.
  */
 
 namespace xltxlm\helper\tests\Resource\Hclass\ObjectToKeyVar;

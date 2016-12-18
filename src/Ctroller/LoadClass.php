@@ -14,8 +14,7 @@ use xltxlm\logger\Logger;
 
 /**
  * 调起路由类,两种加载方式 1: 直接指定类 2: 命名空间 + 命名空间下面的相对路径
- * Class LoadClass
- * @package xltxlm\helper\Ctroller
+ * Class LoadClass.
  */
 final class LoadClass
 {
@@ -93,7 +92,7 @@ final class LoadClass
     public function __invoke()
     {
         if (!$this->className) {
-            $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
+            $this->className = '\\'.self::$rootNamespce.'\\'.$this->urlPath;
         }
         try {
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
@@ -111,8 +110,8 @@ final class LoadClass
                             ->setMissClassName($this->className)
                             ->setType(LogLevel::DEBUG)
                     ))();
-                header('HTTP/1.1 588 APP ERROR@' . $this->className);
-                header('Status: 588 APP ERROR@' . $this->className);
+                header('HTTP/1.1 588 APP ERROR@'.$this->className);
+                header('Status: 588 APP ERROR@'.$this->className);
             }
         }
 

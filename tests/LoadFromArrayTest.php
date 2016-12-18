@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-06
- * Time: 下午 9:35
+ * Time: 下午 9:35.
  */
 
 namespace xltxlm\helper\tests;
@@ -21,7 +21,7 @@ class LoadFromArrayTest extends TestCase
         $data = [
             'id' => $id,
             'name' => $name,
-            'none' => 'null'
+            'none' => 'null',
         ];
         $Demo = (new Demo($data));
         $this->assertEquals($id, $Demo->getId());
@@ -30,7 +30,7 @@ class LoadFromArrayTest extends TestCase
 
     public function test2()
     {
-        $name = "name";
+        $name = 'name';
         $id = __LINE__;
         $data = [
             'name' => $name,

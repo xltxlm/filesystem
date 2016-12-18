@@ -3,15 +3,14 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-06
- * Time: 下午 11:05
+ * Time: 下午 11:05.
  */
 
 namespace xltxlm\helper\Hclass;
 
 /**
  * 把对象输出成json格式
- * Class ObjectToJson
- * @package xltxlm\helper\Hclass
+ * Class ObjectToJson.
  */
 trait ObjectToJson
 {

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-10
- * Time: 下午 4:43
+ * Time: 下午 4:43.
  */
 
 namespace xltxlm\helper\tests\Resource\I18N;

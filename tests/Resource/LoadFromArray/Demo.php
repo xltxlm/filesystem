@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016-12-06
- * Time: 下午 9:33
+ * Time: 下午 9:33.
  */
 
 namespace xltxlm\helper\tests\Resource\LoadFromArray;
@@ -34,21 +34,25 @@ final class Demo
 
     /**
      * @param mixed $name
+     *
      * @return Demo
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * @param mixed $id
+     *
      * @return Demo
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 }
