@@ -45,7 +45,7 @@ trait UrlLink
         if (!$classname) {
             $classname = static::class;
         }
-        $model_action = trim(strtr($classname, [LoadClass::$rootNamespce => '']), "\\");
+        $model_action = trim(strtr($classname, [LoadClass::$rootNamespce => '', '\\' => '/']), "/");
         return (new FixUrl())
             ->setAttachKesy(["c" => $model_action] + $args)
             ->__invoke();
