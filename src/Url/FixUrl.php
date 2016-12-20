@@ -116,8 +116,8 @@ final class FixUrl
     {
         //如果不传递网址进来处理,那么默认取出当前网址
         if (empty($this->url)) {
-            $this->url = ($_SERVER['HTTPS'] ? 'https' : 'http').'://'.
-                ($_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_ADDR']).
+            $this->url = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' .
+                ($_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_ADDR']) .
                 $_SERVER['REQUEST_URI'];
         }
 
@@ -137,11 +137,14 @@ final class FixUrl
         foreach ($this->attachKesy as $key => $var) {
             $parseStrs[$key] = $var;
         }
-
+        $addHead = "/";
+        if ($this->url) {
+            $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}";
+        }
         if ($parseStrs) {
-            $url = "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}?".http_build_query($parseStrs);
+            $url = "$addHead?" . http_build_query($parseStrs);
         } else {
-            $url = "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}";
+            $url = "$addHead";
         }
         $this->jump($url);
 
@@ -159,7 +162,7 @@ final class FixUrl
             if (!headers_sent()) {
                 header("location:$url");
             } else {
-                echo '<script language="javascript">window.location.href="'.$url.'"; </script>';
+                echo '<script language="javascript">window.location.href="' . $url . '"; </script>';
             }
             die;
         }
