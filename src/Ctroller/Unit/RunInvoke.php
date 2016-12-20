@@ -9,6 +9,7 @@
 namespace xltxlm\helper\Ctroller\Unit;
 
 use xltxlm\helper\Ctroller\HtmlException;
+use xltxlm\helper\Ctroller\UrlLink;
 
 /**
  * 给一个类加上 __invoke 魔术函数,然后类会按照get的循序执行,其中任何一个抛异常也不会阻止代码继续运行.
@@ -22,6 +23,7 @@ use xltxlm\helper\Ctroller\HtmlException;
  */
 trait RunInvoke
 {
+    use UrlLink;
     /** @var array 记录运行的方法的顺序 */
     protected $haveRunMethod = [];
 
