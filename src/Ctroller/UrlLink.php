@@ -20,14 +20,14 @@ trait UrlLink
      * @desc   根据当前的类,换成对应的网址路径
      *
      * @param array $args
-     * @param null  $classname
+     * @param null $classname
      *
      * @return string
      */
     final public static function url($args = [], $classname = null)
     {
         $appendArgs = $_GET;
-        unset($appendArgs['c'], $_GET['__SIGN_KEY__'], $_GET['__ID__']);
+        unset($appendArgs['c']);
 
         return self::urlNoFollow($args + $appendArgs, $classname);
     }
@@ -36,7 +36,7 @@ trait UrlLink
      * @desc   根据当前的类,换成对应的网址路径
      *
      * @param array $args
-     * @param null  $classname
+     * @param null $classname
      *
      * @return string
      */
@@ -45,14 +45,9 @@ trait UrlLink
         if (!$classname) {
             $classname = static::class;
         }
-        $model_action = strtr($classname, [LoadClass::$rootNamespce => '']);
-
-        echo '<pre>-->';
-        print_r($model_action);
-        echo '<--@in '.__FILE__.' on line '.__LINE__."\n";
-
-        return (new FixUrl('/'.implode('/', $model_action)))
-            ->setAttachKesy($args)
+        $model_action = trim(strtr($classname, [LoadClass::$rootNamespce => '']), "\\");
+        return (new FixUrl())
+            ->setAttachKesy(["c" => $model_action] + $args)
             ->__invoke();
     }
 
@@ -60,16 +55,14 @@ trait UrlLink
      * @desc   网址跳转
      *
      * @param array $args
-     * @param null  $classname
+     * @param null $classname
      */
     final public static function gourl($args = [], $classname = null)
     {
-        $url = self::url(
-            $args,
-            $classname
-        );
-
-        (new go())->execute($url);
+        $url = self::url($args, $classname);
+        (new FixUrl($url))
+            ->setJump(true)
+            ->__invoke();
     }
 
     /**
@@ -80,24 +73,20 @@ trait UrlLink
      * @since  2015-08-17 08:38:05
      *
      * @param array $args
-     * @param null  $classname
+     * @param null $classname
      */
     final public static function gourlNoFollow($args = [], $classname = null)
     {
-        $url = self::urlNoFollow(
-            $args,
-            $classname
-        );
-
-        (new go())->execute(
-            $url
-        );
+        $url = self::urlNoFollow($args, $classname);
+        (new FixUrl($url))
+            ->setJump(true)
+            ->__invoke();
     }
 
     final public static function goBack()
     {
-        (new go())->execute(
-            $_SERVER['HTTP_REFERER']
-        );
+        return (new FixUrl($_SERVER['HTTP_REFERER']))
+            ->setJump(true)
+            ->__invoke();
     }
 }
