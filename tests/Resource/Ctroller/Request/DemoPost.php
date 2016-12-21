@@ -19,7 +19,7 @@ class DemoPost
     /**
      * @return mixed
      */
-    public function getId()
+    public function &getId()
     {
         return $this->id;
     }
@@ -27,7 +27,7 @@ class DemoPost
     /**
      * @return mixed
      */
-    public function getName()
+    public function &getName()
     {
         return $this->name;
     }
