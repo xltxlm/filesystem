@@ -114,13 +114,6 @@ final class FixUrl
      */
     public function __invoke()
     {
-        //如果不传递网址进来处理,那么默认取出当前网址
-        if (empty($this->url)) {
-            $this->url = ($_SERVER['HTTPS'] ? 'https' : 'http').'://'.
-                ($_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_ADDR']).
-                $_SERVER['REQUEST_URI'];
-        }
-
         $parseUrl = parse_url($this->url);
         $parseStrs = [];
         parse_str($parseUrl['query'], $parseStrs);
@@ -138,7 +131,7 @@ final class FixUrl
             $parseStrs[$key] = $var;
         }
         $addHead = "/";
-        if ($this->url) {
+        if (strpos($this->url, '://') !== false) {
             $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}{$parseUrl['path']}";
         }
         if ($parseStrs) {
