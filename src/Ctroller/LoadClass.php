@@ -9,6 +9,7 @@
 namespace xltxlm\helper\Ctroller;
 
 use Psr\Log\LogLevel;
+use xltxlm\helper\Ctroller\Logger\LoadClassLogger;
 use xltxlm\helper\Ctroller\Logger\LoadError;
 use xltxlm\logger\Logger;
 
@@ -95,11 +96,20 @@ final class LoadClass
             $this->className = '\\'.self::$rootNamespce.'\\'.$this->urlPath;
         }
         try {
+            $start = microtime(true);
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
             $classNameObject = new $this->className();
             //声明代码正确找到位置,找到类
             self::$runClass = get_class($classNameObject);
             call_user_func([$classNameObject, '__invoke']);
+            $time = microtime(true) - $start;
+            (new Logger(
+                (new LoadClassLogger)
+                    ->setTime($time)
+                    ->setClassName($this->className)
+            ))
+                ->setSuffix(".access.log")
+                ->__invoke();
         } finally {
             $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
             if (!in_array($this->className, get_declared_classes())) {
