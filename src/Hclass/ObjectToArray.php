@@ -19,7 +19,7 @@ trait ObjectToArray
      * 把对象转换成数组
      * @return array
      */
-    final public function __toString()
+    final public function __toArray()
     {
         return get_object_vars($this);
     }
