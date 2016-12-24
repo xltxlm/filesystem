@@ -8,6 +8,7 @@
 
 namespace xltxlm\helper\Ctroller\Request;
 
+use xltxlm\helper\Hclass\CopyObjectAttributeName;
 use xltxlm\helper\Hclass\LoadFromArray;
 use xltxlm\helper\Hclass\ObjectToJson;
 
@@ -21,6 +22,7 @@ trait Get
         __construct as load;
     }
     use ObjectToJson;
+    use CopyObjectAttributeName;
 
     /**
      * Get constructor.
@@ -28,20 +30,5 @@ trait Get
     public function __construct()
     {
         $this->load($_GET);
-    }
-
-    /**
-     * 获取变量的名称,用法:要求getxxx() 改为 &getxxxx(),[并且]最后一行是 return $this->xxx; 不能是 return $this->xxx='xx';
-     * @param $var
-     * @return string
-     */
-    final public function varName(&$var)
-    {
-        $tmp = $var;
-        $var = 'tmp_exists_'.uniqid();
-        $name = array_search($var, get_object_vars($this), true);
-        $var = $tmp;
-
-        return $name;
     }
 }
