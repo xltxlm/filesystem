@@ -13,13 +13,13 @@ use xltxlm\helper\Ctroller\Request\Post;
 class DemoPost
 {
     use Post;
-    protected $id;
+    protected $id = "";
     protected $name;
 
     /**
      * @return mixed
      */
-    public function &getId()
+    public function &getId(): string
     {
         return $this->id;
     }
