@@ -103,8 +103,10 @@ final class LoadClass
             self::$runClass = get_class($classNameObject);
             call_user_func([$classNameObject, '__invoke']);
             $time = microtime(true) - $start;
+            //记录网页执行时间,如果超过1秒,标记为超时
             (new Logger(
                 (new LoadClassLogger)
+                    ->setType($time > 1 ? LogLevel::EMERGENCY : LogLevel::INFO)
                     ->setTime($time)
                     ->setClassName($this->className)
             ))
