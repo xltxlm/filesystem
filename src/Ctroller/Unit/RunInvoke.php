@@ -62,6 +62,10 @@ trait RunInvoke
                 HtmlException::push($Exception);
             }
         }
+        //如果含有异常没有处理,那么写到错误里面
+        if (HtmlException::getErrori()) {
+            error_log(HtmlException::pop());
+        }
 
         return $return;
     }
