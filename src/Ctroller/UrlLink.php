@@ -27,7 +27,7 @@ trait UrlLink
     final public static function url($args = [], $classname = null)
     {
         // 如果链接为空,不做处理
-        if (static::class == __CLASS__ && empty($classname)) {
+        if (static::class == __TRAIT__ && empty($classname)) {
             return '';
         }
         $appendArgs = $_GET;
@@ -47,7 +47,7 @@ trait UrlLink
     final public static function urlNoFollow($args = [], $classname = null)
     {
         // 如果链接为空,不做处理
-        if (static::class == __CLASS__ && empty($classname)) {
+        if (static::class == __TRAIT__ && empty($classname)) {
             return '';
         }
         if (!$classname) {
