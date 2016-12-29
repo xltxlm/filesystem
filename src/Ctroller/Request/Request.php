@@ -14,6 +14,6 @@ trait Request
 
     public function __construct()
     {
-        $this->load($_GET + $_POST);
+        $this->load($_POST + $_GET);
     }
 }
