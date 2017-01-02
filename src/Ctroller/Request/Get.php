@@ -29,6 +29,17 @@ trait Get
      */
     public function __construct()
     {
+        $_SERVER[static::class] = &$_GET;
         $this->load($_GET);
+    }
+
+    /**
+     * 把类的变量转换成请求的数据
+     */
+    public function export()
+    {
+        foreach (get_object_vars($this) as $key => $object_var) {
+            $_SERVER[static::class][$key] = $object_var;
+        }
     }
 }

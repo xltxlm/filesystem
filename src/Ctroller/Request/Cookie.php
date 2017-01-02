@@ -14,6 +14,7 @@ trait Cookie
 
     public function __construct()
     {
+        $_SERVER[static::class] = &$_COOKIE;
         $this->load($_COOKIE);
     }
 }

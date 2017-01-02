@@ -14,6 +14,7 @@ trait Post
 
     public function __construct()
     {
+        $_SERVER[static::class] = &$_POST;
         $this->load($_POST);
     }
 }

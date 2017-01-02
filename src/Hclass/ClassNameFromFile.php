@@ -20,6 +20,8 @@ final class ClassNameFromFile
     private $className = '';
     /** @var string 类的命名空间 */
     private $nameSpace = '';
+    /** @var array */
+    private $traits = [];
 
     /**
      * ClassNameFromFile constructor.
@@ -48,6 +50,14 @@ final class ClassNameFromFile
     }
 
     /**
+     * @return array
+     */
+    public function getTraits(): array
+    {
+        return $this->traits;
+    }
+
+    /**
      * @param string $filePath
      *
      * @return ClassNameFromFile
@@ -60,7 +70,7 @@ final class ClassNameFromFile
             if (is_array($item)) {
                 $item[0] = token_name($item[0]);
                 if ($namespace !== false && $item[0] == 'T_STRING') {
-                    $this->nameSpace .= $item[1].'\\';
+                    $this->nameSpace .= $item[1] . '\\';
                 }
                 if ($item[0] == 'T_NAMESPACE') {
                     $namespace = true;
@@ -72,7 +82,29 @@ final class ClassNameFromFile
             }
         }
         if ($this->getNameSpace()) {
-            $this->className = $this->getNameSpace().basename($filePath, '.php');
+            $this->className = $this->getNameSpace() . basename($filePath, '.php');
+        }
+        //trait
+        $traiti = 0;
+        $trait = false;
+        foreach ($token as $item) {
+            if (is_array($item)) {
+                $item[0] = token_name($item[0]);
+                if ($trait !== false && $item[0] == 'T_STRING') {
+                    $this->traits[$traiti] .= $item[1] . '\\';
+                }
+                if ($item[0] == 'T_USE') {
+                    $trait = true;
+                }
+            }
+            //遇见分号的时候，命名空间才结束
+            if ($trait !== false && $item == ';') {
+                $traiti++;
+                $trait = false;
+            }
+        }
+        foreach ($this->traits as &$trait) {
+            $trait = substr($trait, 0, -1);
         }
         $this->filePath = $filePath;
 
