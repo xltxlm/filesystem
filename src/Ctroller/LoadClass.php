@@ -11,6 +11,7 @@ namespace xltxlm\helper\Ctroller;
 use Psr\Log\LogLevel;
 use xltxlm\helper\Ctroller\Logger\LoadClassLogger;
 use xltxlm\helper\Ctroller\Logger\LoadError;
+use xltxlm\helper\Util;
 use xltxlm\logger\Logger;
 
 /**
@@ -23,6 +24,8 @@ final class LoadClass
     public static $runClass = '';
     /** @var string 根命名空间 */
     public static $rootNamespce = '';
+    /** @var string 根命名空间 */
+    public static $rootDir = '';
 
     /** @var string 启动的类 */
     private $className = '';
@@ -76,8 +79,9 @@ final class LoadClass
      */
     public function setRootNamespce($rootNamespce)
     {
-        self::$rootNamespce = $rootNamespce;
-
+        $reflectionClass = new \ReflectionClass($rootNamespce);
+        self::$rootNamespce = $reflectionClass->getNamespaceName();
+        self::$rootDir = dirname($reflectionClass->getFileName());
         return $this;
     }
 
@@ -92,6 +96,14 @@ final class LoadClass
      */
     public function __invoke()
     {
+        //自动加载请求类
+        spl_autoload_register(function ($class) {
+            $request = substr($class, -7);
+            if ($request == 'Request') {
+                $filepath = LoadClass::$rootDir.strtr($class, [LoadClass::$rootNamespce => '', '\\' => '/', 'Request' => '.request.php']);
+                eval('include_once  $filepath;');
+            }
+        });
         if (!$this->className) {
             $this->className = '\\'.self::$rootNamespce.'\\'.$this->urlPath;
         }
