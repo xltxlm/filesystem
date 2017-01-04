@@ -13,8 +13,32 @@ use xltxlm\helper\Ctroller\Request\Post;
 class DemoPost
 {
     use Post;
-    protected $id = "";
+    protected $id = '';
     protected $name;
+
+    /**
+     * @param string $id
+     *
+     * @return DemoPost
+     */
+    public function setId(string $id): DemoPost
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $name
+     *
+     * @return DemoPost
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * @return mixed

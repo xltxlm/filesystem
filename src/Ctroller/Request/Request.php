@@ -14,6 +14,19 @@ trait Request
 
     public function __construct()
     {
+        $_SERVER[static::class] = &$_REQUEST;
         $this->load($_POST + $_GET);
+    }
+
+    /**
+     * 把类的变量转换成请求的数据
+     */
+    public function export()
+    {
+        foreach (get_object_vars($this) as $key => $object_var) {
+            $_POST[$key] = $object_var;
+            $_GET[$key] = $object_var;
+            $_REQUEST[$key] = $object_var;
+        }
     }
 }
