@@ -19,20 +19,6 @@ trait Request
     }
 
     /**
-     * 自身实例化
-     * @return static
-     */
-    final private static function selfInstance()
-    {
-        static $class;
-        if (empty($class)) {
-            $class = new static();
-        }
-
-        return $class;
-    }
-
-    /**
      * 把类的变量转换成请求的数据
      */
     public function export()
