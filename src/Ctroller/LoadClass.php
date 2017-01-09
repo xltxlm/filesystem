@@ -149,8 +149,8 @@ final class LoadClass
             //记录网页执行时间,如果超过1秒,标记为超时
             (new Logger(
                 (new LoadClassLogger)
-                    ->setType($time > 1 ? LogLevel::EMERGENCY : LogLevel::INFO)
-                    ->setTime($time)
+                    ->setType(LogLevel::INFO)
+                    ->setRunTime($time)
                     ->setClassName($this->className)
             ))
                 ->setSuffix(".access.log")

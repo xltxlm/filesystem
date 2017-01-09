@@ -11,12 +11,6 @@
     "php": ">=7.0",
     "xltxlm/logger": "*"
   },
-  "require-dev": {
-    "bupt1987/html-parser": "dev-master",
-    "phpunit/phpunit": "*",
-    "squizlabs/php_codesniffer": "*",
-    "friendsofphp/php-cs-fixer": "*"
-  },
   "autoload": {
     "psr-4": {
       "xltxlm\\helper\\": [

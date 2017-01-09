@@ -16,7 +16,6 @@ use xltxlm\logger\Log\DefineLog;
  */
 class LoadClassLogger extends DefineLog
 {
-    protected $time = 0.0;
     protected $className = '';
 
     /**
