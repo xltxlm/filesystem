@@ -29,4 +29,18 @@ trait CopyObjectAttributeName
 
         return $name;
     }
+
+    /**
+     * 自身实例化
+     * @return static
+     */
+    final private static function selfInstance()
+    {
+        static $class;
+        if (empty($class)) {
+            $class = new static();
+        }
+
+        return $class;
+    }
 }
