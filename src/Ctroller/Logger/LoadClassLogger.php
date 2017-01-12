@@ -19,26 +19,6 @@ class LoadClassLogger extends DefineLog
     protected $className = '';
 
     /**
-     * @return float
-     */
-    public function getTime(): float
-    {
-        return $this->time;
-    }
-
-    /**
-     * @param float $time
-     *
-     * @return LoadClassLogger
-     */
-    public function setTime(float $time): LoadClassLogger
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getClassName(): string
