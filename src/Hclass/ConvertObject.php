@@ -20,6 +20,18 @@ class ConvertObject
     protected $toArray = [];
 
     /**
+     * ConvertObject constructor.
+     * @param mixed $object
+     */
+    public function __construct($object = null)
+    {
+        if (!empty($object)) {
+            $this->setObject($object);
+        }
+    }
+
+
+    /**
      * @return mixed
      */
     public function getObject()
