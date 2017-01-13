@@ -19,6 +19,7 @@ class CopyObjectAttributeNameMakeToolTest extends TestCase
     public function test()
     {
         (new CopyObjectAttributeNameMakeTool)
+            ->setRootClass(self::class)
             ->setClassNames(ObjectToArrayDemo::class)
             ->__invoke();
     }
