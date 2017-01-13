@@ -69,8 +69,7 @@ class CopyObjectAttributeNameMakeTool
     {
         //自动加载请求类
         spl_autoload_register(function ($class) {
-            $request = substr($class, -7);
-            if (strpos($request, 'Request') !== false) {
+            if (strpos($class, 'Request') !== false) {
                 $filepath = self::$rootDir.strtr($class, [self::$rootNamespce => '', '\\' => '/', 'Request' => '.Request']).'.php';
                 eval('include_once  $filepath;');
             }

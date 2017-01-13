@@ -98,8 +98,7 @@ final class LoadClass
     {
         //自动加载请求类
         spl_autoload_register(function ($class) {
-            $request = substr($class, -7);
-            if ($request == 'Request') {
+            if (strpos($class, 'Request') !== false) {
                 $filepath = LoadClass::$rootDir.strtr($class, [LoadClass::$rootNamespce => '', '\\' => '/', 'Request' => '.Request']).'.php';
                 eval('include_once  $filepath;');
             }
