@@ -132,7 +132,7 @@ final class FixUrl
         }
         $addHead = "/";
         if (strpos($this->url, '://') !== false) {
-            $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}".($parseUrl['port'] == 80 ?: ':'.$parseUrl['port'])."{$parseUrl['path']}";
+            $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}".((empty($parseUrl['port']) || $parseUrl['port'] == 80) ? '' : ':'.$parseUrl['port'])."{$parseUrl['path']}";
         }
         if ($parseStrs) {
             $addStr = [];
