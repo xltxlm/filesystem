@@ -24,7 +24,7 @@ class Util
         error_log(var_export($var, true));
         ob_start();
         debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        error_log(ob_get_clean());
-        error_log("<==={$debug_backtrace['line']}===");
+        error_log(trim(ob_get_clean()));
+        error_log("<==={$debug_backtrace['file']}:{$debug_backtrace['line']}===");
     }
 }
