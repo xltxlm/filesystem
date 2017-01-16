@@ -44,6 +44,19 @@ trait UrlLink
      *
      * @return string
      */
+    final public static function urlencode($args = [], $classname = null)
+    {
+        return urlencode(self::url($args, $classname));
+    }
+
+    /**
+     * @desc   根据当前的类,换成对应的网址路径
+     *
+     * @param array $args
+     * @param null $classname
+     *
+     * @return string
+     */
     final public static function urlNoFollow($args = [], $classname = null)
     {
         // 如果链接为空,不做处理
@@ -57,6 +70,19 @@ trait UrlLink
         return (new FixUrl())
             ->setAttachKesy(["c" => $model_action] + $args)
             ->__invoke();
+    }
+
+    /**
+     * @desc   根据当前的类,换成对应的网址路径
+     *
+     * @param array $args
+     * @param null $classname
+     *
+     * @return string
+     */
+    final public static function urlencodeNoFollow($args = [], $classname = null)
+    {
+        return urlencode(self::urlNoFollow($args, $classname));
     }
 
     /**
