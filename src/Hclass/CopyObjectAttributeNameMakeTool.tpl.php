@@ -4,13 +4,10 @@
 namespace <?=$this->getReflectionClass()->getNamespaceName()?>;
 
 use \xltxlm\helper\Hclass\CopyObjectAttributeName;
-/**
-* Created by PhpStorm.
-* User: xialintai
-* Date: 2017/1/13
-* Time: 16:48
-*/
 
+/**
+ * 获取类 <?=$this->getShortClassName()?> 的属性名称
+ */
 class <?=$this->getShortClassName()?>Copy
 {
     use CopyObjectAttributeName;
