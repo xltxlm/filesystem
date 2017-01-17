@@ -20,11 +20,8 @@ class Util
     public static function d($var)
     {
         $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[0];
-        error_log("==={$debug_backtrace['file']}===>");
+        error_log("=>[begin]");
         error_log(var_export($var, true));
-        ob_start();
-        debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        error_log(trim(ob_get_clean()));
-        error_log("<==={$debug_backtrace['file']}:{$debug_backtrace['line']}===");
+        error_log("<==={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
     }
 }
