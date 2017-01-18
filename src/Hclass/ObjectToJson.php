@@ -14,8 +14,18 @@ namespace xltxlm\helper\Hclass;
  */
 trait ObjectToJson
 {
+    /**
+     * 把一级索引下面的对象转换成数组
+     * @return string
+     */
     final public function __toString()
     {
-        return json_encode(get_object_vars($this), JSON_UNESCAPED_UNICODE);
+        $get_object_vars = get_object_vars($this);
+        foreach ($get_object_vars as $key => $get_object_var) {
+            if (is_object($get_object_var)) {
+                $get_object_vars[$key] = (new ConvertObject($get_object_var))->toArray();
+            }
+        }
+        return json_encode($get_object_vars, JSON_UNESCAPED_UNICODE);
     }
 }
