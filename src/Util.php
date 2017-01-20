@@ -19,9 +19,13 @@ class Util
      */
     public static function d($var)
     {
+        static $uniqid;
+        if (!$uniqid) {
+            $uniqid = uniqid();
+        }
         $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[0];
-        error_log("=>[begin]");
+        error_log('=>[begin]');
         error_log(var_export($var, true));
-        error_log("<==={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
+        error_log("<===[$uniqid]=={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
     }
 }
