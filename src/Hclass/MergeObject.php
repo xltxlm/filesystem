@@ -29,9 +29,11 @@ class MergeObject
      *
      * @param mixed $object
      */
-    public function __construct($object)
+    public function __construct($object = null)
     {
-        $this->setObject($object);
+        if (is_object($object)) {
+            $this->setObject($object);
+        }
     }
 
     /**
