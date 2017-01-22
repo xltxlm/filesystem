@@ -13,7 +13,7 @@ use xltxlm\helper\Hclass\ObjectToArray;
 class ObjectToArrayDemo
 {
     use ObjectToArray;
-    protected $id = __LINE__;
+    private $id = __LINE__;
     protected $name = __FILE__;
 
     /**
