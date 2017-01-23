@@ -32,7 +32,6 @@ trait UrlLink
         }
         $appendArgs = $_GET;
         unset($appendArgs['c']);
-
         return self::urlNoFollow($args + $appendArgs, $classname);
     }
 

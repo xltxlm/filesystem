@@ -128,18 +128,38 @@ final class FixUrl
 
         //2:数组格式 key=>var
         foreach ($this->attachKesy as $key => $var) {
-            $parseStrs[$key] = $var;
+            if (is_array($var)) {
+                foreach ($var as $k => $item) {
+                    //如果值已经存在,不要重复添加
+                    if (is_array($parseStrs[$key]) && array_search($item, $parseStrs[$key]) !== false) {
+                        continue;
+                    }
+                    if (is_numeric($k)) {
+                        $parseStrs[$key][] = $item;
+                    } else {
+                        $parseStrs[$key][$k] = $item;
+                    }
+                }
+            } else {
+                $parseStrs[$key] = $var;
+            }
         }
-        $addHead = "/";
+        $addHead = '/';
         if (strpos($this->url, '://') !== false) {
             $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}".((empty($parseUrl['port']) || $parseUrl['port'] == 80) ? '' : ':'.$parseUrl['port'])."{$parseUrl['path']}";
         }
         if ($parseStrs) {
             $addStr = [];
             foreach ($parseStrs as $key => $parseStr) {
-                $addStr[] = "$key=".($parseStr);
+                if (is_array($parseStr)) {
+                    foreach ($parseStr as $key2 => $item) {
+                        $addStr[] = $key."[$key2]=".urlencode($item);
+                    }
+                } else {
+                    $addStr[] = "$key=".($parseStr);
+                }
             }
-            $url = "$addHead?".join('&', ($addStr));
+            $url = "$addHead?".implode('&', ($addStr));
         } else {
             $url = "$addHead";
         }
