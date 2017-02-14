@@ -152,7 +152,6 @@ final class LoadClass
                     ->setRunTime($time)
                     ->setClassName($this->className)
             ))
-                ->setSuffix(".access.log")
                 ->__invoke();
         } finally {
             $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
