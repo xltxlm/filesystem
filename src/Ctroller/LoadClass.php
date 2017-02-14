@@ -159,7 +159,7 @@ final class LoadClass
             if (!in_array($this->className, get_declared_classes())) {
                 //记录无法加载的路径 - 有来源的时候才记录
                 $_SERVER['HTTP_REFERER'] && ((new Logger())
-                    ->setDefine(
+                    ->setLogDefine(
                         (new LoadError())
                             ->setMissClassName($this->className)
                             ->setType(LogLevel::DEBUG)
