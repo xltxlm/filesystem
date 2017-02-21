@@ -21,6 +21,7 @@ class ConvertObject
 
     /**
      * ConvertObject constructor.
+     *
      * @param mixed $object
      */
     public function __construct($object = null)
@@ -29,7 +30,6 @@ class ConvertObject
             $this->setObject($object);
         }
     }
-
 
     /**
      * @return mixed
@@ -59,26 +59,41 @@ class ConvertObject
     public function toArray()
     {
         if (empty($this->toArray)) {
-            $Properties = (new \ReflectionClass($this->getObject()))->getProperties();
-            /** @var \ReflectionProperty $property */
-            foreach ($Properties as $property) {
-                $property->setAccessible(true);
-                $value = $property->getValue($this->getObject());
-                //支持再下一层的对象
-                if (is_object($value)) {
-                    /** @var \ReflectionProperty $property2 */
-                    $Properties2 = (new \ReflectionClass($value))->getProperties();
-                    foreach ($Properties2 as $property2) {
-                        $property2->setAccessible(true);
-                        $this->toArray[$property->getName()][$property2->getName()] = $property2->getValue($value);
-                    }
-                } else {
-                    $this->toArray[$property->getName()] = $value;
-                }
-            }
+            $this->toArray = $this->object2Array($this->getObject());
         }
 
         return $this->toArray;
+    }
+
+    /**
+     * @param $object
+     *
+     * @return array
+     */
+    protected function object2Array($object): array
+    {
+        $data = [];
+        $Properties = (new \ReflectionClass($object))->getProperties();
+        /** @var  \ReflectionProperty $property */
+        foreach ($Properties as $property) {
+            $property->setAccessible(true);
+            $value = $property->getValue($object);
+            if (is_object($value)) {
+                $data[$property->getName()] = $this->object2Array($value);
+            } elseif (is_array($value)) {
+                foreach ($value as $key => $item) {
+                    if (is_object($item)) {
+                        $data[$property->getName()][$key] = $this->object2Array($item);
+                    } else {
+                        $data[$property->getName()][$key] = $item;
+                    }
+                }
+            } else {
+                $data[$property->getName()] = $value;
+            }
+        }
+
+        return $data;
     }
 
     /**
