@@ -12,7 +12,7 @@ use ReflectionProperty;
 
 /**
  * 合并对象，给定一个对象，再给定一个数组或者对象，然后把数组或者对象的值拷贝给原来的对象
- * 如果有值,覆盖原来的值
+ * 如果有值,覆盖原来的值,后来的覆盖前面的
  * Class MergeObject.
  */
 class MergeObject
@@ -115,7 +115,7 @@ class MergeObject
             foreach ($this->getArray() as $item1) {
                 //如果有值,覆盖上去
                 $var = $item1[$item->getName()];
-                if ($var) {
+                if ($var !== null) {
                     $item->setValue($this->getObject(), $var);
                 }
             }
