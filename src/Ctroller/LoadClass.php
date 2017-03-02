@@ -20,25 +20,14 @@ use xltxlm\logger\Logger;
  */
 final class LoadClass
 {
+    use LoadClassRegister;
+
     /** @var string 当前正在运行的类 */
     public static $runClass = '';
-    /** @var string 根命名空间 */
-    public static $rootNamespce = '';
-    /** @var string 根命名空间 */
-    public static $rootDir = '';
-
     /** @var string 启动的类 */
     private $className = '';
     /** @var string 相对于根命名空间的路径 */
     private $urlPath = '';
-
-    /**
-     * @return string
-     */
-    public function getRunClass()
-    {
-        return self::$runClass;
-    }
 
     /**
      * @param string $className
@@ -65,27 +54,6 @@ final class LoadClass
     }
 
     /**
-     * @return string
-     */
-    public function getRootNamespce(): string
-    {
-        return self::$rootNamespce;
-    }
-
-    /**
-     * @param string $rootNamespce
-     *
-     * @return LoadClass
-     */
-    public function setRootNamespce($rootNamespce)
-    {
-        $reflectionClass = new \ReflectionClass($rootNamespce);
-        self::$rootNamespce = $reflectionClass->getNamespaceName();
-        self::$rootDir = dirname($reflectionClass->getFileName());
-        return $this;
-    }
-
-    /**
      * The __invoke method is called when a script tries to call an object as a function.
      *
      * @throws \Exception
@@ -96,14 +64,6 @@ final class LoadClass
      */
     public function __invoke()
     {
-        //自动加载请求类
-        spl_autoload_register(function ($class) {
-            if (strpos($class, 'Request') !== false) {
-                $filepath = LoadClass::$rootDir.strtr($class, [LoadClass::$rootNamespce => '', '\\' => '/', 'Request' => '.Request']).'.php';
-                eval('include_once  $filepath;');
-            }
-        });
-
         //异常抛出,追加网址来源
         set_exception_handler(function ($exception) {
             /** @var \Exception $exception */
