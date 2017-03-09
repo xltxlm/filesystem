@@ -41,7 +41,12 @@ trait LoadFromArray
             }
             //调取当前对象的set功能,set还可以做二次处理
             if ($setFunction) {
-                call_user_func([$this, $methodName], $originalDatum);
+                //必须验证不是静态方法
+                $ReflectionMethod = (new  \ReflectionMethod($this, $methodName));
+                $isStatic = $ReflectionMethod->isStatic();
+                if (!$isStatic) {
+                    call_user_func([$this, $methodName], $originalDatum);
+                }
             }
         }
     }
