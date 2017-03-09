@@ -17,6 +17,14 @@ use xltxlm\helper\Url\FixUrl;
 trait UrlLink
 {
     /**
+     * 当前的网址,并且编码过的
+     */
+    public static function Myurl()
+    {
+        return urlencode("http".($_SERVER['HTTPS'] ? 's' : '').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+    }
+
+    /**
      * @desc   根据当前的类,换成对应的网址路径
      *
      * @param array $args
