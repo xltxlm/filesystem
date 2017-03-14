@@ -9,7 +9,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "xltxlm/logger": "*"
+    "xltxlm/logger": "dev-master"
   },
   "autoload": {
     "psr-4": {
