@@ -30,9 +30,11 @@ class BasicType implements JsonSerializable
      * a constructor.
      * @param string $value
      */
-    public function __construct($value = null)
+    public function __construct(string $value = null)
     {
-        $this->setValue($value);
+        if ($value) {
+            $this->setValue($value);
+        }
     }
 
 
@@ -58,8 +60,9 @@ class BasicType implements JsonSerializable
      */
     public function setPercentage()
     {
-        $this->setValue($this->getValue().'%');
-        return $this;
+        $object =clone $this;
+        $object->setValue($this->getValue().'%');
+        return $object;
     }
 
 
@@ -70,8 +73,9 @@ class BasicType implements JsonSerializable
      */
     public function setThousandMark()
     {
-        $this->setValue(number_format($this->getValue(), $this->getDecimalpoint()));
-        return $this;
+        $object =clone $this;
+        $object->setValue(number_format($this->getValue(), $this->getDecimalpoint()));
+        return $object;
     }
 
     /**
@@ -79,9 +83,10 @@ class BasicType implements JsonSerializable
      */
     public function setDecimalpoint($Decimalpoint = 0)
     {
+        $object =clone $this;
         $this->Decimalpoint = $Decimalpoint;
-        $this->setValue(sprintf("%{$Decimalpoint}.f", $this->getValue()));
-        return $this;
+        $object->setValue(sprintf("%{$Decimalpoint}.f", $this->getValue()));
+        return $object;
     }
 
     /**
@@ -95,11 +100,11 @@ class BasicType implements JsonSerializable
 
     /**
      * 输出
-     * @return string
+     * @return string|null
      */
-    public function __toString(): string
+    public function __toString()
     {
-        return (string)$this->getValue();
+        return $this->getValue();
     }
 
     public function __invoke()
@@ -117,8 +122,21 @@ class BasicType implements JsonSerializable
         if ($length === null) {
             $length = strlen($this->getValue());
         }
-        $this->setValue(substr($this->getValue(), $from, $length));
-        return $this;
+        $object =clone $this;
+        $object->setValue(substr($this->getValue(), $from, $length));
+        return $object;
+    }
+
+    /**
+     * 格式化成完整的日期区间
+     */
+    public function formatFullIndate()
+    {
+        $object =clone $this;
+        if ($this->getValue()) {
+            $object->setValue(strtr($this->getValue(), [' - ' => '000000 - ']).'235959');
+        }
+        return $object;
     }
 
     /**
@@ -127,7 +145,8 @@ class BasicType implements JsonSerializable
      */
     public function isEmail()
     {
-        $this->setValue(filter_var($this->getValue(), FILTER_VALIDATE_EMAIL) ? true : false);
-        return $this;
+        $object =clone $this;
+        $object->setValue(filter_var($this->getValue(), FILTER_VALIDATE_EMAIL) ? true : false);
+        return $object;
     }
 }

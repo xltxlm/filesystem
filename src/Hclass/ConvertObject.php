@@ -8,6 +8,8 @@
 
 namespace xltxlm\helper\Hclass;
 
+use xltxlm\helper\BasicType;
+
 /**
  * 将对象转换成各种形式
  * Class Convert.
@@ -79,7 +81,11 @@ class ConvertObject
             $property->setAccessible(true);
             $value = $property->getValue($object);
             if (is_object($value)) {
-                $data[$property->getName()] = $this->object2Array($value);
+                if ($value instanceof BasicType) {
+                    $data[$property->getName()] = $value->getValue();
+                } else {
+                    $data[$property->getName()] = $this->object2Array($value);
+                }
             } elseif (is_array($value)) {
                 foreach ($value as $key => $item) {
                     if (is_object($item)) {
