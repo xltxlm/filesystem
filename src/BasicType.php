@@ -60,7 +60,7 @@ class BasicType implements JsonSerializable
      */
     public function setPercentage()
     {
-        $object =clone $this;
+        $object = clone $this;
         $object->setValue($this->getValue().'%');
         return $object;
     }
@@ -73,7 +73,7 @@ class BasicType implements JsonSerializable
      */
     public function setThousandMark()
     {
-        $object =clone $this;
+        $object = clone $this;
         $object->setValue(number_format($this->getValue(), $this->getDecimalpoint()));
         return $object;
     }
@@ -83,7 +83,7 @@ class BasicType implements JsonSerializable
      */
     public function setDecimalpoint($Decimalpoint = 0)
     {
-        $object =clone $this;
+        $object = clone $this;
         $this->Decimalpoint = $Decimalpoint;
         $object->setValue(sprintf("%{$Decimalpoint}.f", $this->getValue()));
         return $object;
@@ -122,8 +122,23 @@ class BasicType implements JsonSerializable
         if ($length === null) {
             $length = strlen($this->getValue());
         }
-        $object =clone $this;
+        $object = clone $this;
         $object->setValue(substr($this->getValue(), $from, $length));
+        return $object;
+    }
+
+    /**
+     * 按照百分比,进行提示
+     */
+    public function formatAlert()
+    {
+        $object = clone $this;
+        if ($this->getValue() > 10) {
+            $object->setValue("<font color='blue' style='font-weight: bold'>".$this->getValue()."</font>");
+        }
+        if ($this->getValue() < -10) {
+            $object->setValue("<font color='red' style='font-weight: bold'>".$this->getValue()."</font>");
+        }
         return $object;
     }
 
@@ -132,7 +147,7 @@ class BasicType implements JsonSerializable
      */
     public function formatFullIndate()
     {
-        $object =clone $this;
+        $object = clone $this;
         if ($this->getValue()) {
             $object->setValue(strtr($this->getValue(), [' - ' => '000000 - ']).'235959');
         }
@@ -145,7 +160,7 @@ class BasicType implements JsonSerializable
      */
     public function isEmail()
     {
-        $object =clone $this;
+        $object = clone $this;
         $object->setValue(filter_var($this->getValue(), FILTER_VALIDATE_EMAIL) ? true : false);
         return $object;
     }
