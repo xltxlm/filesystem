@@ -18,9 +18,13 @@ class Dir
     /** @var string 需要扫描的文件夹路径 */
     protected $dir = "";
     /** @var bool 是否只返回文件类型的 */
-    protected $onlineFile = false;
+    protected $onlyFile = false;
+    /** @var bool 只返回目录 */
+    protected $onlyDir = false;
     /** @var string 只返回命中的匹配类型 */
     protected $preg = '';
+    /** @var int 限制扫描的目录深度 */
+    protected $depth = null;
 
     /**
      * Dir constructor.
@@ -31,6 +35,43 @@ class Dir
         if ($dir) {
             $this->setDir($dir);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getDepth(): int
+    {
+        return $this->depth;
+    }
+
+    /**
+     * @param int $depth
+     * @return Dir
+     */
+    public function setDepth(int $depth): Dir
+    {
+        $this->depth = $depth;
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isOnlyDir(): bool
+    {
+        return $this->onlyDir;
+    }
+
+    /**
+     * @param bool $onlyDir
+     * @return Dir
+     */
+    public function setOnlyDir(bool $onlyDir): Dir
+    {
+        $this->onlyDir = $onlyDir;
+        return $this;
     }
 
 
@@ -55,18 +96,18 @@ class Dir
     /**
      * @return bool
      */
-    public function isOnlineFile(): bool
+    public function isOnlyFile(): bool
     {
-        return $this->onlineFile;
+        return $this->onlyFile;
     }
 
     /**
-     * @param bool $onlineFile
+     * @param bool $onlyFile
      * @return Dir
      */
-    public function setOnlineFile(bool $onlineFile): Dir
+    public function setOnlyFile(bool $onlyFile): Dir
     {
-        $this->onlineFile = $onlineFile;
+        $this->onlyFile = $onlyFile;
         return $this;
     }
 
@@ -97,7 +138,13 @@ class Dir
         $Iterator = new \RecursiveIteratorIterator($Directory);
         /** @var \SplFileInfo $item */
         foreach ($Iterator as $item) {
-            if ($item->isDir() && $this->isOnlineFile()) {
+            if ($this->getDepth() !== null && $Iterator->getDepth() != $this->getDepth()) {
+                continue;
+            }
+            if ($item->isFile() && $this->isOnlyDir()) {
+                continue;
+            }
+            if ($item->isDir() && $this->isOnlyFile()) {
                 continue;
             }
             if ($this->getPreg()) {

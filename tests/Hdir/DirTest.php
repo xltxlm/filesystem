@@ -18,7 +18,7 @@ class DirTest extends TestCase
     public function test()
     {
         $dir = (new Dir('D:\code\helper\tests\Ctroller'))
-            ->setOnlineFile(true)
+            ->setOnlyFile(true)
             ->setPreg('demo');
         foreach ($dir() as $item) {
             echo "<pre>-->";
