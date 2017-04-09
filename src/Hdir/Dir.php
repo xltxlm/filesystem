@@ -136,11 +136,11 @@ class Dir
     {
         $Directory = new \RecursiveDirectoryIterator($this->dir);
         $Iterator = new \RecursiveIteratorIterator($Directory);
+        if ($this->getDepth() !== null) {
+            $Iterator->setMaxDepth($this->getDepth());
+        }
         /** @var \SplFileInfo $item */
         foreach ($Iterator as $item) {
-            if ($this->getDepth() !== null && $Iterator->getDepth() != $this->getDepth()) {
-                continue;
-            }
             if ($item->isFile() && $this->isOnlyDir()) {
                 continue;
             }
