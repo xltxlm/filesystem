@@ -141,7 +141,7 @@ class Dir
         }
         /** @var \SplFileInfo $item */
         foreach ($Iterator as $item) {
-            if ($item->getRealPath() == $this->getDir() || $item->getRealPath() == dirname($this->getDir())) {
+            if ($item->getFilename() == '..' || $item->getRealPath() == $this->getDir()) {
                 continue;
             }
             if ($item->isFile() && $this->isOnlyDir()) {
@@ -156,9 +156,6 @@ class Dir
                     continue;
                 }
             }
-            echo "<pre>-->";
-            print_r($item);
-            echo "<--@in " . __FILE__ . " on line " . __LINE__ . "\n";
             yield $item;
         }
     }
