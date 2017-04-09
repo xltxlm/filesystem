@@ -130,7 +130,7 @@ class Dir
     }
 
     /**
-     * @return \Generator
+     * @return \SplFileInfo[]
      */
     public function __invoke()
     {
