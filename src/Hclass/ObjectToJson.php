@@ -26,6 +26,10 @@ trait ObjectToJson
                 $get_object_vars[$key] = (new ConvertObject($get_object_var))->toArray();
             }
         }
-        return json_encode($get_object_vars, JSON_UNESCAPED_UNICODE);
+        $json_encode = json_encode($get_object_vars, JSON_UNESCAPED_UNICODE);
+        if (!json_last_error()) {
+            return $json_encode;
+        }
+        return "";
     }
 }

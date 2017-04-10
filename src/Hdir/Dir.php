@@ -151,7 +151,7 @@ class Dir
                 continue;
             }
             if ($this->getPreg()) {
-                $match = preg_match('#' . $this->getPreg() . '#i', $item->getBasename());
+                $match = preg_match('#' . $this->getPreg() . '#i', basename($item->getRealPath()));
                 if (!$match) {
                     continue;
                 }
