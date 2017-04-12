@@ -91,8 +91,11 @@ class ConvertObject
                     if (is_object($item)) {
                         $data[$property->getName()][$key] = $this->object2Array($item);
                     } else {
-                        $data[$property->getName()][$key] = $item;
+                        $data[$property->getName()][] = $item;
                     }
+                }
+                if (empty($value)) {
+                    $data[$property->getName()] = [];
                 }
             } else {
                 $data[$property->getName()] = $value;

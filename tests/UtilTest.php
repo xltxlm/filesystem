@@ -19,4 +19,10 @@ class UtilTest extends TestCase
         Util::d(['aaa']);
         Util::d(new Util());
     }
+
+    public function test2()
+    {
+        Util::mark();
+    }
+
 }

@@ -34,7 +34,7 @@ trait CopyObjectAttributeName
      * 自身实例化
      * @return static
      */
-    final private static function selfInstance()
+    final protected static function selfInstance()
     {
         static $class;
         if (empty($class)) {

@@ -25,6 +25,27 @@ class Dir
     protected $preg = '';
     /** @var int 限制扫描的目录深度 */
     protected $depth = null;
+    /** @var array 排除掉的文件名-完全匹配,不区分大小写 */
+    protected $excludeDir = [];
+
+    /**
+     * @return array
+     */
+    public function getExcludeDir(): array
+    {
+        return $this->excludeDir;
+    }
+
+    /**
+     * @param string $excludeDir
+     * @return Dir
+     */
+    public function setExcludeDir(string $excludeDir): Dir
+    {
+        $this->excludeDir[] = $excludeDir;
+        return $this;
+    }
+
 
     /**
      * Dir constructor.
@@ -40,7 +61,7 @@ class Dir
     /**
      * @return int
      */
-    public function getDepth(): int
+    public function getDepth()
     {
         return $this->depth;
     }
@@ -134,7 +155,8 @@ class Dir
      */
     public function __invoke()
     {
-        $Directory = new \RecursiveDirectoryIterator($this->dir);
+        $Directory = (new RecursiveDirectoryIterator($this->dir))
+            ->setExcludeDir($this->getExcludeDir());
         $Iterator = new \RecursiveIteratorIterator($Directory);
         if ($this->getDepth() !== null) {
             $Iterator->setMaxDepth($this->getDepth());
@@ -151,7 +173,7 @@ class Dir
                 continue;
             }
             if ($this->getPreg()) {
-                $match = preg_match('#' . $this->getPreg() . '#i', basename($item->getRealPath()));
+                $match = preg_match('#'.$this->getPreg().'#i', basename($item->getRealPath()));
                 if (!$match) {
                     continue;
                 }

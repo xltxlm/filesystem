@@ -24,7 +24,18 @@ trait LoadClassRegister
     /**
      * LoadClassRegister constructor.
      */
-    public function __construct($rootClass)
+    public function __construct($rootClass = "")
+    {
+        if ($rootClass) {
+            $this->setRootClass($rootClass);
+        }
+    }
+
+    /**
+     * @param $rootClass
+     * @return $this
+     */
+    public function setRootClass($rootClass)
     {
         $reflectionClass = new \ReflectionClass($rootClass);
         self::$rootClass = $rootClass;
@@ -38,5 +49,6 @@ trait LoadClassRegister
                 eval('include_once  $filepath;');
             }
         });
+        return $this;
     }
 }

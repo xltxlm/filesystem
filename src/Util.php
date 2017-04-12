@@ -15,6 +15,7 @@ namespace xltxlm\helper;
 class Util
 {
     /**
+     * 输出内容到php错误日志文件上
      * @param mixed $var
      */
     public static function d($var)
@@ -27,5 +28,14 @@ class Util
         error_log('=>[begin]');
         error_log(var_export($var, true));
         error_log("<===[$uniqid]=={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
+    }
+
+    /**
+     * 在代码上记录是否执行到这一行.输出内容到php错误日志文件上
+     */
+    public static function mark()
+    {
+        $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[0];
+        error_log(sprintf('Call me @%d on %s', $debug_backtrace['line'], $debug_backtrace['file']));
     }
 }
