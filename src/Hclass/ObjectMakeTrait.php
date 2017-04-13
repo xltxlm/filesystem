@@ -70,6 +70,10 @@ class ObjectMakeTrait
         $shortName = $this->ReflectionClass->getShortName();
         $shortName = strtr($shortName, ["Request" => ".Request"]);
         $filePath = dirname($this->ReflectionClass->getFileName())."/".$shortName."Trait.php";
-        file_put_contents($filePath, ob_get_clean());
+        $ob_get_clean = ob_get_clean();
+        //确保文件的内容不一致才写入
+        if (file_get_contents($filePath) !== $ob_get_clean) {
+            file_put_contents($filePath, $ob_get_clean);
+        }
     }
 }

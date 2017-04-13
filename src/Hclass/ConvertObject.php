@@ -76,7 +76,7 @@ class ConvertObject
     {
         $data = [];
         $Properties = (new \ReflectionClass($object))->getProperties();
-        /** @var  \ReflectionProperty $property */
+        /** @var \ReflectionProperty $property */
         foreach ($Properties as $property) {
             $property->setAccessible(true);
             $value = $property->getValue($object);
@@ -91,7 +91,11 @@ class ConvertObject
                     if (is_object($item)) {
                         $data[$property->getName()][$key] = $this->object2Array($item);
                     } else {
-                        $data[$property->getName()][] = $item;
+                        if (is_numeric($key)) {
+                            $data[$property->getName()][] = $item;
+                        } else {
+                            $data[$property->getName()][$key] = $item;
+                        }
                     }
                 }
                 if (empty($value)) {
