@@ -19,10 +19,11 @@ trait file_write_contents
      * @param string $classRealFile
      * @param string $ob_get_clean
      */
-    protected function file_write_contents(string $classRealFile, string $ob_get_clean)
+    protected function file_write_contents(string $classRealFile, string $ob_get_clean,bool $orverWrite = true)
     {
         //1:先保证控制层的基准类一定存在
-        if (!is_file($classRealFile) || file_get_contents($classRealFile) !== $ob_get_clean) {
+        $file_get_contents = file_get_contents($classRealFile);
+        if (!$file_get_contents || !is_file($classRealFile) || ($file_get_contents !== $ob_get_clean && $orverWrite)) {
             file_put_contents($classRealFile, $ob_get_clean);
         }
     }

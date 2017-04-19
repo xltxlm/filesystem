@@ -19,15 +19,20 @@ trait file_put_contents
      * 要求模板没有引用局部变量
      * @param string $classRealFile
      * @param string $templatePath
+     * @param bool $orverWrite 是否强制一致
+     * @return bool
      */
-    protected function file_put_contents(string $classRealFile, string $templatePath)
+    protected function file_put_contents(string $classRealFile, string $templatePath, bool $orverWrite = true)
     {
         ob_start();
         eval('include $templatePath;');
         $ob_get_clean = ob_get_clean();
         //1:先保证控制层的基准类一定存在
-        if (!is_file($classRealFile) || file_get_contents($classRealFile) !== $ob_get_clean) {
+        $file_get_contents = file_get_contents($classRealFile);
+        if (!$file_get_contents || !is_file($classRealFile) || ($file_get_contents !== $ob_get_clean && $orverWrite)) {
             file_put_contents($classRealFile, $ob_get_clean);
+            return true;
         }
+        return false;
     }
 }

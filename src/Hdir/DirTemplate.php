@@ -15,6 +15,7 @@ namespace xltxlm\helper\Hdir;
  */
 class DirTemplate
 {
+    use file_write_contents;
     /** @var array 替换的变量对 */
     protected $replace = [];
 
@@ -88,17 +89,10 @@ class DirTemplate
             if ($dir->isDir()) {
                 mkdir($this->getToDir().$difPath);
             } else {
-                $this->file_put_contents($this->getToDir().$difPath, $dir->getRealPath());
+                $this->file_write_contents($this->getToDir().$difPath, strtr(file_get_contents($dir->getRealPath()), $this->getReplace()),false);
             }
         }
     }
 
-    protected function file_put_contents(string $file, string $fromFile)
-    {
-        if (!is_file($file)) {
-            $newData = strtr(file_get_contents($fromFile), $this->getReplace());
-            file_put_contents($file, $newData);
-        }
-    }
 
 }
