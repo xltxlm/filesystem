@@ -60,6 +60,7 @@ trait RunInvoke
                 $this->haveRunMethod[] = $method->getName();
             } catch (\Exception $Exception) {
                 HtmlException::push($Exception);
+                throw $Exception;
             }
         }
         //如果含有异常没有处理,那么写到错误里面
