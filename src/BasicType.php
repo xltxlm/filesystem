@@ -48,10 +48,21 @@ class BasicType implements JsonSerializable
 
     /**
      * @param string $value
+     * @return $this
      */
     public function setValue(string $value)
     {
         $this->value = $value;
+        return $this;
+    }
+
+    public function popby($glue)
+    {
+        $newArray = explode($glue, $this->getValue());
+        array_pop($newArray);
+        $object = clone $this;
+        $object->setValue(join($glue, $newArray));
+        return $object;
     }
 
     /**

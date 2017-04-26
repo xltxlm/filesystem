@@ -23,6 +23,27 @@ class MergeObject
     protected $mergeObject;
     /** @var array 附加的数组 */
     protected $array = [];
+    /** @var bool 覆盖上了的值,就算是空也盖上去 */
+    protected $empty = true;
+
+    /**
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return $this->empty;
+    }
+
+    /**
+     * @param bool $empty
+     * @return MergeObject
+     */
+    public function setEmpty(bool $empty): MergeObject
+    {
+        $this->empty = $empty;
+        return $this;
+    }
+
 
     /**
      * MergeObject constructor.
@@ -116,8 +137,13 @@ class MergeObject
                 //如果有值,覆盖上去
                 $var = $item1[$item->getName()];
                 if ($var !== null) {
+                    if (!$this->isEmpty() && !$var) {
+                        //不鸟,跳过
+                        continue;
+                    }
                     $item->setValue($this->getObject(), $var);
                 }
+
             }
         }
         return $this->getObject();
