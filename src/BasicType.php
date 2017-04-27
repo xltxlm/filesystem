@@ -32,7 +32,7 @@ class BasicType implements JsonSerializable
      */
     public function __construct(string $value = null)
     {
-        if ($value) {
+        if (strlen($value)>0) {
             $this->setValue($value);
         }
     }
