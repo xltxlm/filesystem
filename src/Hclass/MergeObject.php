@@ -24,23 +24,23 @@ class MergeObject
     /** @var array 附加的数组 */
     protected $array = [];
     /** @var bool 覆盖上了的值,就算是空也盖上去 */
-    protected $empty = true;
+    protected $emptyCover = true;
 
     /**
      * @return bool
      */
-    public function isEmpty(): bool
+    public function isEmptyCover(): bool
     {
-        return $this->empty;
+        return $this->emptyCover;
     }
 
     /**
-     * @param bool $empty
+     * @param bool $emptyCover
      * @return MergeObject
      */
-    public function setEmpty(bool $empty): MergeObject
+    public function setEmptyCover(bool $emptyCover): MergeObject
     {
-        $this->empty = $empty;
+        $this->emptyCover = $emptyCover;
         return $this;
     }
 
@@ -137,7 +137,7 @@ class MergeObject
                 //如果有值,覆盖上去
                 $var = $item1[$item->getName()];
                 if ($var !== null) {
-                    if (!$this->isEmpty() && !$var) {
+                    if (!$this->isEmptyCover() && strlen($var)<1) {
                         //不鸟,跳过
                         continue;
                     }
