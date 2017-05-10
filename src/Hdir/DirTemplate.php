@@ -23,6 +23,26 @@ class DirTemplate
     protected $fromDir = "";
     /** @var string 目标目录 */
     protected $toDir = "";
+    /** @var bool 是否强制覆盖掉原来的文件,默认不覆盖 */
+    protected $overWrite = false;
+
+    /**
+     * @return bool
+     */
+    public function isOverWrite(): bool
+    {
+        return $this->overWrite;
+    }
+
+    /**
+     * @param bool $overWrite
+     * @return DirTemplate
+     */
+    public function setOverWrite(bool $overWrite): DirTemplate
+    {
+        $this->overWrite = $overWrite;
+        return $this;
+    }
 
     /**
      * @return string
@@ -82,6 +102,9 @@ class DirTemplate
 
     public function __invoke()
     {
+        if (!is_dir($this->getFromDir())) {
+            return;
+        }
         $dirs = (new Dir($this->getFromDir()))
             ->__invoke();
         foreach ($dirs as $dir) {
@@ -89,7 +112,7 @@ class DirTemplate
             if ($dir->isDir()) {
                 mkdir($this->getToDir().$difPath);
             } else {
-                $this->file_write_contents($this->getToDir().$difPath, strtr(file_get_contents($dir->getRealPath()), $this->getReplace()),false);
+                $this->file_write_contents($this->getToDir().$difPath, strtr(file_get_contents($dir->getRealPath()), $this->getReplace()), $this->isOverWrite());
             }
         }
     }

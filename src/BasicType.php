@@ -32,7 +32,7 @@ class BasicType implements JsonSerializable
      */
     public function __construct(string $value = null)
     {
-        if (strlen($value)>0) {
+        if (strlen($value) > 0) {
             $this->setValue($value);
         }
     }
@@ -56,10 +56,48 @@ class BasicType implements JsonSerializable
         return $this;
     }
 
-    public function popby($glue)
+    /**
+     * 取出最后一段字符串
+     */
+    public function pop($glue, $times = 1)
     {
         $newArray = explode($glue, $this->getValue());
-        array_pop($newArray);
+        $last = "";
+        for ($i = 0; $i < $times; $i++) {
+            $last = array_pop($newArray);
+        }
+        $object = clone $this;
+        $object->setValue($last);
+        return $object;
+    }
+
+    /**
+     * 取出最前面一段字符串
+     */
+    public function shift($glue, $times = 1)
+    {
+        $newArray = explode($glue, $this->getValue());
+        $last = "";
+        for ($i = 0; $i < $times; $i++) {
+            $last = array_shift($newArray);
+        }
+        $object = clone $this;
+        $object->setValue($last);
+        return $object;
+    }
+
+    /**
+     * 根据分割的字符串,砍掉默认最后1个切割段
+     * @param $glue
+     * @param int $times
+     * @return BasicType
+     */
+    public function popby($glue, $times = 1)
+    {
+        $newArray = explode($glue, $this->getValue());
+        for ($i = 0; $i < $times; $i++) {
+            array_pop($newArray);
+        }
         $object = clone $this;
         $object->setValue(join($glue, $newArray));
         return $object;
