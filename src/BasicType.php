@@ -213,4 +213,21 @@ class BasicType implements JsonSerializable
         $object->setValue(filter_var($this->getValue(), FILTER_VALIDATE_EMAIL) ? true : false);
         return $object;
     }
+
+    /**
+     * 生成指定长度的随机字符串
+     * @param int $param
+     * @return $this
+     */
+    public function getRandomchar(int $param)
+    {
+        $str = "23456789abcdefghjkmnopqrstuvwxyz";
+        $key = "";
+        for ($i = 0; $i < $param; $i++) {
+            $key .= $str{mt_rand(0, 32)};    //生成php随机数
+        }
+        $object = clone $this;
+        $object->setValue($key);
+        return $object;
+    }
 }
