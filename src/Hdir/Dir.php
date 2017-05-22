@@ -70,7 +70,7 @@ class Dir
      * @param int $depth
      * @return Dir
      */
-    public function setDepth(int $depth): Dir
+    public function setDepth($depth): Dir
     {
         $this->depth = $depth;
         return $this;

@@ -93,6 +93,9 @@ class ConvertObject
                     } else {
                         if (is_numeric($key)) {
                             $data[$property->getName()][] = $item;
+                        } elseif ($item == '0000-00-00 00:00:00') {
+                            //时间格式处理掉
+                            $data[$property->getName()][$key] = null;
                         } else {
                             $data[$property->getName()][$key] = $item;
                         }
@@ -102,7 +105,12 @@ class ConvertObject
                     $data[$property->getName()] = [];
                 }
             } else {
-                $data[$property->getName()] = $value;
+                if ($value == '0000-00-00 00:00:00') {
+                    //时间格式处理掉
+                    $data[$property->getName()] = null;
+                } else {
+                    $data[$property->getName()] = $value;
+                }
             }
         }
 

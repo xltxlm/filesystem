@@ -25,6 +25,27 @@ class DirTemplate
     protected $toDir = "";
     /** @var bool 是否强制覆盖掉原来的文件,默认不覆盖 */
     protected $overWrite = false;
+    /** @var int 拷贝的深度 */
+    protected $depth = null;
+
+    /**
+     * @return int
+     */
+    public function getDepth()
+    {
+        return $this->depth;
+    }
+
+    /**
+     * @param int $depth
+     * @return DirTemplate
+     */
+    public function setDepth(int $depth): DirTemplate
+    {
+        $this->depth = $depth;
+        return $this;
+    }
+
 
     /**
      * @return bool
@@ -106,6 +127,7 @@ class DirTemplate
             return;
         }
         $dirs = (new Dir($this->getFromDir()))
+            ->setDepth($this->getDepth())
             ->__invoke();
         foreach ($dirs as $dir) {
             $difPath = strtr($dir->getRealPath(), [$this->getFromDir() => '']);

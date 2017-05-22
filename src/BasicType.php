@@ -230,4 +230,44 @@ class BasicType implements JsonSerializable
         $object->setValue($key);
         return $object;
     }
+
+    /**
+     * 明文展示时间间距
+     * @param $ptime
+     * @return $this
+     */
+    function timeAgo()
+    {
+        $lang["second"] = "秒";
+        $lang["minute"] = "分钟";
+        $lang["hour"] = "小时";
+        $lang["month"] = "月";
+        $lang["year"] = "年";
+        $lang["day"] = "天";
+
+        $object = clone $this;
+        $etime = time() - strtotime($this->getValue());
+        if ($etime < 1) {
+            return $object->setValue('现在');
+        }
+
+        $a = array(365 * 24 * 60 * 60 => $lang['year'],
+            30 * 24 * 60 * 60 => $lang['month'],
+            24 * 60 * 60 => $lang['day'],
+            60 * 60 => $lang['hour'],
+            60 => $lang['minute'],
+            1 => $lang['second']
+        );
+
+        foreach ($a as $secs => $str) {
+            $d = $etime / $secs;
+            if ($d >= 1) {
+                $r = round($d);
+                $key= $r.' '.$str.'前';
+                $object->setValue($key);
+                break;
+            }
+        }
+        return $object;
+    }
 }
