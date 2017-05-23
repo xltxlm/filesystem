@@ -30,6 +30,16 @@ class Util
         error_log("<===[$uniqid]=={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
     }
 
+    public static function error_log($var)
+    {
+        static $uniqid;
+        if (!$uniqid) {
+            $uniqid = uniqid();
+        }
+        $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[0];
+        error_log(date('c').var_export($var, true)."\n", 3, $debug_backtrace['file'].'.lock');
+    }
+
     /**
      * 在代码上记录是否执行到这一行.输出内容到php错误日志文件上
      */
