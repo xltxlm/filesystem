@@ -156,7 +156,14 @@ final class FixUrl
                         $addStr[] = $key."[$key2]=".urlencode($item);
                     }
                 } else {
-                    $addStr[] = "$key=".($parseStr);
+                    //路径参数不编码
+                    if ($key == 'c') {
+                        $addStr[] = "$key=".($parseStr);
+                    }
+                    //其他参数编码
+                    else {
+                        $addStr[] = "$key=".urlencode($parseStr);
+                    }
                 }
             }
             $url = "$addHead?".implode('&', ($addStr));
