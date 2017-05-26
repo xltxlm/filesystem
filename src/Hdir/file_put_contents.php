@@ -24,13 +24,18 @@ trait file_put_contents
      */
     protected function file_put_contents(string $classRealFile, string $templatePath, bool $orverWrite = true)
     {
+        //加速:如果要写入的文件时间,比模板的时间还晚.拒绝写入(10分钟内修改的还是覆盖掉)
+        $filemtime = filemtime($classRealFile);
+        if (is_file($classRealFile) && $filemtime < time() - 600 && $filemtime > filemtime($templatePath)) {
+            return true;
+        }
         ob_start();
         eval('include $templatePath;');
         $ob_get_clean = ob_get_clean();
         //1:先保证控制层的基准类一定存在
         $file_get_contents = file_get_contents($classRealFile);
         if (!$file_get_contents || !is_file($classRealFile) || ($file_get_contents !== $ob_get_clean && $orverWrite)) {
-            file_put_contents($classRealFile, $ob_get_clean);
+            file_put_contents($classRealFile, $ob_get_clean,LOCK_EX);
             return true;
         }
         return false;

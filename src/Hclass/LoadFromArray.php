@@ -45,7 +45,7 @@ trait LoadFromArray
                 $ReflectionMethod = (new  \ReflectionMethod($this, $methodName));
                 $isStatic = $ReflectionMethod->isStatic();
                 if (!$isStatic) {
-                    call_user_func([$this, $methodName], $originalDatum);
+                    call_user_func([$this, $methodName], urldecode($originalDatum));
                 }
             }
         }
