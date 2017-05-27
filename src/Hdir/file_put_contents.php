@@ -24,11 +24,6 @@ trait file_put_contents
      */
     protected function file_put_contents(string $classRealFile, string $templatePath, bool $orverWrite = true)
     {
-        //加速:如果要写入的文件时间,比模板的时间还晚.拒绝写入(10分钟内修改的还是覆盖掉)
-        $filemtime = filemtime($classRealFile);
-        if (is_file($classRealFile) && $filemtime < time() - 600 && $filemtime > filemtime($templatePath)) {
-            return true;
-        }
         ob_start();
         eval('include $templatePath;');
         $ob_get_clean = ob_get_clean();

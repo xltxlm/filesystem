@@ -24,7 +24,7 @@ trait LoadFromArray
         //把变量的 key去掉 _ 拼接回来变成 setxxx, 如果此方法存在,那么久可以赋值
         foreach ($originalData as $key => $originalDatum) {
             //变量名一致的
-            $methodName = 'set'.ucfirst($key);
+            $methodName = 'set' . ucfirst($key);
             $setFunction = null;
             if (method_exists($this, $methodName)) {
                 $setFunction = true;
@@ -33,7 +33,7 @@ trait LoadFromArray
                 if (strpos($key, '_') !== false) {
                     $keys = explode('_', $key);
                     $keys = array_map('ucfirst', $keys);
-                    $methodName = 'set'.implode($keys);
+                    $methodName = 'set' . implode($keys);
                     if (method_exists($this, $methodName)) {
                         $setFunction = true;
                     }
@@ -45,7 +45,10 @@ trait LoadFromArray
                 $ReflectionMethod = (new  \ReflectionMethod($this, $methodName));
                 $isStatic = $ReflectionMethod->isStatic();
                 if (!$isStatic) {
-                    call_user_func([$this, $methodName], urldecode($originalDatum));
+                    if (is_string($originalDatum))
+                        call_user_func([$this, $methodName], urldecode($originalDatum));
+                    else
+                        call_user_func([$this, $methodName], $originalDatum);
                 }
             }
         }
