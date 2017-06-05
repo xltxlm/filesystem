@@ -155,6 +155,9 @@ class Dir
      */
     public function __invoke()
     {
+        if (!$this->dir) {
+            return [];
+        }
         $Directory = (new RecursiveDirectoryIterator($this->dir))
             ->setExcludeDir($this->getExcludeDir());
         $Iterator = new \RecursiveIteratorIterator($Directory);
@@ -173,7 +176,7 @@ class Dir
                 continue;
             }
             if ($this->getPreg()) {
-                $match = preg_match('#'.$this->getPreg().'#i', basename($item->getRealPath()));
+                $match = preg_match('#' . $this->getPreg() . '#i', basename($item->getRealPath()));
                 if (!$match) {
                     continue;
                 }
