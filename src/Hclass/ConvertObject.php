@@ -61,7 +61,13 @@ class ConvertObject
     public function toArray()
     {
         if (empty($this->toArray)) {
-            $this->toArray = $this->object2Array($this->getObject());
+            if (is_array($this->getObject())) {
+                foreach ($this->getObject() as $item) {
+                    $this->toArray[] = $this->object2Array($item);
+                }
+            } else {
+                $this->toArray = $this->object2Array($this->getObject());
+            }
         }
 
         return $this->toArray;
