@@ -28,6 +28,7 @@ class Util
         error_log('=>[begin]');
         error_log(var_export($var, true));
         error_log("<===[$uniqid]=={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
+        error_log("<==={$_SERVER['REQUEST_URI']}===[end]");
     }
 
     public static function error_log($var)

@@ -20,6 +20,27 @@ class ConvertObject
     protected $object;
     /** @var array 转换结果的数组 */
     protected $toArray = [];
+    /** @var array 日期格式的，变成区间数组输出 */
+    protected $datefield = [];
+
+    /**
+     * @return array
+     */
+    public function getDatefield(): array
+    {
+        return $this->datefield;
+    }
+
+    /**
+     * @param array $datefield
+     * @return ConvertObject
+     */
+    public function setDatefield(array $datefield): ConvertObject
+    {
+        $this->datefield = $datefield;
+        return $this;
+    }
+
 
     /**
      * ConvertObject constructor.
@@ -114,6 +135,11 @@ class ConvertObject
                 if ($value == '0000-00-00 00:00:00') {
                     //时间格式处理掉
                     $data[$property->getName()] = null;
+                } elseif (in_array($property->getName(), $this->getDatefield())) {
+                    if(is_string($data[$property->getName()]))
+                        $data[$property->getName()] = array_diff(explode(" - ", $value), [null, '']);
+                    elseif(empty($data[$property->getName()]))
+                        $data[$property->getName()]=[];
                 } else {
                     $data[$property->getName()] = $value;
                 }
@@ -132,4 +158,5 @@ class ConvertObject
     {
         return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
     }
+
 }

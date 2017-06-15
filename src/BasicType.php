@@ -28,11 +28,11 @@ class BasicType implements JsonSerializable
 
     /**
      * a constructor.
-     * @param string $value
+     * @param mixed $value
      */
-    public function __construct(string $value = null)
+    public function __construct($value = null)
     {
-        if (strlen($value) > 0) {
+        if (is_array($value) || $value || strlen($value) > 0) {
             $this->setValue($value);
         }
     }
@@ -41,18 +41,22 @@ class BasicType implements JsonSerializable
     /**
      * @return string
      */
-    public function getValue(): string
+    public function getValue()
     {
         return $this->value;
     }
 
     /**
-     * @param string $value
+     * @param mixed $value
      * @return $this
      */
-    public function setValue(string $value)
+    public function setValue($value)
     {
-        $this->value = $value;
+        if (get_class($value) == self::class) {
+            $this->value = $value->getValue();
+        } else {
+            $this->value = $value;
+        }
         return $this;
     }
 
@@ -110,7 +114,7 @@ class BasicType implements JsonSerializable
     public function setPercentage()
     {
         $object = clone $this;
-        $object->setValue($this->getValue().'%');
+        $object->setValue($this->getValue() . '%');
         return $object;
     }
 
@@ -153,7 +157,7 @@ class BasicType implements JsonSerializable
      */
     public function __toString()
     {
-        return $this->getValue();
+        return (string)$this->getValue();
     }
 
     public function __invoke()
@@ -183,10 +187,10 @@ class BasicType implements JsonSerializable
     {
         $object = clone $this;
         if ($this->getValue() > 10) {
-            $object->setValue("<font color='blue' style='font-weight: bold'>".$this->getValue()."</font>");
+            $object->setValue("<font color='blue' style='font-weight: bold'>" . $this->getValue() . "</font>");
         }
         if ($this->getValue() < -10) {
-            $object->setValue("<font color='red' style='font-weight: bold'>".$this->getValue()."</font>");
+            $object->setValue("<font color='red' style='font-weight: bold'>" . $this->getValue() . "</font>");
         }
         return $object;
     }
@@ -197,8 +201,15 @@ class BasicType implements JsonSerializable
     public function formatFullIndate()
     {
         $object = clone $this;
-        if ($this->getValue()) {
-            $object->setValue(strtr($this->getValue(), [' - ' => '000000 - ']).'235959');
+        if (is_array($this->getValue())) {
+            $value = array_diff($this->getValue(), [null, '']);
+            if (empty($value)) {
+                $object->setValue("");
+            } else {
+                $object->setValue(strtr(join(' - ', $value), [' - ' => ' 000000 - ']) . ' 235959');
+            }
+        } elseif ($this->getValue()) {
+            $object->setValue(strtr($this->getValue(), [' - ' => '000000 - ']) . '235959');
         }
         return $object;
     }
@@ -263,7 +274,7 @@ class BasicType implements JsonSerializable
             $d = $etime / $secs;
             if ($d >= 1) {
                 $r = round($d);
-                $key= $r.' '.$str.'前';
+                $key = $r . ' ' . $str . '前';
                 $object->setValue($key);
                 break;
             }
