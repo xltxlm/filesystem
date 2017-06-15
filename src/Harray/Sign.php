@@ -110,16 +110,20 @@ class Sign
                 }
             }
         }
+        //传递的值必须不是数字类型啊！！
         foreach ($this->getNeedKeys() as $needKey) {
-            $newarray[$needKey] = $this->getArray()[$needKey];
+            //
+            if (!is_array($this->getArray()[$needKey])) {
+                $newarray[$needKey] = (string)$this->getArray()[$needKey];
+            }
         }
         if (!$this->array['unixtimestamp']) {
             $this->array['unixtimestamp'] = $newarray['unixtimestamp'] = time();
         } else {
-            $newarray['unixtimestamp'] = $this->array['unixtimestamp'];
+            $newarray['unixtimestamp'] = (int)$this->array['unixtimestamp'];
         }
         ksort($newarray);
-        $md5str = json_encode($newarray,JSON_UNESCAPED_UNICODE);
+        $md5str = json_encode($newarray, JSON_UNESCAPED_UNICODE);
         $md5sign = md5($md5str);
         $this->array['md5sign'] = $md5sign;
     }
