@@ -119,14 +119,7 @@ class Sign
             $newarray['unixtimestamp'] = $this->array['unixtimestamp'];
         }
         ksort($newarray);
-
-        $md5strarray = [];
-        foreach ($newarray as $key => $item) {
-            $md5strarray[] = "$key=$item";
-        }
-        $md5str = join("&", $md5strarray);
-
-
+        $md5str = json_encode($newarray,JSON_UNESCAPED_UNICODE);
         $md5sign = md5($md5str);
         $this->array['md5sign'] = $md5sign;
     }

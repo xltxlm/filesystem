@@ -17,7 +17,7 @@ class SignTest extends TestCase
 
     public function test1()
     {
-        $array = ['aa' => 11, 'dd' => 'er', 'bb' => 'abc', 'zz' => 'm?&m'];
+        $array = ['aa' => 11, 'dd' => 'er', 'bb' => 'abc', 'zz' =>[ 'm?&m']];
         //测试get参数加密返回字符串
         $get = (new Sign())
             ->setArray($array)
