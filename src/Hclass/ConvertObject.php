@@ -136,10 +136,11 @@ class ConvertObject
                     //时间格式处理掉
                     $data[$property->getName()] = null;
                 } elseif (in_array($property->getName(), $this->getDatefield())) {
-                    if(is_string($data[$property->getName()]))
+                    if (is_string($data[$property->getName()])) {
                         $data[$property->getName()] = array_diff(explode(" - ", $value), [null, '']);
-                    elseif(empty($data[$property->getName()]))
-                        $data[$property->getName()]=[];
+                    } elseif (empty($data[$property->getName()])) {
+                        $data[$property->getName()] = [];
+                    }
                 } else {
                     $data[$property->getName()] = $value;
                 }
@@ -157,6 +158,11 @@ class ConvertObject
     public function toJson()
     {
         return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
+    }
+
+    public function toMd5(): string
+    {
+        return md5($this->toJson());
     }
 
 }
