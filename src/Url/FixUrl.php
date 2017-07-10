@@ -146,27 +146,26 @@ final class FixUrl
         }
         $addHead = '/';
         if (strpos($this->url, '://') !== false) {
-            $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}".((empty($parseUrl['port']) || $parseUrl['port'] == 80) ? '' : ':'.$parseUrl['port'])."{$parseUrl['path']}";
+            $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}" . ((empty($parseUrl['port']) || $parseUrl['port'] == 80) ? '' : ':' . $parseUrl['port']) . "{$parseUrl['path']}";
         }
         if ($parseStrs) {
             $addStr = [];
             foreach ($parseStrs as $key => $parseStr) {
                 if (is_array($parseStr)) {
                     foreach ($parseStr as $key2 => $item) {
-                        $addStr[] = $key."[$key2]=".urlencode($item);
+                        $addStr[] = $key . "[$key2]=" . urlencode($item);
                     }
                 } else {
                     //路径参数不编码
                     if ($key == 'c') {
-                        $addStr[] = "$key=".($parseStr);
-                    }
-                    //其他参数编码
+                        $addStr[] = "$key=" . ($parseStr);
+                    } //其他参数编码
                     else {
-                        $addStr[] = "$key=".urlencode($parseStr);
+                        $addStr[] = "$key=" . urlencode($parseStr);
                     }
                 }
             }
-            $url = "$addHead?".implode('&', ($addStr));
+            $url = "$addHead?" . implode('&', ($addStr));
         } else {
             $url = "$addHead";
         }
@@ -183,10 +182,17 @@ final class FixUrl
     private function jump($url)
     {
         if ($this->isJump()) {
+            if (strpos($url, '://') !== false) {
+                $to = parse_url($url);
+                if ($to['host'] . ':' . $to['port'] != $_SERVER['HTTP_HOST'] && $to['host'] != $_SERVER['HTTP_HOST']) {
+                    echo "即将跳转的网址不是本站网址，确认跳转? <br><a href='$url'>$url</a>";
+                    die;
+                }
+            }
             if (!headers_sent()) {
                 header("location:$url");
             } else {
-                echo '<script language="javascript">window.location.href="'.$url.'"; </script>';
+                echo '<script language="javascript">window.location.href="' . $url . '"; </script>';
             }
             die;
         }

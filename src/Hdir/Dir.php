@@ -51,7 +51,7 @@ class Dir
      * Dir constructor.
      * @param string $dir
      */
-    public function __construct(string $dir)
+    public function __construct(string $dir = "")
     {
         if ($dir) {
             $this->setDir($dir);
