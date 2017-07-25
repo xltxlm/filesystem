@@ -78,6 +78,7 @@ final class LoadClass
             ];
             $exceptionS['GET'] = $_GET;
             $exceptionS['POST'] = $_POST;
+            $exceptionS['COOKIE'] = $_COOKIE;
             $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
             $exceptionS['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
             $exceptionS[] = $message['ERROR']."\t".$message['FILE'].':'.$message['LINE'];
