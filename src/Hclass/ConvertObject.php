@@ -22,6 +22,27 @@ class ConvertObject
     protected $toArray = [];
     /** @var array 日期格式的，变成区间数组输出 */
     protected $datefield = [];
+    /** @var array 枚举格式，字段强制变成数组类型 */
+    protected $enumfield = [];
+
+    /**
+     * @return array
+     */
+    public function getEnumfield(): array
+    {
+        return $this->enumfield;
+    }
+
+    /**
+     * @param array $enumfield
+     * @return ConvertObject
+     */
+    public function setEnumfield(array $enumfield): ConvertObject
+    {
+        $this->enumfield = $enumfield;
+        return $this;
+    }
+
 
     /**
      * @return array
@@ -143,6 +164,16 @@ class ConvertObject
                     }
                 } else {
                     $data[$property->getName()] = $value;
+                }
+            }
+
+            //纠正枚举数据的类型
+            if (in_array($property->getName(), $this->getEnumfield())) {
+                if (empty($data[$property->getName()])) {
+                    $data[$property->getName()] = [];
+                }
+                if (is_string($data[$property->getName()])) {
+                    $data[$property->getName()] = [$data[$property->getName()]];
                 }
             }
         }

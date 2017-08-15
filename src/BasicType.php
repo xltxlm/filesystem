@@ -157,7 +157,10 @@ class BasicType implements JsonSerializable
      */
     public function __toString()
     {
-        return (string)$this->getValue();
+        if (is_array($this->getValue())) {
+            return json_encode($this->getValue(), JSON_UNESCAPED_UNICODE);
+        }
+        return $this->getValue();
     }
 
     public function __invoke()
