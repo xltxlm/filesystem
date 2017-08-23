@@ -160,7 +160,7 @@ class BasicType implements JsonSerializable
         if (is_array($this->getValue())) {
             return json_encode($this->getValue(), JSON_UNESCAPED_UNICODE);
         }
-        return $this->getValue();
+        return (string)$this->getValue();
     }
 
     public function __invoke()
