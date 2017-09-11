@@ -112,18 +112,15 @@ final class LoadClass
                     ->setType(LogLevel::INFO)
                     ->setRunTime($time)
                     ->setClassName($this->className)
-            ))
-                ->__invoke();
+            ))();
         } finally {
             $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
             if (!in_array($this->className, get_declared_classes())) {
                 //记录无法加载的路径 - 有来源的时候才记录
-                $_SERVER['HTTP_REFERER'] && ((new Logger())
-                    ->setLogDefine(
-                        (new LoadError())
-                            ->setMissClassName($this->className)
-                            ->setType(LogLevel::DEBUG)
-                    ))();
+                $_SERVER['HTTP_REFERER'] && (new Logger((new LoadError())
+                    ->setMissClassName($this->className)
+                    ->setType(LogLevel::DEBUG)
+                ))();
                 header('HTTP/1.1 588 APP ERROR@'.$this->className);
                 header('Status: 588 APP ERROR@'.$this->className);
             }
