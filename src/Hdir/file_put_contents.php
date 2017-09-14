@@ -22,15 +22,18 @@ trait file_put_contents
      * @param bool $orverWrite 是否强制一致
      * @return bool
      */
-    protected function file_put_contents(string $classRealFile, string $templatePath, bool $orverWrite = true)
+    protected function file_put_contents(string $classRealFile, string $templatePath, bool $orverWrite = true, $args = [])
     {
+        if ($args) {
+            extract($args);
+        }
         ob_start();
         eval('include $templatePath;');
         $ob_get_clean = ob_get_clean();
         //1:先保证控制层的基准类一定存在
         $file_get_contents = file_get_contents($classRealFile);
         if (!$file_get_contents || !is_file($classRealFile) || ($file_get_contents !== $ob_get_clean && $orverWrite)) {
-            file_put_contents($classRealFile, $ob_get_clean,LOCK_EX);
+            file_put_contents($classRealFile, $ob_get_clean, LOCK_EX);
             return true;
         }
         return false;
