@@ -9,10 +9,9 @@
 namespace xltxlm\helper\Ctroller;
 
 use Psr\Log\LogLevel;
-use xltxlm\helper\Ctroller\Logger\LoadClassLogger;
-use xltxlm\helper\Ctroller\Logger\LoadError;
+use xltxlm\logger\Operation\Action\LoadClassLog;
 use xltxlm\helper\Util;
-use xltxlm\logger\Logger;
+use xltxlm\logger\Log\DefineLog;
 
 /**
  * 调起路由类,两种加载方式 1: 直接指定类 2: 命名空间 + 命名空间下面的相对路径
@@ -81,14 +80,14 @@ final class LoadClass
             $exceptionS['COOKIE'] = $_COOKIE;
             $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
             $exceptionS['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
-            $exceptionS[] = $message['ERROR']."\t".$message['FILE'].':'.$message['LINE'];
+            $exceptionS[] = $message['ERROR'] . "\t" . $message['FILE'] . ':' . $message['LINE'];
             $className = "";
             foreach ($exception->getTrace() as $item) {
                 if (!$className) {
                     $className = $item['class'];
                 }
-                $exceptionS[] = $item['class'].'::'.
-                    $item['function']."\t".$item['file'].':'.$item['line'];
+                $exceptionS[] = $item['class'] . '::' .
+                    $item['function'] . "\t" . $item['file'] . ':' . $item['line'];
             }
             Util::d($exceptionS);
             $json_encode = json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -96,10 +95,10 @@ final class LoadClass
         });
 
         if (!$this->className) {
-            $this->className = '\\'.self::$rootNamespce.'\\'.$this->urlPath;
+            $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
         }
+        $start = microtime(true);
         try {
-            $start = microtime(true);
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
             $classNameObject = new $this->className();
             //声明代码正确找到位置,找到类
@@ -107,22 +106,20 @@ final class LoadClass
             call_user_func([$classNameObject, '__invoke']);
             $time = microtime(true) - $start;
             //记录网页执行时间,如果超过1秒,标记为超时
-            (new Logger(
-                (new LoadClassLogger)
-                    ->setType(LogLevel::INFO)
-                    ->setRunTime($time)
-                    ->setClassName($this->className)
-            ))();
+            (new LoadClassLog)
+                ->setType(LogLevel::INFO)
+                ->setRunTime($time)
+                ->setClassName($this->className)();
         } finally {
             $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
             if (!in_array($this->className, get_declared_classes())) {
                 //记录无法加载的路径 - 有来源的时候才记录
-                $_SERVER['HTTP_REFERER'] && (new Logger((new LoadError())
-                    ->setMissClassName($this->className)
-                    ->setType(LogLevel::DEBUG)
-                ))();
-                header('HTTP/1.1 588 APP ERROR@'.$this->className);
-                header('Status: 588 APP ERROR@'.$this->className);
+                $_SERVER['HTTP_REFERER'] && (new LoadClassLog())
+                    ->setAction(DefineLog::CUO_WU)
+                    ->setClassName($this->className)
+                    ->setType(LogLevel::DEBUG)();
+                header('HTTP/1.1 588 APP ERROR@' . $this->className);
+                header('Status: 588 APP ERROR@' . $this->className);
             }
         }
 
