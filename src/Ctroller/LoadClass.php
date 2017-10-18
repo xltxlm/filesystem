@@ -98,26 +98,26 @@ final class LoadClass
             $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
         }
         $start = microtime(true);
+        register_shutdown_function(function ($className, $start) {
+            $time = microtime(true) - $start;
+            //记录网页执行时间,如果超过1秒,标记为超时
+            (new LoadClassLog)
+                ->setType(LogLevel::INFO)
+                ->setRunTime($time)
+                ->setClassName($className)();
+        },
+            $this->className,
+            $start
+        );
         try {
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
             $classNameObject = new $this->className();
             //声明代码正确找到位置,找到类
             self::$runClass = get_class($classNameObject);
             call_user_func([$classNameObject, '__invoke']);
-            $time = microtime(true) - $start;
-            //记录网页执行时间,如果超过1秒,标记为超时
-            (new LoadClassLog)
-                ->setType(LogLevel::INFO)
-                ->setRunTime($time)
-                ->setClassName($this->className)();
         } finally {
             $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
             if (!in_array($this->className, get_declared_classes())) {
-                //记录无法加载的路径 - 有来源的时候才记录
-                $_SERVER['HTTP_REFERER'] && (new LoadClassLog())
-                    ->setAction(DefineLog::CUO_WU)
-                    ->setClassName($this->className)
-                    ->setType(LogLevel::DEBUG)();
                 header('HTTP/1.1 588 APP ERROR@' . $this->className);
                 header('Status: 588 APP ERROR@' . $this->className);
             }

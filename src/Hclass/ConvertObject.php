@@ -152,7 +152,7 @@ class ConvertObject
                 if (empty($value)) {
                     $data[$property->getName()] = [];
                 }
-            } elseif (is_bool($value)) {
+            } elseif (is_numeric($value) || is_bool($value)) {
                 $data[$property->getName()] = $value;
             } else {
                 if ($value == '0000-00-00 00:00:00') {

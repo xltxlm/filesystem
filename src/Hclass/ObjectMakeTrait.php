@@ -68,7 +68,7 @@ class ObjectMakeTrait
         ob_start();
         include __DIR__.'/ObjectMakeTrait.tpl.php';
         $shortName = $this->ReflectionClass->getShortName();
-        $shortName = strtr($shortName, ["Request" => ".Request"]);
+        $shortName = strtr($shortName, ["RequestTrait" => ".RequestTrait"]);
         $filePath = dirname($this->ReflectionClass->getFileName())."/".$shortName."Trait.php";
         $ob_get_clean = ob_get_clean();
         //确保文件的内容不一致才写入
