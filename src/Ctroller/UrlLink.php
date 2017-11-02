@@ -21,7 +21,7 @@ trait UrlLink
      */
     public static function Myurl()
     {
-        return urlencode("http".($_SERVER['HTTPS']||$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 's' : '').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+        return urlencode("http" . ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 
     /**

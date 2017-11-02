@@ -209,10 +209,10 @@ class BasicType implements JsonSerializable
             if (empty($value)) {
                 $object->setValue("");
             } else {
-                $object->setValue(strtr(join(' - ', $value), [' - ' => ' 000000 - ']) . ' 235959');
+                $object->setValue(strtr(join(' - ', $value), [' - ' => ' 00:00:00 - ']) . ' 23:59:59');
             }
         } elseif ($this->getValue()) {
-            $object->setValue(strtr($this->getValue(), [' - ' => '000000 - ']) . '235959');
+            $object->setValue(strtr($this->getValue(), [' - ' => '00:00:00 - ']) . '23:59:59');
         }
         return $object;
     }

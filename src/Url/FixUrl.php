@@ -184,7 +184,8 @@ final class FixUrl
         if ($this->isJump()) {
             if (strpos($url, '://') !== false) {
                 $to = parse_url($url);
-                if ($to['host'] . ':' . $to['port'] != $_SERVER['HTTP_HOST'] && $to['host'] != $_SERVER['HTTP_HOST']) {
+                $myhost = explode(':', $_SERVER['HTTP_HOST'])[0];
+                if ($to['host'] . ':' . $to['port'] != $_SERVER['HTTP_HOST'] && $to['host'] != $myhost && join('.', array_slice(explode('.', $to['host']), 1)) != join('.', array_slice(explode('.', $myhost), 1))) {
                     echo "即将跳转的网址不是本站网址，确认跳转? <br><a href='$url'>$url</a>";
                     die;
                 }
