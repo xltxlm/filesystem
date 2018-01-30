@@ -8,6 +8,7 @@
 
 namespace xltxlm\helper\Ctroller\Unit;
 
+use xltxlm\helper\Ctroller\RunInvokeBreak;
 use xltxlm\helper\Ctroller\HtmlException;
 use xltxlm\helper\Ctroller\UrlLink;
 
@@ -58,6 +59,12 @@ trait RunInvoke
                     $return = $return1;
                 }
                 $this->haveRunMethod[] = $method->getName();
+            }catch (RunInvokeBreak $Exception)
+            {
+                /**
+                 * 抛出中断运行异常，那么退出循环
+                 */
+                break;
             } catch (\Exception $Exception) {
                 HtmlException::push($Exception);
                 throw $Exception;

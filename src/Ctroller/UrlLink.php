@@ -64,7 +64,7 @@ trait UrlLink
      *
      * @return string
      */
-    final public static function urlNoFollow($args = [], $classname = null)
+    final public static function urlNoFollow(array $args = [], $classname = null)
     {
         // 如果链接为空,不做处理
         if (static::class == __TRAIT__ && empty($classname)) {
@@ -126,8 +126,15 @@ trait UrlLink
 
     final public static function goBack()
     {
-        return (new FixUrl($_SERVER['HTTP_REFERER']))
-            ->setJump(true)
-            ->__invoke();
+        if ($_REQUEST['backurl']) {
+            return (new FixUrl())
+                ->setUrl(urldecode($_REQUEST['backurl']))
+                ->setJump(true)
+                ->__invoke();
+        } else {
+            return (new FixUrl($_SERVER['HTTP_REFERER']))
+                ->setJump(true)
+                ->__invoke();
+        }
     }
 }

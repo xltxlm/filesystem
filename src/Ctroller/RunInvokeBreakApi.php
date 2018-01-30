@@ -1,0 +1,100 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: xialintai
+ * Date: 2018/1/11
+ * Time: 11:29
+ */
+
+namespace xltxlm\helper\Ctroller;
+
+use xltxlm\helper\Hclass\ConvertObject;
+
+/**
+ * 抛出此异常之后，框架执行流程后续的getxx不再执行了。并且会输出json格式的代码
+ * Class RunInvokeBreakApi
+ * @package xltxlm\helper\Ctroller
+ */
+class RunInvokeBreakApi
+{
+    private $code = 0;
+    private $message = '';
+    //需要整个扔出去的对象
+    protected $ConvertObject;
+
+    /**
+     * @return int
+     */
+    public function getCode(): int
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param int $code
+     * @return RunInvokeBreakApi
+     */
+    public function setCode(int $code): RunInvokeBreakApi
+    {
+        $this->code = $code;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $message
+     * @return RunInvokeBreakApi
+     */
+    public function setMessage(string $message): RunInvokeBreakApi
+    {
+        $this->message = $message;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConvertObject()
+    {
+        return $this->ConvertObject;
+    }
+
+    /**
+     * @param mixed $ConvertObject
+     * @return RunInvokeBreakApi
+     */
+    public function setConvertObject($ConvertObject)
+    {
+        $this->ConvertObject = $ConvertObject;
+        return $this;
+    }
+
+
+    public function __invoke()
+    {
+        ob_end_clean();
+        if ($this->getConvertObject()) {
+            echo (new ConvertObject($this->getConvertObject()))
+                ->toJson();
+            return new RunInvokeBreak;
+        }
+        $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        echo json_encode(
+            [
+                'code' => $this->getCode(),
+                'message' => $this->getMessage(),
+                'file' => $debug_backtrace[0]['file'],
+                'line' => $debug_backtrace[0]['line']
+            ],JSON_UNESCAPED_UNICODE
+        );
+        return new RunInvokeBreak;
+    }
+
+}

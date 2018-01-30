@@ -30,7 +30,7 @@ trait LoadFromArray
                 $setFunction = true;
             } else {
                 //变量名中间加载了_  需要特殊处理的
-                if (strpos($key, '_') !== false) {
+                if (strpos($key, '_') !== false && strpos($key, '_')!==0) {
                     $keys = explode('_', $key);
                     $keys = array_map('ucfirst', $keys);
                     $methodName = 'set' . implode($keys);
@@ -46,7 +46,7 @@ trait LoadFromArray
                 $isStatic = $ReflectionMethod->isStatic();
                 if (!$isStatic) {
                     if (is_string($originalDatum))
-                        call_user_func([$this, $methodName], urldecode($originalDatum));
+                        call_user_func([$this, $methodName], rawurldecode($originalDatum));
                     else
                         call_user_func([$this, $methodName], $originalDatum);
                 }
