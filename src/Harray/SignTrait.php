@@ -24,6 +24,28 @@ trait SignTrait
     /** @var string 签名的字段名称 */
     protected $signKeyname = '_md5sign';
 
+    /** @var array 所有参与前面的数据 */
+    protected $AllsignArray = [];
+
+    /**
+     * @return array
+     */
+    public function getAllsignArray(): array
+    {
+        return $this->AllsignArray;
+    }
+
+    /**
+     * @param array $AllsignArray
+     * @return SignTrait
+     */
+    public function setAllsignArray(array $AllsignArray)
+    {
+        $this->AllsignArray = $AllsignArray;
+        return $this;
+    }
+
+
     /**
      * @return string
      */

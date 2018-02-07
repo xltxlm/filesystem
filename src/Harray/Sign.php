@@ -45,5 +45,6 @@ final class Sign
         }
         ksort($newarray);
         $this->signArray[$this->getSignKeyname()] = md5(http_build_query($newarray) . $this->getKey());
+        $this->setAllsignArray($newarray);
     }
 }

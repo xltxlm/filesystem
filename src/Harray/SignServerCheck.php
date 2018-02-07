@@ -21,14 +21,16 @@ class SignServerCheck
     public function __invoke()
     {
         //服务端默认接受的数据全部作为签名用，不用做特殊指定
-        $signArray = (new Sign)
+        $signObject = new Sign;
+        $signArray = $signObject
             ->setSignArray($this->getSignArray())
             ->setNeedKeys($this->getNeedKeys())
             ->setUnsetKeys($this->getUnsetKeys())
             ->setKey($this->getKey())
             ->__invoke();
+
         if ($this->getSignArray()[$this->getSignKeyname()] != $signArray[$this->getSignKeyname()]) {
-            throw new \Exception("正确签名为:{$signArray[$this->getSignKeyname()]}");
+            throw new \Exception("正确签名为:{$signArray[$this->getSignKeyname()]} || 参与签名的数据:" . json_encode($signObject->getAllsignArray(), JSON_UNESCAPED_UNICODE) . ' || 正确的签名字符串:' . http_build_query($signObject->getAllsignArray()) . $signObject->getKey());
         }
         return true;
     }

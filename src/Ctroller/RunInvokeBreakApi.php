@@ -81,20 +81,22 @@ class RunInvokeBreakApi
     {
         ob_end_clean();
         if ($this->getConvertObject()) {
-            echo (new ConvertObject($this->getConvertObject()))
+            $errormessage = (new ConvertObject($this->getConvertObject()))
                 ->toJson();
-            return new RunInvokeBreak;
+            echo $errormessage;
+            return (new RunInvokeBreak($errormessage));
         }
         $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        echo json_encode(
+        $errormessage = json_encode(
             [
                 'code' => $this->getCode(),
                 'message' => $this->getMessage(),
                 'file' => $debug_backtrace[0]['file'],
                 'line' => $debug_backtrace[0]['line']
-            ],JSON_UNESCAPED_UNICODE
+            ], JSON_UNESCAPED_UNICODE
         );
-        return new RunInvokeBreak;
+        echo $errormessage;
+        return (new RunInvokeBreak($errormessage));
     }
 
 }

@@ -58,7 +58,6 @@ trait ResponseJson
             $dataNew = json_encode($thisData, JSON_UNESCAPED_UNICODE);
         }
         if (!$this->jsfunction && !headers_sent()) {
-            header('Access-Control-Allow-Origin:*');
             header('Content-type:application/json');
             header('Content-Length: '.strlen($dataNew));
         }
