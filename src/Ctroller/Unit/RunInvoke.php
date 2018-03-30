@@ -11,6 +11,8 @@ namespace xltxlm\helper\Ctroller\Unit;
 use xltxlm\helper\Ctroller\RunInvokeBreak;
 use xltxlm\helper\Ctroller\HtmlException;
 use xltxlm\helper\Ctroller\UrlLink;
+use xltxlm\logger\Operation\Action\LoadClassLog;
+use xltxlm\logger\Operation\EnumResource;
 
 /**
  * 给一个类加上 __invoke 魔术函数,然后类会按照get的循序执行,其中任何一个抛异常也不会阻止代码继续运行.
@@ -51,16 +53,23 @@ trait RunInvoke
         $realMethods_protected = $this->getMethods(\ReflectionMethod::IS_PROTECTED);
         /** @var \ReflectionMethod[] $realMethods */
         $realMethods = array_merge($realMethods_public, $realMethods_protected);
+        $startAll = microtime(true);
         foreach ($realMethods as $method) {
             try {
+                $start = microtime(true);
                 $return1 = call_user_func([$this, $method->getName()]);
                 //只有子类的返回值才算返回值
                 if ($method->getFileName() == $classs->getFileName()) {
                     $return = $return1;
                 }
                 $this->haveRunMethod[] = $method->getName();
-            }catch (RunInvokeBreak $Exception)
-            {
+                $time = sprintf('%.6f',microtime(true) - $start);
+                (new LoadClassLog)
+                    ->setReource(EnumResource::HAN_SHU)
+                    ->setAction($method->getName())
+                    ->setRunTime($time)
+                    ->__invoke();
+            } catch (RunInvokeBreak $Exception) {
                 /**
                  * 抛出中断运行异常，那么退出循环
                  */
@@ -74,7 +83,12 @@ trait RunInvoke
         if (HtmlException::getErrori()) {
             error_log(HtmlException::pop());
         }
-
+        $time = sprintf('%.6f',microtime(true) - $startAll);
+        (new LoadClassLog)
+            ->setReource(EnumResource::HAN_SHU)
+            ->setAction('函数总耗时')
+            ->setRunTime($time)
+            ->__invoke();
         return $return;
     }
 

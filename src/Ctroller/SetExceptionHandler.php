@@ -48,15 +48,7 @@ class SetExceptionHandler
                 $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
                 $exceptionS['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
                 $exceptionS[] = $message['ERROR']."\t".$message['FILE'].':'.$message['LINE'];
-                $className = "";
-                foreach ($exception->getTrace() as $item) {
-                    if (!$className) {
-                        $className = $item['class'];
-                    }
-                    $exceptionS[] = $item['class'].'::'.
-                        $item['function']."\t".$item['file'].':'.$item['line'];
-                }
-                Util::d($exceptionS);
+                Util::d($exception->getTraceAsString());
                 $json_encode = json_encode($message, JSON_UNESCAPED_UNICODE);
                 throw new \Exception($json_encode);
             });

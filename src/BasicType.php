@@ -39,7 +39,7 @@ class BasicType implements JsonSerializable
 
 
     /**
-     * @return string
+     * @return string|mixed
      */
     public function getValue()
     {
@@ -212,7 +212,13 @@ class BasicType implements JsonSerializable
                 $object->setValue(strtr(join(' - ', $value), [' - ' => ' 00:00:00 - ']) . ' 23:59:59');
             }
         } elseif ($this->getValue()) {
-            $object->setValue(strtr($this->getValue(), [' - ' => '00:00:00 - ']) . '23:59:59');
+            if ($this->getValue() == 'current_date') {
+                $object->setValue(strtr(date('Y-m-d  -  Y-m-d '), [' - ' => '00:00:00 - ']) . '23:59:59');
+            } elseif ($this->getValue() == 'next_date') {
+                $object->setValue(strtr(date('Y-m-d  -  Y-m-d ', strtotime("+1 day")), [' - ' => '00:00:00 - ']) . '23:59:59');
+            } else {
+                $object->setValue(strtr($this->getValue(), [' - ' => '00:00:00 - ']) . '23:59:59');
+            }
         }
         return $object;
     }

@@ -62,6 +62,7 @@ final class FixUrl
      */
     public function setUrl(string $url): FixUrl
     {
+        $url = strtr($url, ['Vuehtml'=>'']);
         $this->url = $url;
 
         return $this;

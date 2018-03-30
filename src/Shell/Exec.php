@@ -21,6 +21,27 @@ class Exec
     protected $host = '';
     /** @var string 执行的命令 */
     protected $cmd = "";
+    /** @var bool 如果有错误就抛出异常 */
+    protected $checkError = true;
+
+    /**
+     * @return bool
+     */
+    public function isCheckError(): bool
+    {
+        return $this->checkError;
+    }
+
+    /**
+     * @param bool $checkError
+     * @return Exec
+     */
+    public function setCheckError(bool $checkError): Exec
+    {
+        $this->checkError = $checkError;
+        return $this;
+    }
+
 
     /**
      * @return string
@@ -61,10 +82,13 @@ class Exec
 
     public function __invoke()
     {
-        Util::d($this->getCmd());
+        $start = microtime(true);
         exec($this->getCmd(), $out, $return);
-        if ($return) {
-            throw new \Exception("执行命令错误:" . join($out) . ",错误值:$return");
+        $time = sprintf('%.4f', microtime(true) - $start);
+        Util::d($this->getCmd() . "[运行时间：$time]");
+        if ($this->isCheckError() && $return) {
+            throw new \Exception("执行命令[{$this->getCmd()}]错误:" . join($out) . ",错误值:$return");
         }
+        return join("\n", $out);
     }
 }

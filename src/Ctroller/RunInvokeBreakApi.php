@@ -19,8 +19,30 @@ class RunInvokeBreakApi
 {
     private $code = 0;
     private $message = '';
+
+    /** @var \Throwable 异常类 */
+    private $Exception;
     //需要整个扔出去的对象
     protected $ConvertObject;
+
+    /**
+     * @return \Throwable
+     */
+    public function getException(): \Throwable
+    {
+        return $this->Exception;
+    }
+
+    /**
+     * @param \Throwable $Exception
+     * @return RunInvokeBreakApi
+     */
+    public function setException(\Throwable $Exception): RunInvokeBreakApi
+    {
+        $this->Exception = $Exception;
+        return $this;
+    }
+
 
     /**
      * @return int
@@ -87,14 +109,16 @@ class RunInvokeBreakApi
             return (new RunInvokeBreak($errormessage));
         }
         $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        $errormessage = json_encode(
-            [
-                'code' => $this->getCode(),
-                'message' => $this->getMessage(),
-                'file' => $debug_backtrace[0]['file'],
-                'line' => $debug_backtrace[0]['line']
-            ], JSON_UNESCAPED_UNICODE
-        );
+        $messageArray = [
+            'code' => $this->getCode(),
+            'message' => $this->getMessage(),
+            'file' => $debug_backtrace[0]['file'],
+            'line' => $debug_backtrace[0]['line']
+        ];
+        if ($this->Exception) {
+            $messageArray['Exception'] = $this->getException()->getTraceAsString();
+        }
+        $errormessage = json_encode($messageArray, JSON_UNESCAPED_UNICODE);
         echo $errormessage;
         return (new RunInvokeBreak($errormessage));
     }

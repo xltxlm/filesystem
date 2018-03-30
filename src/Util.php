@@ -18,16 +18,24 @@ class Util
      * 输出内容到php错误日志文件上
      * @param mixed $var
      */
-    public static function d($var)
+    public static function d($var, $trace = false)
     {
         static $uniqid;
         if (!$uniqid) {
             $uniqid = uniqid();
         }
-        $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[0];
+        $debug_backtrace_old = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $debug_backtrace = $debug_backtrace_old[0];
         error_log('=>[begin]');
         error_log(var_export($var, true));
         error_log("<===[$uniqid]=={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
+        if ($trace) {
+            $exceptionS=[];
+            foreach ($debug_backtrace_old as $item) {
+                $exceptionS[] = $item['class'] . '::' . $item['function'] . "\t" . $item['file'] . ':' . $item['line'];
+            }
+            error_log(var_export($exceptionS, true));
+        }
         error_log("<==={$_SERVER['REQUEST_URI']}===[end]");
     }
 
@@ -38,7 +46,7 @@ class Util
             $uniqid = uniqid();
         }
         $debug_backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[0];
-        error_log(date('c').var_export($var, true)."\n", 3, $debug_backtrace['file'].'.lock');
+        error_log(date('c') . var_export($var, true) . "\n", 3, $debug_backtrace['file'] . '.lock');
     }
 
     /**
