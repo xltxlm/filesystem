@@ -29,11 +29,11 @@ final class HtmlException
     /**
      * 记录一条错误信息.
      *
-     * @param \Exception $e
+     * @param \Throwable $e
      */
-    public static function push(\Exception $e)
+    public static function push(\Throwable $e)
     {
-        if (is_a($e, \Exception::class)) {
+        if (is_a($e, \Throwable::class)) {
             ++self::$errori;
             self::$Exception[] = $e;
         }

@@ -26,16 +26,10 @@ class Util
         }
         $debug_backtrace_old = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         $debug_backtrace = $debug_backtrace_old[0];
-        error_log('=>[begin]');
+        error_log('=>[begin]' . microtime(true));
         error_log(var_export($var, true));
         error_log("<===[$uniqid]=={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
-        if ($trace) {
-            $exceptionS=[];
-            foreach ($debug_backtrace_old as $item) {
-                $exceptionS[] = $item['class'] . '::' . $item['function'] . "\t" . $item['file'] . ':' . $item['line'];
-            }
-            error_log(var_export($exceptionS, true));
-        }
+        $_SERVER['REQUEST_URI'] = preg_replace('/([_0-9a-z]+)=&/iUs', '', $_SERVER['REQUEST_URI']);
         error_log("<==={$_SERVER['REQUEST_URI']}===[end]");
     }
 

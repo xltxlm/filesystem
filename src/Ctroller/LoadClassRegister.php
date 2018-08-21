@@ -41,14 +41,6 @@ trait LoadClassRegister
         self::$rootClass = $rootClass;
         self::$rootNamespce = $reflectionClass->getNamespaceName();
         self::$rootDir = dirname($reflectionClass->getFileName());
-
-        //自动加载请求类
-        spl_autoload_register(function ($class) {
-            if (strpos($class, 'Request') !== false) {
-                $filepath = static::$rootDir.strtr($class, [static::$rootNamespce => '', '\\' => '/', 'Request' => '.Request']).'.php';
-                eval('include_once  $filepath;');
-            }
-        });
         return $this;
     }
 }

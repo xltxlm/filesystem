@@ -2,3 +2,4 @@
 .idea
 php_errors.log
 .php_cs.cache
+temp

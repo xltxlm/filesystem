@@ -30,7 +30,7 @@ trait LoadFromArray
                 $setFunction = true;
             } else {
                 //变量名中间加载了_  需要特殊处理的
-                if (strpos($key, '_') !== false && strpos($key, '_')!==0) {
+                if (strpos($key, '_') !== false && strpos($key, '_') !== 0) {
                     $keys = explode('_', $key);
                     $keys = array_map('ucfirst', $keys);
                     $methodName = 'set' . implode($keys);
@@ -45,7 +45,10 @@ trait LoadFromArray
                 $ReflectionMethod = (new  \ReflectionMethod($this, $methodName));
                 $isStatic = $ReflectionMethod->isStatic();
                 if (!$isStatic) {
-                    if (is_string($originalDatum))
+                    //很无耻地强制修改了一些关键词
+                    if ('usercookiename' === $originalDatum) {
+                        call_user_func([$this, $methodName], $_COOKIE['username']);
+                    } elseif (is_string($originalDatum))
                         call_user_func([$this, $methodName], rawurldecode($originalDatum));
                     else
                         call_user_func([$this, $methodName], $originalDatum);

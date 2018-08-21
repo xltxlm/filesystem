@@ -213,9 +213,11 @@ class BasicType implements JsonSerializable
             }
         } elseif ($this->getValue()) {
             if ($this->getValue() == 'current_date') {
-                $object->setValue(strtr(date('Y-m-d  -  Y-m-d '), [' - ' => '00:00:00 - ']) . '23:59:59');
+                $object->setValue(date('Ymd') . ' - ' . date('Ymd', strtotime("+1 day")));
+            } elseif ($this->getValue() == 'yesterday') {
+                $object->setValue(date('Ymd', strtotime("-1 day")) . ' - ' . date('Ymd'));
             } elseif ($this->getValue() == 'next_date') {
-                $object->setValue(strtr(date('Y-m-d  -  Y-m-d ', strtotime("+1 day")), [' - ' => '00:00:00 - ']) . '23:59:59');
+                $object->setValue(strtr(date('Ymd  -  Ymd ', strtotime("+1 day")), [' - ' => '00:00:00 - ']) . '23:59:59');
             } else {
                 $object->setValue(strtr($this->getValue(), [' - ' => '00:00:00 - ']) . '23:59:59');
             }

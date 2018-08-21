@@ -10,6 +10,7 @@ namespace xltxlm\helper\Ctroller;
 
 
 use xltxlm\helper\Util;
+use xltxlm\logger\Log\DefineLog;
 
 /**
  * 异常捕捉输出
@@ -18,6 +19,19 @@ use xltxlm\helper\Util;
  */
 class SetExceptionHandler
 {
+    /** @var  DefineLog 最后一次日志 */
+    public static $logOnject;
+
+    /**
+     * @param mixed $logOnject
+     */
+    public static function setLogOnject($logOnject)
+    {
+        if ($logOnject instanceof DefineLog) {
+            self::$logOnject = $logOnject;
+        }
+    }
+
 
     /**
      * set_exception_handler constructor.
@@ -33,6 +47,13 @@ class SetExceptionHandler
         if ($i === 0) {
             //异常抛出,追加网址来源
             set_exception_handler(function ($exception) {
+
+                //如果出现了异常，记录下日志
+                if (self::$logOnject instanceof DefineLog) {
+                    self::$logOnject
+                        ->__destruct();
+                }
+
                 /** @var \Exception $exception */
                 $message = [
                     "ERROR" => $exception->getMessage(),
@@ -43,14 +64,17 @@ class SetExceptionHandler
                     'POST' => $_POST,
                     'IP' => $_SERVER['REMOTE_ADDR'],
                 ];
+                $exceptionS['COOKIE'] = $_COOKIE;
                 $exceptionS['GET'] = $_GET;
                 $exceptionS['POST'] = $_POST;
                 $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
                 $exceptionS['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
-                $exceptionS[] = $message['ERROR']."\t".$message['FILE'].':'.$message['LINE'];
+                $exceptionS[] = $message['ERROR'] . "\t" . $message['FILE'] . ':' . $message['LINE'];
+                Util::d($exceptionS);
                 Util::d($exception->getTraceAsString());
                 $json_encode = json_encode($message, JSON_UNESCAPED_UNICODE);
-                throw new \Exception($json_encode);
+                DefineLog::$Exceptionstring = $json_encode;
+                throw new \Exception("【" . posix_getpid() . "】-【" . DefineLog::getUniqid_static() . "】" . $json_encode);
             });
             $i++;
         }

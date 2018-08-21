@@ -23,6 +23,27 @@ class Exec
     protected $cmd = "";
     /** @var bool 如果有错误就抛出异常 */
     protected $checkError = true;
+    /** @var bool 是否输出调试命令 */
+    protected $debug = true;
+
+    /**
+     * @return bool
+     */
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+
+    /**
+     * @param bool $debug
+     * @return Exec
+     */
+    public function setDebug(bool $debug): Exec
+    {
+        $this->debug = $debug;
+        return $this;
+    }
+
 
     /**
      * @return bool
@@ -85,7 +106,9 @@ class Exec
         $start = microtime(true);
         exec($this->getCmd(), $out, $return);
         $time = sprintf('%.4f', microtime(true) - $start);
-        Util::d($this->getCmd() . "[运行时间：$time]");
+        if ($this->isDebug()) {
+            Util::d($this->getCmd() . "[运行时间：$time]");
+        }
         if ($this->isCheckError() && $return) {
             throw new \Exception("执行命令[{$this->getCmd()}]错误:" . join($out) . ",错误值:$return");
         }

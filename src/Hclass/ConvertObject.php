@@ -128,20 +128,21 @@ class ConvertObject
         foreach ($Properties as $property) {
             $property->setAccessible(true);
             $value = $property->getValue($object);
+            if ($value instanceof BasicType) {
+                $value = $value->getValue();
+            }
+
             if (is_object($value)) {
-                if ($value instanceof BasicType) {
-                    $data[$property->getName()] = $value->getValue();
-                } else {
-                    $data[$property->getName()] = $this->object2Array($value);
-                }
+                $data[$property->getName()] = $this->object2Array($value);
             } elseif (is_array($value)) {
                 foreach ($value as $key => $item) {
                     if (is_object($item)) {
                         $data[$property->getName()][$key] = $this->object2Array($item);
                     } else {
+                        //json格式化输出的数组,索引一般是连续的,不能自己制定id作为索引
                         if (is_numeric($key)) {
                             $data[$property->getName()][] = $item;
-                        } elseif ($item == '0000-00-00 00:00:00') {
+                        } elseif ($item == '0000-00-00' || $item == '0000-00-00 00:00:00') {
                             //时间格式处理掉
                             $data[$property->getName()][$key] = null;
                         } else {
@@ -152,17 +153,25 @@ class ConvertObject
                 if (empty($value)) {
                     $data[$property->getName()] = [];
                 }
-            } elseif (is_numeric($value) || is_bool($value)) {
+            } elseif ((is_numeric($value) && strlen($value) < 10) || is_bool($value)) {
                 $data[$property->getName()] = $value;
+            } elseif (is_numeric($value) && strlen($value) >= 10) {
+                $data[$property->getName()] = strval($value);
             } else {
-                if ($value == '0000-00-00 00:00:00') {
+                if ($value == '0000-00-00 00:00:00' || $value == '0000-00-00') {
                     //时间格式处理掉
                     $data[$property->getName()] = null;
                 } elseif (in_array($property->getName(), $this->getDatefield())) {
-                    if (is_string($data[$property->getName()])) {
-                        $data[$property->getName()] = array_diff(explode(" - ", $value), [null, '']);
-                    } elseif (empty($data[$property->getName()])) {
-                        $data[$property->getName()] = [];
+                    if ($value == 'current_date' ||
+                        $value == 'yesterday' ||
+                        $value == 'next_date') {
+                        $data[$property->getName()] = $value;
+                    } else {
+                        if (is_string($data[$property->getName()])) {
+                            $data[$property->getName()] = array_diff(explode(" - ", $value), [null, '']);
+                        } elseif (empty($data[$property->getName()])) {
+                            $data[$property->getName()] = [];
+                        }
                     }
                 } else {
                     $data[$property->getName()] = $value;
@@ -179,7 +188,6 @@ class ConvertObject
                 }
             }
         }
-
         return $data;
     }
 
@@ -188,12 +196,14 @@ class ConvertObject
      *
      * @return string
      */
-    public function toJson()
+    public
+    function toJson()
     {
         return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
     }
 
-    public function toMd5(): string
+    public
+    function toMd5(): string
     {
         return md5($this->toJson());
     }

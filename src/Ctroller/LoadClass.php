@@ -12,6 +12,7 @@ use Psr\Log\LogLevel;
 use xltxlm\logger\Operation\Action\LoadClassLog;
 use xltxlm\helper\Util;
 use xltxlm\logger\Log\DefineLog;
+use xltxlm\logger\Operation\EnumResource;
 
 /**
  * 调起路由类,两种加载方式 1: 直接指定类 2: 命名空间 + 命名空间下面的相对路径
@@ -63,51 +64,20 @@ final class LoadClass
      */
     public function __invoke()
     {
-        //异常抛出,追加网址来源
-        set_exception_handler(function ($exception) {
-            /** @var \Exception $exception */
-            $message = [
-                "ERROR" => $exception->getMessage(),
-                "FILE" => $exception->getFile(),
-                "LINE" => $exception->getLine(),
-                'HTTP_REFERER' => $_SERVER['HTTP_REFERER'],
-                'URL' => $_SERVER['REQUEST_URI'],
-                'POST' => $_POST,
-                'IP' => $_SERVER['REMOTE_ADDR'],
-            ];
-            $exceptionS['GET'] = $_GET;
-            $exceptionS['POST'] = $_POST;
-            $exceptionS['COOKIE'] = $_COOKIE;
-            $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
-            $exceptionS['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
-            $exceptionS[] = $message['ERROR'] . "\t" . $message['FILE'] . ':' . $message['LINE'];
-            $className = "";
-            foreach ($exception->getTrace() as $item) {
-                if (!$className) {
-                    $className = $item['class'];
-                }
-                $exceptionS[] = $item['class'] . '::' .
-                    $item['function'] . "\t" . $item['file'] . ':' . $item['line'];
-            }
-            Util::d($exceptionS);
-            $json_encode = json_encode($message, JSON_UNESCAPED_UNICODE);
-            throw new \Exception($json_encode);
-        });
-
+        SetExceptionHandler::instance();
         if (!$this->className) {
             $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
         }
-        $start = microtime(true);
-        register_shutdown_function(function ($className, $start) {
-            $time = microtime(true) - $start;
+        $loadClassLog = (new LoadClassLog(true))
+            ->setSqlaction(EnumResource::WAN_ZHI)
+            ->setTableName($this->className);
+        register_shutdown_function(function ($className) use ($loadClassLog) {
             //记录网页执行时间,如果超过1秒,标记为超时
-            (new LoadClassLog)
+            $loadClassLog
                 ->setType(LogLevel::INFO)
-                ->setRunTime($time)
                 ->setClassName($className)();
         },
-            $this->className,
-            $start
+            $this->className
         );
         try {
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
@@ -120,6 +90,10 @@ final class LoadClass
             if (!in_array($this->className, get_declared_classes())) {
                 header('HTTP/1.1 588 APP ERROR@' . $this->className);
                 header('Status: 588 APP ERROR@' . $this->className);
+                if ($_GET['c'] == 'a') {
+                    header("Content-type:application/json");
+                    echo json_encode($_SERVER, JSON_UNESCAPED_UNICODE);
+                }
             }
         }
 

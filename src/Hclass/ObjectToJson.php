@@ -8,6 +8,8 @@
 
 namespace xltxlm\helper\Hclass;
 
+use xltxlm\helper\BasicType;
+
 /**
  * 把对象输出成json格式
  * Class ObjectToJson.
@@ -20,16 +22,6 @@ trait ObjectToJson
      */
     final public function __toString()
     {
-        $get_object_vars = get_object_vars($this);
-        foreach ($get_object_vars as $key => $get_object_var) {
-            if (is_object($get_object_var)) {
-                $get_object_vars[$key] = (new ConvertObject($get_object_var))->toArray();
-            }
-        }
-        $json_encode = json_encode($get_object_vars, JSON_UNESCAPED_UNICODE);
-        if (!json_last_error()) {
-            return $json_encode;
-        }
-        return "";
+        return (new ConvertObject($this))->toJson();
     }
 }
