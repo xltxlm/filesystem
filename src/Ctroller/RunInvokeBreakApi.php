@@ -152,6 +152,8 @@ class RunInvokeBreakApi
         if ($this::$i > 1) {
             return new RunInvokeBreak;
         }
+        header('Content-type: application/json');
+
         ob_end_clean();
         if ($this->JsonArray && $this->getJsonArray()) {
             $errormessage = $this->getJsonArray();

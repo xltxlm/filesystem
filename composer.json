@@ -7,9 +7,11 @@
       "email": "xltxlm@qq.com"
     }
   ],
+  "minimum-stability": "dev",
   "require": {
     "php": ">=7.0",
-    "xltxlm/logger": "*"
+    "xltxlm/logger": "@dev",
+    "xltxlm/shell": "@dev"
   },
   "autoload": {
     "psr-4": {

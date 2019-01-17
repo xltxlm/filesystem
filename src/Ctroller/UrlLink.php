@@ -8,6 +8,7 @@
 
 namespace xltxlm\helper\Ctroller;
 
+use xltxlm\helper\Basic\Str;
 use xltxlm\helper\Url\FixUrl;
 
 /**
@@ -73,7 +74,14 @@ trait UrlLink
         if (!$classname) {
             $classname = static::class;
         }
-        $model_action = trim(strtr($classname, [LoadClass::$rootNamespce => '', '\\' => '/']), "/");
+        $model_action = (new Str())
+                ->setValue($classname)
+                ->SplitBystr('\\', -2) .
+            '/' .
+            (new Str())
+                ->setValue($classname)
+                ->SplitBystr('\\', -1);
+
         return (new FixUrl())
             ->setAttachKesy(["c" => $model_action] + $args)
             ->__invoke();

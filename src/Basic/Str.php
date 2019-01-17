@@ -177,4 +177,10 @@ return strpos($this->getValue(),$posstr)!==false;
 return $this->Value;
     }
 
+    /**
+            */
+    public function __toString()    {
+return $this->getValue();
+    }
+
 }

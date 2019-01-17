@@ -13,6 +13,7 @@ use xltxlm\logger\Operation\Action\LoadClassLog;
 use xltxlm\helper\Util;
 use xltxlm\logger\Log\DefineLog;
 use xltxlm\logger\Operation\EnumResource;
+use xltxlm\logger\Thelostlog_thread\Thelostlog_thread;
 
 /**
  * 调起路由类,两种加载方式 1: 直接指定类 2: 命名空间 + 命名空间下面的相对路径
@@ -68,17 +69,8 @@ final class LoadClass
         if (!$this->className) {
             $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
         }
-        $loadClassLog = (new LoadClassLog(true))
-            ->setSqlaction(EnumResource::WAN_ZHI)
-            ->setTableName($this->className);
-        register_shutdown_function(function ($className) use ($loadClassLog) {
-            //记录网页执行时间,如果超过1秒,标记为超时
-            $loadClassLog
-                ->setType(LogLevel::INFO)
-                ->setClassName($className)();
-        },
-            $this->className
-        );
+        //记录页面的执行时间
+        new Thelostlog_thread;
         try {
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
             $classNameObject = new $this->className();

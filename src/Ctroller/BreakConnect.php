@@ -21,7 +21,8 @@ trait BreakConnect
     {
         //直接断开连接
         ignore_user_abort();
-        fastcgi_finish_request();
+        if (function_exists('fastcgi_finish_request'))
+            fastcgi_finish_request();
     }
 
     final public function BreakConnetLinkApi()
@@ -30,6 +31,7 @@ trait BreakConnect
             ->__invoke();
         //直接断开连接
         ignore_user_abort();
-        fastcgi_finish_request();
+        if (function_exists('fastcgi_finish_request'))
+            fastcgi_finish_request();
     }
 }

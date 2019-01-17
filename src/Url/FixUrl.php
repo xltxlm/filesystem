@@ -145,7 +145,7 @@ final class FixUrl
                 $parseStrs[$key] = $var;
             }
         }
-        $addHead = '/';
+        $addHead = '/index.php';
         if (strpos($this->url, '://') !== false) {
             $addHead = "{$parseUrl['scheme']}://{$parseUrl['host']}" . ((empty($parseUrl['port']) || $parseUrl['port'] == 80) ? '' : ':' . $parseUrl['port']) . "{$parseUrl['path']}";
         }

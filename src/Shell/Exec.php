@@ -17,8 +17,6 @@ use xltxlm\helper\Util;
  */
 class Exec
 {
-    /** @var string 远程机器的ip */
-    protected $host = '';
     /** @var string 执行的命令 */
     protected $cmd = "";
     /** @var bool 如果有错误就抛出异常 */
@@ -67,24 +65,6 @@ class Exec
     /**
      * @return string
      */
-    public function getHost(): string
-    {
-        return $this->host;
-    }
-
-    /**
-     * @param string $host
-     * @return Exec
-     */
-    public function setHost(string $host): Exec
-    {
-        $this->host = $host;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getCmd(): string
     {
         return $this->cmd;
@@ -103,15 +83,10 @@ class Exec
 
     public function __invoke()
     {
-        $start = microtime(true);
-        exec($this->getCmd(), $out, $return);
-        $time = sprintf('%.4f', microtime(true) - $start);
-        if ($this->isDebug()) {
-            Util::d($this->getCmd() . "[运行时间：$time]");
-        }
-        if ($this->isCheckError() && $return) {
-            throw new \Exception("执行命令[{$this->getCmd()}]错误:" . join($out) . ",错误值:$return");
-        }
-        return join("\n", $out);
+        return (new \xltxlm\shell\Exec)
+            ->setDebug($this->isDebug())
+            ->setCmd($this->getCmd())
+            ->setException_on_Fail($this->isCheckError())
+            ->__invoke();
     }
 }

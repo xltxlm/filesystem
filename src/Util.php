@@ -28,6 +28,8 @@ class Util
         $debug_backtrace = $debug_backtrace_old[0];
         error_log('=>[begin]' . microtime(true));
         error_log(var_export($var, true));
+        if ($trace)
+            error_log((new \Exception())->getTraceAsString());
         error_log("<===[$uniqid]=={$debug_backtrace['file']}:{$debug_backtrace['line']}===[end]");
         $_SERVER['REQUEST_URI'] = preg_replace('/([_0-9a-z]+)=&/iUs', '', $_SERVER['REQUEST_URI']);
         error_log("<==={$_SERVER['REQUEST_URI']}===[end]");

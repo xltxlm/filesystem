@@ -196,14 +196,12 @@ class ConvertObject
      *
      * @return string
      */
-    public
-    function toJson()
+    public function toJson()
     {
         return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
     }
 
-    public
-    function toMd5(): string
+    public function toMd5(): string
     {
         return md5($this->toJson());
     }

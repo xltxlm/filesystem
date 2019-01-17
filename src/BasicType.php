@@ -43,6 +43,9 @@ class BasicType implements JsonSerializable
      */
     public function getValue()
     {
+        if ('currentMonth' === $this->value) {
+            $this->value = date('Y-m');
+        }
         return $this->value;
     }
 
@@ -251,6 +254,16 @@ class BasicType implements JsonSerializable
         $object = clone $this;
         $object->setValue($key);
         return $object;
+    }
+
+    public function strtolow()
+    {
+        return strtolower($this->getValue());
+    }
+
+    public function ucfirst()
+    {
+        return ucfirst($this->getValue());
     }
 
     /**
