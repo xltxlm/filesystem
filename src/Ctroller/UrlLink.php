@@ -33,7 +33,7 @@ trait UrlLink
      *
      * @return string
      */
-    final public static function url($args = [], $classname = null)
+    public static function url($args = [], $classname = null)
     {
         // 如果链接为空,不做处理
         if (static::class == __TRAIT__ && empty($classname)) {
@@ -52,7 +52,7 @@ trait UrlLink
      *
      * @return string
      */
-    final public static function urlencode($args = [], $classname = null)
+    public static function urlencode($args = [], $classname = null)
     {
         return urlencode(self::url($args, $classname));
     }
@@ -65,7 +65,7 @@ trait UrlLink
      *
      * @return string
      */
-    final public static function urlNoFollow(array $args = [], $classname = null)
+    public static function urlNoFollow(array $args = [], $classname = null)
     {
         // 如果链接为空,不做处理
         if (static::class == __TRAIT__ && empty($classname)) {
@@ -95,7 +95,7 @@ trait UrlLink
      *
      * @return string
      */
-    final public static function urlencodeNoFollow($args = [], $classname = null)
+    public static function urlencodeNoFollow($args = [], $classname = null)
     {
         return urlencode(self::urlNoFollow($args, $classname));
     }
@@ -106,7 +106,7 @@ trait UrlLink
      * @param array $args
      * @param null $classname
      */
-    final public static function gourl($args = [], $classname = null)
+    public static function gourl($args = [], $classname = null)
     {
         $url = self::url($args, $classname);
         (new FixUrl($url))
@@ -124,15 +124,15 @@ trait UrlLink
      * @param array $args
      * @param null $classname
      */
-    final public static function gourlNoFollow($args = [], $classname = null)
+    public static function gourlNoFollow($args = [], $classname = null)
     {
-        $url = self::urlNoFollow($args, $classname);
+        $url = static::urlNoFollow($args, $classname);
         (new FixUrl($url))
             ->setJump(true)
             ->__invoke();
     }
 
-    final public static function goBack()
+    public static function goBack()
     {
         if ($_REQUEST['backurl']) {
             return (new FixUrl())

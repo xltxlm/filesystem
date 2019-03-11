@@ -70,13 +70,23 @@ final class LoadClass
             $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
         }
         //记录页面的执行时间
-        new Thelostlog_thread;
+        $thelostlog_thread = new Thelostlog_thread;
         try {
             /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
+            //在调起函数之前,判断是否有回调钩子,如果有,那么回调下
+            if(class_exists($this->className) && function_exists('\checkclass'))
+            {
+                \checkclass($this->className);
+            }
             $classNameObject = new $this->className();
             //声明代码正确找到位置,找到类
             self::$runClass = get_class($classNameObject);
             call_user_func([$classNameObject, '__invoke']);
+        } catch (\Exception $e) {
+            $thelostlog_thread
+                ->seterror_message("{$e->getMessage()} | {$e->getFile()}@{$e->getLine()}");
+            unset($thelostlog_thread);
+            throw $e;
         } finally {
             $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
             if (!in_array($this->className, get_declared_classes())) {
@@ -87,8 +97,8 @@ final class LoadClass
                     echo json_encode($_SERVER, JSON_UNESCAPED_UNICODE);
                 }
             }
+            unset($thelostlog_thread);
         }
-
         return $this;
     }
 }

@@ -174,8 +174,6 @@ class RunInvokeBreakApi
         $messageArray = [
             'code' => $this->getCode(),
             'message' => $this->getMessage(),
-            'file' => $debug_backtrace[0]['file'],
-            'line' => $debug_backtrace[0]['line']
         ];
         if ($this->Exception) {
             $messageArray['Exception'] = $this->getException()->getTraceAsString();
