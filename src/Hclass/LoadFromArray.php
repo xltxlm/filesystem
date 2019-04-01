@@ -49,7 +49,7 @@ trait LoadFromArray
                     if ('usercookiename' === $originalDatum) {
                         call_user_func([$this, $methodName], $_COOKIE['username']);
                     } elseif (is_string($originalDatum))
-                        call_user_func([$this, $methodName], rawurldecode($originalDatum));
+                        call_user_func([$this, $methodName], rawurldecode(trim($originalDatum)));
                     else
                         call_user_func([$this, $methodName], $originalDatum);
                 }
