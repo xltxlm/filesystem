@@ -6,7 +6,7 @@
  * Time: 上午10:27
  */
 
-namespace xltxlm\allinone\vendor\xltxlm\helper\src\Ctroller;
+namespace xltxlm\helper\Ctroller;
 
 use xltxlm\helper\Ctroller\RunInvokeBreakApi;
 

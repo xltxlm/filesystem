@@ -22,6 +22,6 @@ trait ObjectToJson
      */
     final public function __toString()
     {
-        return (new ConvertObject($this))->toJson();
+        return (new ConvertObject($this))->toJson() ?: '';
     }
 }

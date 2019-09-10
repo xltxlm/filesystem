@@ -48,10 +48,15 @@ trait LoadFromArray
                     //很无耻地强制修改了一些关键词
                     if ('usercookiename' === $originalDatum) {
                         call_user_func([$this, $methodName], $_COOKIE['username']);
-                    } elseif (is_string($originalDatum))
-                        call_user_func([$this, $methodName], rawurldecode(trim($originalDatum)));
-                    else
+                    } elseif (is_string($originalDatum)) {
+                        if (strpos($methodName, 'operation') !== false) {
+                            call_user_func([$this, $methodName], rawurldecode($originalDatum));
+                        } else {
+                            call_user_func([$this, $methodName], rawurldecode(trim($originalDatum)));
+                        }
+                    } else {
                         call_user_func([$this, $methodName], $originalDatum);
+                    }
                 }
             }
         }

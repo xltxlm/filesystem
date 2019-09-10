@@ -126,6 +126,11 @@ class ConvertObject
         $Properties = (new \ReflectionClass($object))->getProperties();
         /** @var \ReflectionProperty $property */
         foreach ($Properties as $property) {
+            //如果字段名字是 encode,那么意味着内容是 aes加密的,不可以json化.
+            if($property->getName() =='encode')
+            {
+                continue;
+            }
             $property->setAccessible(true);
             $value = $property->getValue($object);
             if ($value instanceof BasicType) {
