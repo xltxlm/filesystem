@@ -90,8 +90,8 @@ final class LoadClass
         } finally {
             $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
             if (!in_array($this->className, get_declared_classes())) {
-                header('HTTP/1.1 588 APP ERROR@' . $this->className);
-                header('Status: 588 APP ERROR@' . $this->className);
+                header('HTTP/1.1 588 APP ERROR@' . $this->className,false);
+                header('Status: 588 APP ERROR@' . $this->className,false);
                 if ($_GET['c'] == 'a') {
                     header("Content-type:application/json");
                     echo json_encode($_SERVER, JSON_UNESCAPED_UNICODE);

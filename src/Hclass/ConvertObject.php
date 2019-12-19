@@ -144,7 +144,7 @@ class ConvertObject
                     if (is_object($item)) {
                         $data[$property->getName()][$key] = $this->object2Array($item);
                     } else {
-                        //json格式化输出的数组,索引一般是连续的,不能自己制定id作为索引
+                        //json格式化输出的数组,索引一般是连续的,不能自己制定id作为索引?
                         if (is_numeric($key)) {
                             $data[$property->getName()][] = $item;
                         } elseif ($item == '0000-00-00' || $item == '0000-00-00 00:00:00') {

@@ -172,6 +172,19 @@ class BasicType implements JsonSerializable
     }
 
     /**
+     * 替换
+     * @param $from
+     * @param null $length
+     * @return $this
+     */
+    public function strtr(array $strarray)
+    {
+        $object = clone $this;
+        $object->setValue(strtr($this->getValue(), $strarray));
+        return $object;
+    }
+
+    /**
      * @param $from
      * @param null $length
      * @return $this
@@ -222,6 +235,9 @@ class BasicType implements JsonSerializable
             } elseif ($this->getValue() == 'next_date') {
                 $object->setValue(strtr(date('Ymd  -  Ymd ', strtotime("+1 day")), [' - ' => '00:00:00 - ']) . '23:59:59');
             } else {
+                if (strpos($this->getValue(), ' - ') === false) {
+                    $this->value = $this->getValue() . '  - ' . $this->getValue() . ' ';
+                }
                 $object->setValue(strtr($this->getValue(), [' - ' => '00:00:00 - ']) . '23:59:59');
             }
         }

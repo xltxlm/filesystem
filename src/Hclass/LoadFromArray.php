@@ -23,6 +23,9 @@ trait LoadFromArray
     {
         //把变量的 key去掉 _ 拼接回来变成 setxxx, 如果此方法存在,那么久可以赋值
         foreach ($originalData as $key => $originalDatum) {
+            if ($originalDatum === null) {
+                continue;
+            }
             //变量名一致的
             $methodName = 'set' . ucfirst($key);
             $setFunction = null;

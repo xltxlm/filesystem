@@ -15,6 +15,37 @@ namespace xltxlm\helper\Ctroller;
  */
 class ArgofCmd
 {
+    protected $args = [];
+
+    /**
+     * 必传参数
+     * @param $name
+     * @param $default
+     *
+     */
+    public function setargs_raw_must($name, $default = "")
+    {
+        $this->args[$name] = [
+            'require' => true,
+            'default' => $default,
+        ];
+        return $this;
+    }
+
+    /**
+     * 可选参数
+     * @param $name
+     * @param $default
+     */
+    public function setargs_raw($name, $default = "")
+    {
+        $this->args[$name] = [
+            'require' => false,
+            'default' => $default,
+        ];
+        return $this;
+    }
+
     public function __invoke()
     {
         //DOS方式下的运行
@@ -38,6 +69,16 @@ class ArgofCmd
                 }
             }
             $_REQUEST = $_GET;
+            foreach ($this->args as $arg => $config) {
+                //要求传值
+                if ($config['require'] && strlen($_REQUEST[$arg]) == 0) {
+                    throw new \Exception("$arg 要求必须设置值");
+                }
+                //设置默认值
+                if ($config['default'] && strlen($_REQUEST[$arg]) == 0) {
+                    $_REQUEST[$arg] = $config['default'];
+                }
+            }
         }
     }
 }
