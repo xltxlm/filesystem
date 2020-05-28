@@ -78,6 +78,11 @@ class BasicType implements JsonSerializable
         return $object;
     }
 
+    function strpos($str)
+    {
+        return stripos($this->getValue(), $str);
+    }
+
     /**
      * 取出最前面一段字符串
      */

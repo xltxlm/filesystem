@@ -51,7 +51,9 @@ class DateTime_Distance{
     }
 
     /**
-        计算距离的月份    */
+     * 计算距离的月份
+     * @throws \Exception
+     */
     public function DiffMonth():int    {
 $startdateTime = new \DateTime(date('Y-m-d H:i:s', $this->getdatetime1()));
         $enddateTime = new \DateTime(date('Y-m-d H:i:s', $this->getdatetime2()));

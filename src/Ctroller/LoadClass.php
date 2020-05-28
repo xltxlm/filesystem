@@ -8,12 +8,7 @@
 
 namespace xltxlm\helper\Ctroller;
 
-use Psr\Log\LogLevel;
-use xltxlm\logger\Operation\Action\LoadClassLog;
-use xltxlm\helper\Util;
-use xltxlm\logger\Log\DefineLog;
-use xltxlm\logger\Operation\EnumResource;
-use xltxlm\logger\Thelostlog_thread\Thelostlog_thread;
+use xltxlm\helper\Ctroller\Unit\RunInvoke;
 
 /**
  * 调起路由类,两种加载方式 1: 直接指定类 2: 命名空间 + 命名空间下面的相对路径
@@ -57,9 +52,9 @@ final class LoadClass
     /**
      * The __invoke method is called when a script tries to call an object as a function.
      *
-     * @throws \Exception
-     *
      * @return $this
+     *
+     * @throws \Exception
      *
      * @see http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.invoke
      */
@@ -67,37 +62,32 @@ final class LoadClass
     {
         SetExceptionHandler::instance();
         if (!$this->className) {
-            $this->className = '\\' . self::$rootNamespce . '\\' . $this->urlPath;
+            $this->className = self::$rootNamespce . '\\' . $this->urlPath;
         }
-        //记录页面的执行时间
-        $thelostlog_thread = new Thelostlog_thread;
         try {
-            /** @var \xltxlm\helper\Ctroller\Unit\RunInvoke $classNameObject */
-            //在调起函数之前,判断是否有回调钩子,如果有,那么回调下
-            if(class_exists($this->className) && function_exists('\checkclass'))
-            {
-                \checkclass($this->className);
+            //首先尝试下类是不是存在，如果不存在，那么尝试grpc目录
+            if (!class_exists($this->className)) {
+                $this->className = strtr($this->className, ["\\App\\Grpc" => "\\Grpc"]);
+            }
+            /** @var RunInvoke $classNameObject */
+            //在调起函数之前,判断是否有回调钩子,如果有,那么回调下. 注:checkclass函数代码如果存在,那么写在Siteroot/index.php
+            if (class_exists($this->className) && function_exists('\checkclass')) {
+                call_user_func("\checkclass", $this->className);
             }
             $classNameObject = new $this->className();
             //声明代码正确找到位置,找到类
             self::$runClass = get_class($classNameObject);
             call_user_func([$classNameObject, '__invoke']);
         } catch (\Exception $e) {
-            $thelostlog_thread
-                ->seterror_message("{$e->getMessage()} | {$e->getFile()}@{$e->getLine()}");
-            unset($thelostlog_thread);
+            p([$e->getMessage(), $e->getTraceAsString()]);
             throw $e;
         } finally {
-            $this->className = substr(strtr($this->className, ['/' => '\\']), 1);
+            $this->className = strtr($this->className, ['/' => '\\']);
             if (!in_array($this->className, get_declared_classes())) {
-                header('HTTP/1.1 588 APP ERROR@' . $this->className,false);
-                header('Status: 588 APP ERROR@' . $this->className,false);
-                if ($_GET['c'] == 'a') {
-                    header("Content-type:application/json");
-                    echo json_encode($_SERVER, JSON_UNESCAPED_UNICODE);
-                }
+                p(['588', $this->className]);
+                header('HTTP/1.1 588 APP ERROR@' . $this->className, false);
+                header('Status: 588 APP ERROR@' . $this->className, false);
             }
-            unset($thelostlog_thread);
         }
         return $this;
     }

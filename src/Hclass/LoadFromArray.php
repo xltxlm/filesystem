@@ -28,6 +28,12 @@ trait LoadFromArray
             }
             //变量名一致的
             $methodName = 'set' . ucfirst($key);
+            $methodName2 = 'is' . ucfirst($key);
+            //判断存在is开头的方法.是boole的变量,那么特别处理下
+            if (method_exists($this, $methodName2)) {
+                call_user_func([$this, $methodName], $originalDatum == 'true' || $originalDatum == 1);
+                continue;
+            }
             $setFunction = null;
             if (method_exists($this, $methodName)) {
                 $setFunction = true;

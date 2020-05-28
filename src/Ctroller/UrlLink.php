@@ -8,8 +8,9 @@
 
 namespace xltxlm\helper\Ctroller;
 
-use xltxlm\helper\Basic\Str;
+use xltxlm\helper\Ctroller\UrlLink\UrlLink_implements;
 use xltxlm\helper\Url\FixUrl;
+use xltxlm\str\Str;
 
 /**
  * out:ctroller层的类转换成相对的网址链接
@@ -17,6 +18,8 @@ use xltxlm\helper\Url\FixUrl;
  */
 trait UrlLink
 {
+    use UrlLink_implements;
+
     /**
      * 当前的网址,并且编码过的
      */
@@ -29,7 +32,7 @@ trait UrlLink
      * @desc   根据当前的类,换成对应的网址路径
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      *
      * @return string
      */
@@ -48,7 +51,7 @@ trait UrlLink
      * @desc   根据当前的类,换成对应的网址路径
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      *
      * @return string
      */
@@ -61,7 +64,7 @@ trait UrlLink
      * @desc   根据当前的类,换成对应的网址路径
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      *
      * @return string
      */
@@ -74,13 +77,14 @@ trait UrlLink
         if (!$classname) {
             $classname = static::class;
         }
-        $model_action = (new Str())
-                ->setValue($classname)
-                ->SplitBystr('\\', -2) .
+        //获取c参数的路径
+        $model_action = (new Str($classname))
+                ->Split('\\')
+                ->getbyIndex(-2) .
             '/' .
-            (new Str())
-                ->setValue($classname)
-                ->SplitBystr('\\', -1);
+            (new Str($classname))
+                ->Split('\\')
+                ->getbyIndex(-1);
 
         return (new FixUrl())
             ->setAttachKesy(["c" => $model_action] + $args)
@@ -91,7 +95,7 @@ trait UrlLink
      * @desc   根据当前的类,换成对应的网址路径
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      *
      * @return string
      */
@@ -104,7 +108,7 @@ trait UrlLink
      * @desc   网址跳转
      *
      * @param array $args
-     * @param null $classname
+     * @param null  $classname
      */
     public static function gourl($args = [], $classname = null)
     {
@@ -117,12 +121,12 @@ trait UrlLink
     /**
      * @desc   网址跳转
      *
+     * @param array $args
+     * @param null  $classname
      * @author 夏琳泰 mailto:xialt@citssh.com.cn
      *
      * @since  2015-08-17 08:38:05
      *
-     * @param array $args
-     * @param null $classname
      */
     public static function gourlNoFollow($args = [], $classname = null)
     {

@@ -9,7 +9,6 @@
 namespace xltxlm\helper\Ctroller;
 
 
-use xltxlm\helper\Util;
 use xltxlm\logger\Log\DefineLog;
 
 /**
@@ -70,8 +69,8 @@ class SetExceptionHandler
                 $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
                 $exceptionS['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
                 $exceptionS[] = $message['ERROR'] . "\t" . $message['FILE'] . ':' . $message['LINE'];
-                Util::d($exceptionS);
-                Util::d($exception->getTraceAsString());
+                p($exceptionS);
+                p($exception->getTraceAsString());
                 $json_encode = json_encode($message, JSON_UNESCAPED_UNICODE);
                 DefineLog::$Exceptionstring = $json_encode;
                 throw new \Exception("【" . posix_getpid() . "】-【" . DefineLog::getUniqid_static() . "】" . $json_encode);

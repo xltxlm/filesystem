@@ -9,11 +9,11 @@
 namespace xltxlm\helper\Ctroller;
 
 use xltxlm\helper\Hclass\ConvertObject;
-use xltxlm\helper\Util;
 
 /**
  * 抛出此异常之后，框架执行流程后续的getxx不再执行了。并且会输出json格式的代码
  * Class RunInvokeBreakApi
+ *
  * @package xltxlm\helper\Ctroller
  */
 class RunInvokeBreakApi
@@ -182,7 +182,7 @@ class RunInvokeBreakApi
         }
         $errormessage = json_encode($messageArray, JSON_UNESCAPED_UNICODE);
         if ($this->Exception) {
-            Util::d([$_COOKIE, $messageArray]);
+            p([$_COOKIE, $messageArray]);
         }
         echo $errormessage;
         return (new RunInvokeBreak($errormessage));

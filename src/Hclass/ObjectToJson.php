@@ -22,6 +22,7 @@ trait ObjectToJson
      */
     final public function __toString()
     {
+        //为什么这里不用 get_object_vars ？ 因为可能某个属性也是一个对象，这个就搞不定了！
         return (new ConvertObject($this))->toJson() ?: '';
     }
 }
