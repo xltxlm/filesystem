@@ -79,7 +79,6 @@ final class LoadClass
             self::$runClass = get_class($classNameObject);
             call_user_func([$classNameObject, '__invoke']);
         } catch (\Exception $e) {
-            p([$e->getMessage(), $e->getTraceAsString()]);
             throw $e;
         } finally {
             $this->className = strtr($this->className, ['/' => '\\']);

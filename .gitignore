@@ -3,3 +3,4 @@
 php_errors.log
 .php_cs.cache
 temp
+*.7z

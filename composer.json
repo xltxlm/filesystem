@@ -12,7 +12,8 @@
     "xltxlm/exception": "@dev",
     "php": "~7.1",
     "xltxlm/str": "@dev",
-    "ext-json": "*"
+    "ext-json": "*",
+    "xltxlm/logger": "@dev"
   },
   "autoload": {
     "psr-4": {

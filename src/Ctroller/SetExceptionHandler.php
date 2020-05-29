@@ -14,7 +14,8 @@ use xltxlm\logger\Log\DefineLog;
 /**
  * 异常捕捉输出
  * Class set_exception_handler
- * @package xltxlm\allinone\vendor\xltxlm\helper\src\Ctroller
+ *
+ * @package xltxlm\helper\Ctroller
  */
 class SetExceptionHandler
 {
@@ -67,13 +68,16 @@ class SetExceptionHandler
                 $exceptionS['GET'] = $_GET;
                 $exceptionS['POST'] = $_POST;
                 $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
-                $exceptionS['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
-                $exceptionS[] = $message['ERROR'] . "\t" . $message['FILE'] . ':' . $message['LINE'];
-                p($exceptionS);
-                p($exception->getTraceAsString());
-                $json_encode = json_encode($message, JSON_UNESCAPED_UNICODE);
-                DefineLog::$Exceptionstring = $json_encode;
-                throw new \Exception("【" . posix_getpid() . "】-【" . DefineLog::getUniqid_static() . "】" . $json_encode);
+                $exceptionS['HTTP_REFERER'] = urldecode($_SERVER['HTTP_REFERER']);
+                $exceptionS["ERROR"] = $message['ERROR'] . "\t" . $message['FILE'] . ':' . $message['LINE'];
+                $traceAsArray = explode("\n", $exception->getTraceAsString());
+                foreach ($traceAsArray as $k => $item) {
+                    if (strpos($item, '/vendor/') !== false) {
+                        unset($traceAsArray[$k]);
+                    }
+                }
+                p($traceAsArray + $exceptionS);
+                throw new $exception;
             });
             $i++;
         }
