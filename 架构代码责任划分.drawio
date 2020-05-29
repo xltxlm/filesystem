@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-05-29T03:24:38.741Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36 Edg/83.0.478.37" etag="EHGfwu0EQarRnKUI-0Hp" version="13.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2020-05-29T03:34:48.713Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36 Edg/83.0.478.37" etag="HcnRJPbeQvqfcQE3nRsB" version="13.1.1" type="github">
   <diagram id="Wmi0Aczo4TX7lCzF5_Ux" name="第 1 页">
     <mxGraphModel dx="2035" dy="1163" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -67,26 +67,32 @@
         <mxCell id="zSYfAOfOFXAkye_TDumf-25" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="-110" y="850" width="1070" height="32" as="geometry" />
         </mxCell>
-        <mxCell id="zSYfAOfOFXAkye_TDumf-27" value="底层，只和编程语言有关系" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-25">
-          <mxGeometry x="495" y="12" width="160" height="20" as="geometry" />
+        <mxCell id="zSYfAOfOFXAkye_TDumf-27" value="底层，只和编程语言有关系。不可调试。严格测试" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-25">
+          <mxGeometry x="435" y="12" width="280" height="20" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-28" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="-90" y="230" width="1050" height="29" as="geometry" />
         </mxCell>
-        <mxCell id="zSYfAOfOFXAkye_TDumf-29" value="操作外部的资源层" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-28">
-          <mxGeometry x="498" y="9" width="110" height="20" as="geometry" />
+        <mxCell id="zSYfAOfOFXAkye_TDumf-29" value="操作外部的资源层。可调试" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-28">
+          <mxGeometry x="473" y="9" width="160" height="20" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-30" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="-90" y="420" width="1120" height="33" as="geometry" />
         </mxCell>
-        <mxCell id="zSYfAOfOFXAkye_TDumf-31" value="操作本机的资源，比如shell脚本，比如读写文件" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-30">
-          <mxGeometry x="428" y="13" width="270" height="20" as="geometry" />
+        <mxCell id="zSYfAOfOFXAkye_TDumf-31" value="操作本机的资源，比如shell脚本，比如读写文件。可调试" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-30">
+          <mxGeometry x="403" y="13" width="320" height="20" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-32" value="网址读写http" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
           <mxGeometry x="310" y="310" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-33" value="阿里云等oss读写" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
           <mxGeometry x="780" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-34" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="30" width="930" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-35" value="业务层面。可调试" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-34">
+          <mxGeometry x="429" y="12" width="110" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
