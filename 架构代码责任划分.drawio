@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-05-29T03:06:26.424Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36 Edg/83.0.478.37" etag="Iz6xfg1Kh0pk1tvVycXe" version="13.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2020-05-29T03:13:56.918Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36 Edg/83.0.478.37" etag="s_KOd2m5PXhkhzwgs8lT" version="13.1.1" type="github">
   <diagram id="Wmi0Aczo4TX7lCzF5_Ux" name="第 1 页">
-    <mxGraphModel dx="1208" dy="1163" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2035" dy="1163" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -11,7 +11,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-2" value="字符串处理str" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="330" y="940" width="120" height="60" as="geometry" />
+          <mxGeometry x="340" y="910" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="zSYfAOfOFXAkye_TDumf-4" target="zSYfAOfOFXAkye_TDumf-2">
           <mxGeometry relative="1" as="geometry" />
@@ -26,19 +26,19 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-6" value="日志logger" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="340" y="620" width="120" height="60" as="geometry" />
+          <mxGeometry x="130" y="730" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-7" value="流程执行helper" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="510" y="620" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="720" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-8" value="定时任务crontab" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="460" y="470" width="120" height="60" as="geometry" />
+          <mxGeometry x="400" y="500" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-9" value="orm" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="250" y="470" width="120" height="60" as="geometry" />
+          <mxGeometry y="310" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-10" value="命令行shell" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="70" y="470" width="120" height="60" as="geometry" />
+          <mxGeometry x="60" y="480" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="zSYfAOfOFXAkye_TDumf-11" target="zSYfAOfOFXAkye_TDumf-4">
           <mxGeometry relative="1" as="geometry" />
@@ -47,22 +47,43 @@
           <mxGeometry x="330" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-15" value="网址操作url" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="294" y="780" width="120" height="60" as="geometry" />
+          <mxGeometry x="510" y="720" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-16" value="文件操作fileinfo" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="510" y="780" width="120" height="60" as="geometry" />
+          <mxGeometry x="640" y="500" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="zSYfAOfOFXAkye_TDumf-19" target="zSYfAOfOFXAkye_TDumf-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-19" value="汉字转拼音" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="660" y="1010" width="120" height="60" as="geometry" />
+          <mxGeometry x="650" y="1020" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-21" value="缓存redis" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="660" y="720" width="120" height="60" as="geometry" />
+          <mxGeometry x="570" y="330" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="zSYfAOfOFXAkye_TDumf-22" value="后台皮肤h5skin" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="280" y="160" width="120" height="60" as="geometry" />
+          <mxGeometry x="290" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-25" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="630" width="1070" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-27" value="底层，只和编程语言有关系" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-25">
+          <mxGeometry x="495" y="12" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-28" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="-90" y="230" width="1050" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-29" value="操作外部的资源层" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-28">
+          <mxGeometry x="498" y="9" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-30" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="-90" y="420" width="1120" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-31" value="操作本机的资源，比如shell脚本，比如读写文件" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="zSYfAOfOFXAkye_TDumf-30">
+          <mxGeometry x="428" y="13" width="270" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zSYfAOfOFXAkye_TDumf-32" value="网址读写http" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="310" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
