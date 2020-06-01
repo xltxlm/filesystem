@@ -14,12 +14,10 @@ use xltxlm\helper\BasicType;
  * 将对象转换成各种形式
  * Class Convert.
  */
-class ConvertObject
+class ConvertObject extends ConvertObject\ConvertObject_implements
 {
-    /** @var mixed */
-    protected $object;
     /** @var array 转换结果的数组 */
-    protected $toArray = [];
+    public $toArray = [];
     /** @var array 日期格式的，变成区间数组输出 */
     protected $datefield = [];
     /** @var array 枚举格式，字段强制变成数组类型 */
@@ -76,26 +74,6 @@ class ConvertObject
     }
 
     /**
-     * @return mixed
-     */
-    public function getObject()
-    {
-        return $this->object;
-    }
-
-    /**
-     * @param mixed $object
-     *
-     * @return ConvertObject
-     */
-    public function setObject($object): ConvertObject
-    {
-        $this->object = $object;
-
-        return $this;
-    }
-
-    /**
      * 转换成数组.
      *
      * @return array
@@ -123,12 +101,17 @@ class ConvertObject
     protected function object2Array($object): array
     {
         $data = [];
-        $Properties = (new \ReflectionClass($object))->getProperties();
+        //指定了过滤器
+        if ($this->getfilter()) {
+            $Properties = (new \ReflectionClass($object))->getProperties($this->getfilter());
+        } else {
+            //默认取出全部的属性，包括私有的
+            $Properties = (new \ReflectionClass($object))->getProperties();
+        }
         /** @var \ReflectionProperty $property */
         foreach ($Properties as $property) {
             //如果字段名字是 encode,那么意味着内容是 aes加密的,不可以json化.
-            if($property->getName() =='encode')
-            {
+            if ($property->getName() == 'encode') {
                 continue;
             }
             $property->setAccessible(true);
