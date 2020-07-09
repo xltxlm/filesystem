@@ -12,6 +12,13 @@ Trait MiniRuninvoke
 {
     use MiniRuninvoke\MiniRuninvoke_implements;
 
+    /**
+     * @return ;
+     * @throws \ReflectionException
+     * @var string $prefix          需要执行的函数的前缀单词
+     * @var string $paser_classname 根据哪个类来分析函数的列表？默认是自己
+     *         ;
+     */
     public function 分发逻辑器(string $prefix = "run_", string $paser_classname = null)
     {
         if ($paser_classname) {

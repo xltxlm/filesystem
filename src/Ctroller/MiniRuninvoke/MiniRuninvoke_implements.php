@@ -12,6 +12,8 @@ Trait MiniRuninvoke_implements
 
 
 /**
+* @var string $prefix  需要执行的函数的前缀单词
+* @var string $paser_classname  根据哪个类来分析函数的列表？默认是自己
 *  ;
 *  @return ;
 */

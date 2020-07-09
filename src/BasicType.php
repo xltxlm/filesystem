@@ -7,6 +7,7 @@ use JsonSerializable;
 /**
  * 基础对象的类,完成字符串最基本的输出配置
  * Class basicType
+ *
  * @package xltxlm\helper
  */
 class BasicType implements JsonSerializable
@@ -18,6 +19,7 @@ class BasicType implements JsonSerializable
 
     /**
      * 重写json序列号输出格式
+     *
      * @return string
      */
     final public function jsonSerialize()
@@ -28,6 +30,7 @@ class BasicType implements JsonSerializable
 
     /**
      * a constructor.
+     *
      * @param mixed $value
      */
     public function __construct($value = null)
@@ -55,7 +58,7 @@ class BasicType implements JsonSerializable
      */
     public function setValue($value)
     {
-        if (get_class($value) == self::class) {
+        if (is_object($value) && get_class($value) == self::class) {
             $this->value = $value->getValue();
         } else {
             $this->value = $value;
@@ -100,7 +103,8 @@ class BasicType implements JsonSerializable
 
     /**
      * 根据分割的字符串,砍掉默认最后1个切割段
-     * @param $glue
+     *
+     * @param     $glue
      * @param int $times
      * @return BasicType
      */
@@ -117,6 +121,7 @@ class BasicType implements JsonSerializable
 
     /**
      * 输出百分比符号
+     *
      * @return $this
      */
     public function setPercentage()
@@ -129,6 +134,7 @@ class BasicType implements JsonSerializable
 
     /**
      * 千分符分隔线
+     *
      * @param int $point
      * @return $this
      */
@@ -161,6 +167,7 @@ class BasicType implements JsonSerializable
 
     /**
      * 输出
+     *
      * @return string|null
      */
     public function __toString()
@@ -178,7 +185,8 @@ class BasicType implements JsonSerializable
 
     /**
      * 替换
-     * @param $from
+     *
+     * @param      $from
      * @param null $length
      * @return $this
      */
@@ -190,7 +198,7 @@ class BasicType implements JsonSerializable
     }
 
     /**
-     * @param $from
+     * @param      $from
      * @param null $length
      * @return $this
      */
@@ -251,6 +259,7 @@ class BasicType implements JsonSerializable
 
     /**
      * 测试是否是一个邮箱地址
+     *
      * @return $this
      */
     public function isEmail()
@@ -262,6 +271,7 @@ class BasicType implements JsonSerializable
 
     /**
      * 生成指定长度的随机字符串
+     *
      * @param int $param
      * @return $this
      */
@@ -289,6 +299,7 @@ class BasicType implements JsonSerializable
 
     /**
      * 明文展示时间间距
+     *
      * @param $ptime
      * @return $this
      */

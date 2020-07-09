@@ -77,7 +77,7 @@ class SetExceptionHandler
                     }
                 }
                 p($traceAsArray + $exceptionS);
-                throw new $exception;
+                throw $exception;
             });
             $i++;
         }

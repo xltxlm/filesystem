@@ -9,6 +9,7 @@
 namespace xltxlm\helper\Ctroller;
 
 use xltxlm\helper\Ctroller\Unit\RunInvoke;
+use xltxlm\logger\LoggerTrack;
 use xltxlm\logger\Thelostlog_thread\Thelostlog_thread;
 
 /**
@@ -21,7 +22,7 @@ final class LoadClass
 
     /** @var string 当前正在运行的类 */
     public static $runClass = '';
-    /** @var Thelostlog_thread 当前进程的日志，放在全局变量的好处是，开子进程的时候，子进程可以重置计数的开始时间，这样子进程就不会包含父进程的计时时间，杜绝了计时错误 */
+    /** @var LoggerTrack 当前进程的日志，放在全局变量的好处是，开子进程的时候，子进程可以重置计数的开始时间，这样子进程就不会包含父进程的计时时间，杜绝了计时错误 */
     public static $thelostlog_thread;
     /** @var string 启动的类 */
     private $className = '';
@@ -68,7 +69,7 @@ final class LoadClass
             $this->className = self::$rootNamespce . '\\' . $this->urlPath;
         }
         //记录页面的执行时间
-        self::$thelostlog_thread = new Thelostlog_thread;
+        $thelostlog_thread = new LoggerTrack();
         try {
             //首先尝试下类是不是存在，如果不存在，那么尝试grpc目录
             if (!class_exists($this->className)) {
@@ -84,8 +85,8 @@ final class LoadClass
             self::$runClass = get_class($classNameObject);
             call_user_func([$classNameObject, '__invoke']);
         } catch (\Exception $e) {
-            self::$thelostlog_thread
-                ->seterror_message("{$e->getMessage()} | {$e->getFile()}@{$e->getLine()}");
+            $thelostlog_thread
+                ->setcontext(['exception' => "{$e->getMessage()} | {$e->getFile()}@{$e->getLine()}"]);
             unset($thelostlog_thread);
             throw $e;
         } finally {
