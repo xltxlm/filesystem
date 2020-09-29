@@ -62,21 +62,20 @@ class SetExceptionHandler
                     'HTTP_REFERER' => $_SERVER['HTTP_REFERER'],
                     'URL' => $_SERVER['REQUEST_URI'],
                     'POST' => $_POST,
-                    'IP' => $_SERVER['REMOTE_ADDR'],
+                    'IP' => $_SERVER['HTTP_X_REAL_IP']?:$_SERVER['REMOTE_ADDR'],
                 ];
                 $exceptionS['COOKIE'] = $_COOKIE;
                 $exceptionS['GET'] = $_GET;
                 $exceptionS['POST'] = $_POST;
                 $exceptionS['URL'] = $_SERVER['REQUEST_URI'];
                 $exceptionS['HTTP_REFERER'] = urldecode($_SERVER['HTTP_REFERER']);
-                $exceptionS["ERROR"] = $message['ERROR'] . "\t" . $message['FILE'] . ':' . $message['LINE'];
                 $traceAsArray = explode("\n", $exception->getTraceAsString());
                 foreach ($traceAsArray as $k => $item) {
                     if (strpos($item, '/vendor/') !== false) {
                         unset($traceAsArray[$k]);
                     }
                 }
-                p($traceAsArray + $exceptionS);
+                p($traceAsArray + $message);
                 throw $exception;
             });
             $i++;

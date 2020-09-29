@@ -292,6 +292,11 @@ class BasicType implements JsonSerializable
         return strtolower($this->getValue());
     }
 
+    public function strtoup()
+    {
+        return strtoupper($this->getValue());
+    }
+
     public function ucfirst()
     {
         return ucfirst($this->getValue());
